@@ -67,6 +67,9 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
             {section.items.filter(item => checkedItems[item.id]).length}/{section.items.length}
           </span>
         </div>
+        <p className="text-sm text-muted-foreground mt-1 mb-2">
+          {section.description}
+        </p>
         <Progress 
           value={progress} 
           className={`h-2 ${isAnimating ? 'animate-progress-fill' : ''}`}

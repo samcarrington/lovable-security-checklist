@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { ChecklistSection } from '@/services/checklistService';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -144,16 +145,28 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
               {selectedItem?.summary && (
                 <DialogDescription className="pt-2">
                   {selectedItem.summary}
+                  {selectedItem.externalLink && (
+                    <div className="mt-3">
+                      <a
+                        href={selectedItem.externalLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline inline-flex items-center gap-1"
+                      >
+                        Learn more
+                      </a>
+                    </div>
+                  )}
                 </DialogDescription>
               )}
             </DialogHeader>
-            {selectedItem?.externalLink && (
+            {selectedItem?.externalLink && !selectedItem?.summary && (
               <div className="mt-4">
                 <a
                   href={selectedItem.externalLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary hover:underline"
+                  className="text-primary hover:underline inline-flex items-center gap-1"
                 >
                   Learn more
                 </a>

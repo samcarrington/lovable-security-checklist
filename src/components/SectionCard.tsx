@@ -49,32 +49,34 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
   return (
     <Card className="shadow-md hover:shadow-lg transition-shadow">
       <CardHeader className="pb-2">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-center">
             <CardTitle className="text-xl font-semibold dark:text-white text-vibe-dark-gray">
               {section.title}
             </CardTitle>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-sm text-muted-foreground hover:text-destructive"
-              onClick={handleClearSection}
-            >
-              Clear all
-            </Button>
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-sm text-muted-foreground hover:text-destructive"
+                onClick={handleClearSection}
+              >
+                Clear all
+              </Button>
+              <span className="text-sm font-medium text-vibe-gray dark:text-gray-300">
+                {section.items.filter(item => checkedItems[item.id]).length}/{section.items.length}
+              </span>
+            </div>
           </div>
-          <span className="text-sm font-medium text-vibe-gray dark:text-gray-300">
-            {section.items.filter(item => checkedItems[item.id]).length}/{section.items.length}
-          </span>
+          <p className="text-sm text-muted-foreground">
+            {section.description}
+          </p>
+          <Progress 
+            value={progress} 
+            className={`h-2 ${isAnimating ? 'animate-progress-fill' : ''}`}
+            style={{ '--progress-width': `${progress}%` } as React.CSSProperties}
+          />
         </div>
-        <p className="text-sm text-muted-foreground mt-1 mb-2">
-          {section.description}
-        </p>
-        <Progress 
-          value={progress} 
-          className={`h-2 ${isAnimating ? 'animate-progress-fill' : ''}`}
-          style={{ '--progress-width': `${progress}%` } as React.CSSProperties}
-        />
       </CardHeader>
       <CardContent className="pt-4">
         <ul className="space-y-3">

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useToast } from "@/components/ui/use-toast";
 import { 
@@ -56,6 +57,7 @@ const Index = () => {
     
     const progress = totalItems > 0 ? (checkedCount / totalItems) * 100 : 0;
     setTotalProgress(progress);
+    console.log(`Total progress updated: ${progress.toFixed(2)}%`);
   }, [checkedItems, checklist]);
 
   const handleItemToggle = (itemId: string, checked: boolean) => {
@@ -67,7 +69,9 @@ const Index = () => {
     });
   };
 
+  // Scale background intensity from 30 (minimum) to 70 (maximum) based on progress
   const backgroundIntensity = Math.max(30, Math.min(70, 30 + (totalProgress * 0.4)));
+  console.log(`Setting background intensity to: ${backgroundIntensity.toFixed(2)}`);
 
   if (isLoading) {
     return (

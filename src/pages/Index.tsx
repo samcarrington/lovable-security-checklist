@@ -70,7 +70,7 @@ const Index = () => {
   };
 
   // Scale background intensity from 30 (minimum) to 70 (maximum) based on progress
-  const backgroundIntensity = Math.max(30, Math.min(70, 30 + (totalProgress * 0.4)));
+  const backgroundIntensity = Math.max(20, Math.min(90, 30 + (totalProgress * 0.4)));
   console.log(`Setting background intensity to: ${backgroundIntensity.toFixed(2)}`);
 
   if (isLoading) {
@@ -110,7 +110,7 @@ const Index = () => {
   }
 
   return (
-    <GradientBackground intensity={backgroundIntensity} brightness={98}>
+    <GradientBackground intensity={backgroundIntensity} brightness={89}>
       <div className="container py-8 px-4 mx-auto max-w-5xl">
         <ThemeToggle />
         <header className="text-center mb-12">

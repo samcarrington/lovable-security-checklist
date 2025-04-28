@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useToast } from "@/components/ui/use-toast";
 import { 
@@ -9,6 +8,7 @@ import {
 } from '@/services/checklistService';
 import ProgressDial from '@/components/ProgressDial';
 import SectionCard from '@/components/SectionCard';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 const Index = () => {
   const [checklist, setChecklist] = useState<Checklist | null>(null);
@@ -18,15 +18,12 @@ const Index = () => {
   const [totalProgress, setTotalProgress] = useState(0);
   const { toast } = useToast();
 
-  // Load checklist data and saved state
   useEffect(() => {
     async function loadData() {
       try {
-        // Load saved state from localStorage
         const savedState = loadChecklistState();
         setCheckedItems(savedState);
         
-        // Fetch checklist data
         const data = await fetchChecklist();
         setChecklist(data);
       } catch (err) {
@@ -45,7 +42,6 @@ const Index = () => {
     loadData();
   }, [toast]);
 
-  // Calculate total progress whenever checked items change
   useEffect(() => {
     if (!checklist) return;
     
@@ -61,12 +57,10 @@ const Index = () => {
     setTotalProgress(progress);
   }, [checkedItems, checklist]);
 
-  // Handle item toggle
   const handleItemToggle = (itemId: string, checked: boolean) => {
     console.log(`Toggling ${itemId} to ${checked}`);
     setCheckedItems(prev => {
       const newState = { ...prev, [itemId]: checked };
-      // Save to localStorage after each change
       saveChecklistState(newState);
       return newState;
     });
@@ -106,6 +100,7 @@ const Index = () => {
 
   return (
     <div className="container py-8 px-4 mx-auto max-w-5xl">
+      <ThemeToggle />
       <header className="text-center mb-12">
         <h1 className="text-3xl md:text-4xl font-bold text-vibe-dark-gray mb-8">
           {checklist.title}

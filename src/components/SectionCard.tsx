@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { ChecklistSection } from '@/services/checklistService';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -6,6 +5,14 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
+import { Info } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
 import ReactConfetti from 'react-confetti';
 
 interface SectionCardProps {
@@ -18,6 +25,11 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
   const [progress, setProgress] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<null | {
+    title: string;
+    summary?: string;
+    externalLink?: string;
+  }>(null);
 
   useEffect(() => {
     const checkedCount = section.items.filter(item => checkedItems[item.id]).length;
@@ -90,7 +102,6 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
           <Progress 
             value={progress} 
             className={`h-2 ${isAnimating ? 'animate-progress-fill' : ''}`}
-
           />
         </div>
       </CardHeader>
@@ -108,13 +119,48 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
               />
               <Label
                 htmlFor={item.id}
-                className="text-sm leading-tight cursor-pointer"
+                className="text-sm leading-tight cursor-pointer flex-grow"
               >
                 {item.title}
               </Label>
+              {(item.summary || item.externalLink) && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-6 w-6"
+                  onClick={() => setSelectedItem(item)}
+                >
+                  <Info className="h-4 w-4" />
+                </Button>
+              )}
             </li>
           ))}
         </ul>
+
+        <Dialog open={!!selectedItem} onOpenChange={() => setSelectedItem(null)}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>{selectedItem?.title}</DialogTitle>
+              {selectedItem?.summary && (
+                <DialogDescription className="pt-2">
+                  {selectedItem.summary}
+                </DialogDescription>
+              )}
+            </DialogHeader>
+            {selectedItem?.externalLink && (
+              <div className="mt-4">
+                <a
+                  href={selectedItem.externalLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Learn more
+                </a>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </CardContent>
     </Card>
   );

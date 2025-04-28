@@ -28,8 +28,10 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
   };
 
   // Calculate dash values for SVG circle
-  const radius = 48;
-  const circumference = 2 * Math.PI * radius;
+  const radius = 45; // Main circle radius
+  const strokeWidth = 8;
+  const innerRadius = radius - strokeWidth / 2; // Adjusted for stroke width
+  const circumference = 2 * Math.PI * innerRadius;
   const strokeDasharray = circumference;
   const strokeDashoffset = circumference * (1 - safePercentage / 100);
 
@@ -47,8 +49,8 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
         <circle 
           cx="50%" 
           cy="50%" 
-          r={radius} 
-          strokeWidth="8"
+          r={innerRadius} 
+          strokeWidth={strokeWidth}
           stroke="currentColor" 
           fill="none" 
           className="text-vibe-light-purple"
@@ -58,8 +60,8 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
         <circle 
           cx="50%" 
           cy="50%" 
-          r={radius} 
-          strokeWidth="8"
+          r={innerRadius} 
+          strokeWidth={strokeWidth}
           stroke="currentColor" 
           fill="none" 
           strokeLinecap="round"

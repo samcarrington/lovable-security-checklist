@@ -1,5 +1,4 @@
-
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ChecklistSection } from '@/services/checklistService';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -26,6 +25,8 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
   const [progress, setProgress] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [selectedItem, setSelectedItem] = useState<null | {
     title: string;
     summary?: string;
@@ -34,6 +35,26 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
   }>(null);
 
   const isFullyComplete = progress === 100;
+
+  useEffect(() => {
+    if (!cardRef.current) return;
+
+    const updateDimensions = () => {
+      if (cardRef.current) {
+        setDimensions({
+          width: cardRef.current.offsetWidth,
+          height: cardRef.current.offsetHeight
+        });
+      }
+    };
+
+    updateDimensions();
+
+    const observer = new ResizeObserver(updateDimensions);
+    observer.observe(cardRef.current);
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const checkedCount = section.items.filter(item => checkedItems[item.id]).length;
@@ -69,17 +90,18 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
 
   return (
     <Card 
+      ref={cardRef}
       className={`shadow-md hover:shadow-lg transition-all duration-300 relative overflow-hidden border-2 ${
         isFullyComplete 
         ? 'border-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.3)]' 
         : 'border-transparent'
       }`}
     >
-      {showConfetti && (
+      {showConfetti && dimensions.width > 0 && dimensions.height > 0 && (
         <div className="absolute inset-0 pointer-events-none">
           <ReactConfetti
-            width={400}
-            height={400}
+            width={dimensions.width}
+            height={dimensions.height}
             recycle={false}
             numberOfPieces={200}
             gravity={0.2}

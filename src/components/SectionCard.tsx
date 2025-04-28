@@ -69,9 +69,11 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
 
   return (
     <Card 
-      className={`shadow-md hover:shadow-lg transition-all duration-300 relative overflow-hidden
-        ${isFullyComplete ? 'border-2 border-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.3)]' : ''}
-      `}
+      className={`shadow-md hover:shadow-lg transition-all duration-300 relative overflow-hidden border-2 ${
+        isFullyComplete 
+        ? 'border-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.3)]' 
+        : 'border-transparent'
+      }`}
     >
       {showConfetti && (
         <div className="absolute inset-0 pointer-events-none">

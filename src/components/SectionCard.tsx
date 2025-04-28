@@ -88,6 +88,15 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
     }
   };
 
+  const extractDomain = (url: string) => {
+    try {
+      const domain = new URL(url).hostname.replace('www.', '');
+      return domain;
+    } catch {
+      return '';
+    }
+  };
+
   return (
     <Card 
       ref={cardRef}
@@ -190,7 +199,7 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
                   rel="noopener noreferrer"
                   className="text-primary hover:underline inline-flex items-center gap-1"
                 >
-                  Learn more
+                  Learn more [{extractDomain(selectedItem.link)}]
                   <ExternalLink className="h-4 w-4 ml-1" />
                 </a>
               </div>

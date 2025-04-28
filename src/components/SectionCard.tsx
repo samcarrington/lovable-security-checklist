@@ -149,10 +149,10 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
               )}
             </DialogHeader>
             
-            {selectedItem?.externalLink && (
+            {selectedItem?.link && (
               <div className="mt-4 flex items-center">
                 <a
-                  href={selectedItem.externalLink}
+                  href={selectedItem.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary hover:underline inline-flex items-center gap-1"

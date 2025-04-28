@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useToast } from "@/components/ui/use-toast";
 import { 
@@ -10,6 +9,7 @@ import {
 import ProgressDial from '@/components/ProgressDial';
 import SectionCard from '@/components/SectionCard';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import GradientBackground from '@/components/GradientBackground';
 
 const Index = () => {
   const [checklist, setChecklist] = useState<Checklist | null>(null);
@@ -69,29 +69,33 @@ const Index = () => {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-vibe-purple mx-auto"></div>
-          <p className="mt-4 text-vibe-gray">Loading checklist...</p>
+      <GradientBackground intensity={30} brightness={95}>
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-vibe-purple mx-auto"></div>
+            <p className="mt-4 text-vibe-gray">Loading checklist...</p>
+          </div>
         </div>
-      </div>
+      </GradientBackground>
     );
   }
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center max-w-md p-6 bg-red-50 rounded-lg">
-          <h2 className="text-xl font-semibold text-red-600 mb-2">Something went wrong</h2>
-          <p className="text-red-700">{error}</p>
-          <button 
-            onClick={() => window.location.reload()} 
-            className="mt-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
-          >
-            Retry
-          </button>
+      <GradientBackground intensity={20} brightness={95}>
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="text-center max-w-md p-6 bg-red-50 rounded-lg">
+            <h2 className="text-xl font-semibold text-red-600 mb-2">Something went wrong</h2>
+            <p className="text-red-700">{error}</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="mt-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+            >
+              Retry
+            </button>
+          </div>
         </div>
-      </div>
+      </GradientBackground>
     );
   }
 
@@ -100,38 +104,40 @@ const Index = () => {
   }
 
   return (
-    <div className="container py-8 px-4 mx-auto max-w-5xl">
-      <ThemeToggle />
-      <header className="text-center mb-12">
-        <h1 className="text-3xl md:text-4xl font-bold mb-8 dark:text-white text-vibe-dark-gray">
-          {checklist.title}
-        </h1>
-        
-        <div className="flex justify-center mb-6">
-          <ProgressDial 
-            percentage={totalProgress} 
-            size="lg"
-            className="mb-4"
-          />
-        </div>
-        
-        <p className="text-vibe-gray max-w-2xl mx-auto">
-          Track your progress through the checklist by checking off completed items. 
-          Your progress is automatically saved.
-        </p>
-      </header>
+    <GradientBackground intensity={40} brightness={98}>
+      <div className="container py-8 px-4 mx-auto max-w-5xl">
+        <ThemeToggle />
+        <header className="text-center mb-12">
+          <h1 className="text-3xl md:text-4xl font-bold mb-8 dark:text-white text-vibe-dark-gray">
+            {checklist.title}
+          </h1>
+          
+          <div className="flex justify-center mb-6">
+            <ProgressDial 
+              percentage={totalProgress} 
+              size="lg"
+              className="mb-4"
+            />
+          </div>
+          
+          <p className="text-vibe-gray max-w-2xl mx-auto">
+            Track your progress through the checklist by checking off completed items. 
+            Your progress is automatically saved.
+          </p>
+        </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {checklist.sections.map((section) => (
-          <SectionCard
-            key={section.id}
-            section={section}
-            checkedItems={checkedItems}
-            onItemToggle={handleItemToggle}
-          />
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {checklist.sections.map((section) => (
+            <SectionCard
+              key={section.id}
+              section={section}
+              checkedItems={checkedItems}
+              onItemToggle={handleItemToggle}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </GradientBackground>
   );
 };
 

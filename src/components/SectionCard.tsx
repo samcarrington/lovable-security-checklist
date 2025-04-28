@@ -6,7 +6,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import { Info } from 'lucide-react';
+import { Info, ExternalLink } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -145,23 +145,12 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
               {selectedItem?.summary && (
                 <DialogDescription className="pt-2">
                   {selectedItem.summary}
-                  {selectedItem.externalLink && (
-                    <div className="mt-3">
-                      <a
-                        href={selectedItem.externalLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary hover:underline inline-flex items-center gap-1"
-                      >
-                        Learn more
-                      </a>
-                    </div>
-                  )}
                 </DialogDescription>
               )}
             </DialogHeader>
-            {selectedItem?.externalLink && !selectedItem?.summary && (
-              <div className="mt-4">
+            
+            {selectedItem?.externalLink && (
+              <div className="mt-4 flex items-center">
                 <a
                   href={selectedItem.externalLink}
                   target="_blank"
@@ -169,6 +158,7 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
                   className="text-primary hover:underline inline-flex items-center gap-1"
                 >
                   Learn more
+                  <ExternalLink className="h-4 w-4" />
                 </a>
               </div>
             )}

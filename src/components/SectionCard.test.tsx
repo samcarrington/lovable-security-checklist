@@ -79,9 +79,13 @@ describe('SectionCard', () => {
     fireEvent.click(clearButton);
 
     // Check that onItemToggle was called for each checked item
-    expect(mockOnItemToggle).toHaveBeenCalledWith('item1', false);
-    expect(mockOnItemToggle).toHaveBeenCalledWith('item3', false);
-    // item2 shouldn't be called since it wasn't checked
     expect(mockOnItemToggle).toHaveBeenCalledTimes(2);
+    
+    // Verify calls for each item that should be unchecked
+    const calls = mockOnItemToggle.mock.calls.map(call => ({ id: call[0], checked: call[1] }));
+    expect(calls).toContainEqual({ id: 'item1', checked: false });
+    expect(calls).toContainEqual({ id: 'item3', checked: false });
+    // item2 shouldn't be included since it wasn't checked
+    expect(calls).not.toContainEqual({ id: 'item2', checked: false });
   });
 });

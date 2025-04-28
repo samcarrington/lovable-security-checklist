@@ -33,14 +33,16 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
   }, [checkedItems, section.items, progress]);
 
   const handleClearSection = () => {
-    // First identify all items that are currently checked
-    const checkedItemIds = section.items
+    // Instead of iterating and calling onItemToggle multiple times,
+    // we'll collect all IDs and pass them to the parent to handle in one go
+    const itemsToUncheck = section.items
       .filter(item => checkedItems[item.id])
       .map(item => item.id);
-    
-    // Then uncheck each one individually
-    for (const itemId of checkedItemIds) {
-      onItemToggle(itemId, false);
+      
+    // Call onItemToggle for each item that needs unchecking
+    if (itemsToUncheck.length > 0) {
+      console.log(`Unchecking ${itemsToUncheck.length} items:`, itemsToUncheck);
+      itemsToUncheck.forEach(id => onItemToggle(id, false));
     }
   };
 

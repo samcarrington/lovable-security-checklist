@@ -63,13 +63,13 @@ const Index = () => {
 
   // Handle item toggle
   const handleItemToggle = (itemId: string, checked: boolean) => {
-    const newCheckedItems = {
-      ...checkedItems,
-      [itemId]: checked
-    };
-    
-    setCheckedItems(newCheckedItems);
-    saveChecklistState(newCheckedItems);
+    console.log(`Toggling ${itemId} to ${checked}`);
+    setCheckedItems(prev => {
+      const newState = { ...prev, [itemId]: checked };
+      // Save to localStorage after each change
+      saveChecklistState(newState);
+      return newState;
+    });
   };
 
   if (isLoading) {

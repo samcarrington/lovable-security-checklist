@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { ChecklistSection } from '@/services/checklistService';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -33,13 +32,10 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
   }, [checkedItems, section.items, progress]);
 
   const handleClearSection = () => {
-    // Instead of iterating and calling onItemToggle multiple times,
-    // we'll collect all IDs and pass them to the parent to handle in one go
     const itemsToUncheck = section.items
       .filter(item => checkedItems[item.id])
       .map(item => item.id);
       
-    // Call onItemToggle for each item that needs unchecking
     if (itemsToUncheck.length > 0) {
       console.log(`Unchecking ${itemsToUncheck.length} items:`, itemsToUncheck);
       itemsToUncheck.forEach(id => onItemToggle(id, false));
@@ -50,11 +46,11 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
     <Card className="shadow-md hover:shadow-lg transition-shadow">
       <CardHeader className="pb-2">
         <div className="flex flex-col gap-2">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-start">
             <CardTitle className="text-xl font-semibold dark:text-white text-vibe-dark-gray">
               {section.title}
             </CardTitle>
-            <div className="flex items-center gap-4">
+            <div className="flex items-start gap-4 mt-1">
               <Button
                 variant="ghost"
                 size="sm"

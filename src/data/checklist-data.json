@@ -9,47 +9,65 @@
         {
           "id": "sec-1-item-1",
           "title": "Implement strong password policies",
-          "description": "Require passwords with minimum length (8+ chars), complexity (mix of letters, numbers, symbols), and prevent common passwords."
+          "description": "Require passwords with minimum length (8+ chars), complexity (mix of letters, numbers, symbols), and prevent common passwords.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html",
+          "summary": "Passwords must be difficult to guess by enforcing minimum length, complexity, and avoiding known weak passwords to defend against brute-force attacks."
         },
         {
           "id": "sec-1-item-2",
           "title": "Use secure session management",
-          "description": "Implement secure session handling with proper timeout, secure cookies, and protection against session fixation attacks."
+          "description": "Implement secure session handling with proper timeout, secure cookies, and protection against session fixation attacks.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html",
+          "summary": "Ensure sessions use secure cookies, expire after inactivity, and resist fixation attacks to safeguard users' authenticated states."
         },
         {
           "id": "sec-1-item-3",
           "title": "Implement multi-factor authentication (MFA)",
-          "description": "Add an additional layer of security by requiring a second form of verification beyond passwords."
+          "description": "Add an additional layer of security by requiring a second form of verification beyond passwords.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Multifactor_Authentication_Cheat_Sheet.html",
+          "summary": "Enhance account protection by requiring a second factor (like a code or biometric) in addition to a password during login."
         },
         {
           "id": "sec-1-item-4",
           "title": "Use secure password storage",
-          "description": "Store passwords using strong, adaptive hashing algorithms (bcrypt, Argon2) with proper salting."
+          "description": "Store passwords using strong, adaptive hashing algorithms (bcrypt, Argon2) with proper salting.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html",
+          "summary": "Hash passwords with strong algorithms and unique salts to prevent easy recovery even if database breaches occur."
         },
         {
           "id": "sec-1-item-5",
           "title": "Implement proper account lockout policies",
-          "description": "Lock accounts after multiple failed login attempts to prevent brute force attacks."
+          "description": "Lock accounts after multiple failed login attempts to prevent brute force attacks.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html",
+          "summary": "Lock user accounts temporarily after repeated failed logins to prevent attackers from guessing credentials by brute force."
         },
         {
           "id": "sec-1-item-6",
           "title": "Use secure password reset mechanisms",
-          "description": "Implement time-limited, single-use tokens for password resets sent to verified email addresses."
+          "description": "Implement time-limited, single-use tokens for password resets sent to verified email addresses.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html",
+          "summary": "Use secure, single-use, time-limited tokens for password resets to prevent account takeover via password recovery abuse."
         },
         {
           "id": "sec-1-item-7",
           "title": "Use secure OAuth implementations",
-          "description": "If using OAuth, follow security best practices for implementation and token handling."
+          "description": "If using OAuth, follow security best practices for implementation and token handling.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/OAuth2_Cheat_Sheet.html",
+          "summary": "Secure OAuth by validating redirect URIs, using authorization code flow, and protecting tokens from leakage."
         },
         {
           "id": "sec-1-item-8",
           "title": "Implement secure logout functionality",
-          "description": "Ensure logout properly invalidates sessions on both client and server sides."
+          "description": "Ensure logout properly invalidates sessions on both client and server sides.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html",
+          "summary": "Logout operations must properly destroy sessions to prevent attackers from using abandoned session tokens."
         },
         {
           "id": "sec-1-item-9",
           "title": "Verify sensitive actions",
-          "description": "Ensure actions like account deletion must be confirmed via email before execution."
+          "description": "Ensure actions like account deletion must be confirmed via email before execution.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+          "summary": "Require extra verification for critical actions such as deletion or permissions changes to prevent unauthorized or accidental operations."
         }
       ]
     },
@@ -61,37 +79,51 @@
         {
           "id": "sec-2-item-1",
           "title": "Validate all user inputs on the server side",
-          "description": "Never trust client-side validation alone; always validate data on the server."
+          "description": "Never trust client-side validation alone; always validate data on the server.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+          "summary": "All incoming data must be validated on the server to prevent attackers bypassing client-side controls."
         },
         {
           "id": "sec-2-item-2",
           "title": "Implement input length restrictions",
-          "description": "Set appropriate maximum lengths for all user inputs to prevent buffer overflow attacks."
+          "description": "Set appropriate maximum lengths for all user inputs to prevent buffer overflow attacks.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+          "summary": "Restrict input lengths to prevent overflows and resource exhaustion attacks by malicious actors."
         },
         {
           "id": "sec-2-item-3",
           "title": "Use parameterized queries for database operations",
-          "description": "Prevent SQL injection by using parameterized queries or prepared statements instead of string concatenation."
+          "description": "Prevent SQL injection by using parameterized queries or prepared statements instead of string concatenation.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+          "summary": "Use parameterized queries to safely separate SQL code from data input and avoid injection vulnerabilities."
         },
         {
           "id": "sec-2-item-4",
           "title": "Validate file uploads",
-          "description": "Check file types, scan for malware, restrict file sizes, and store uploaded files outside the webroot."
+          "description": "Check file types, scan for malware, restrict file sizes, and store uploaded files outside the webroot.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html",
+          "summary": "Files uploaded by users must be carefully validated, scanned, and stored securely to prevent malicious uploads."
         },
         {
           "id": "sec-2-item-5",
           "title": "Implement proper error handling",
-          "description": "Catch and handle errors appropriately without exposing sensitive information to users (Consider using services like Sentry)."
+          "description": "Catch and handle errors appropriately without exposing sensitive information to users.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html",
+          "summary": "Ensure error messages reveal no sensitive system details to users and attackers. Log errors server-side for review."
         },
         {
           "id": "sec-2-item-6",
           "title": "Validate and sanitize URL parameters",
-          "description": "Check all URL parameters for validity and sanitize them before use."
+          "description": "Check all URL parameters for validity and sanitize them before use.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+          "summary": "URL parameters must be validated and sanitized to prevent injection or manipulation attacks."
         },
         {
           "id": "sec-2-item-7",
           "title": "Validate data types and formats",
-          "description": "Ensure inputs match expected data types (numbers, dates, emails) and formats."
+          "description": "Ensure inputs match expected data types (numbers, dates, emails) and formats.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+          "summary": "Check that inputs are the correct type and format, rejecting or sanitizing anything unexpected."
         }
       ]
     },
@@ -103,42 +135,58 @@
         {
           "id": "sec-3-item-1",
           "title": "Use encryption for sensitive data storage",
-          "description": "Encrypt sensitive data at rest using industry-standard encryption algorithms."
+          "description": "Encrypt sensitive data at rest using industry-standard encryption algorithms.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html",
+          "summary": "Protect stored data such as PII by encrypting it with strong, vetted encryption algorithms."
         },
         {
           "id": "sec-3-item-2",
           "title": "Use HTTPS (SSL) for all connections",
-          "description": "Use TLS/SSL for all data transmission and properly configure certificates."
+          "description": "Use TLS/SSL for all data transmission and properly configure certificates.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html",
+          "summary": "Ensure all application communication uses HTTPS to prevent interception or tampering by third parties."
         },
         {
           "id": "sec-3-item-3",
           "title": "Minimize collection of personal data",
-          "description": "Only collect personal data that's absolutely necessary for your application's functionality."
+          "description": "Only collect personal data that's absolutely necessary for your application's functionality.",
+          "link": "https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure",
+          "summary": "Limit the collection of personal data to only what is required, reducing the impact of potential breaches."
         },
         {
           "id": "sec-3-item-4",
           "title": "Implement proper data retention policies",
-          "description": "Define how long different types of data should be kept and implement automated deletion."
+          "description": "Define how long different types of data should be kept and implement automated deletion.",
+          "link": "https://gdpr-info.eu/art-5-gdpr/",
+          "summary": "Ensure data is not retained longer than necessary by enforcing documented data retention policies."
         },
         {
           "id": "sec-3-item-5",
           "title": "Secure API keys and credentials",
-          "description": "Never expose API keys, passwords, or other credentials in client-side code or repositories."
+          "description": "Never expose API keys, passwords, or other credentials in client-side code or repositories.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+          "summary": "Store credentials securely and avoid hardcoding secrets into public repositories or frontend codebases."
         },
         {
           "id": "sec-3-item-6",
           "title": "Implement data access logging",
-          "description": "Log all access to sensitive data for audit purposes."
+          "description": "Log all access to sensitive data for audit purposes.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html",
+          "summary": "Maintain detailed logs of who accessed sensitive data and when, enabling audits and investigations."
         },
         {
           "id": "sec-3-item-7",
           "title": "Clearly state your data policy (Privacy Policy)",
-          "description": "Develop and display a clear privacy policy explaining what data you collect and how it's used."
+          "description": "Develop and display a clear privacy policy explaining what data you collect and how it's used.",
+          "link": "https://gdpr-info.eu/art-12-gdpr/",
+          "summary": "Inform users clearly about how their data is collected, used, and protected through an accessible privacy policy."
         },
         {
           "id": "sec-3-item-8",
           "title": "Secure database configurations",
-          "description": "Ensure databases are properly configured with secure defaults and limited network access."
+          "description": "Ensure databases are properly configured with secure defaults and limited network access.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html",
+          "summary": "Restrict database access, enforce secure defaults, and avoid unnecessary exposure to limit risks."
         }
       ]
     },
@@ -150,47 +198,65 @@
         {
           "id": "sec-4-item-1",
           "title": "Use proper authentication for all API endpoints",
-          "description": "Ensure all API endpoints require appropriate authentication."
+          "description": "Ensure all API endpoints require appropriate authentication.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html",
+          "summary": "Protect APIs by requiring authentication for all endpoints to prevent unauthorized access."
         },
         {
           "id": "sec-4-item-2",
           "title": "Implement API rate limiting",
-          "description": "Protect APIs from abuse by limiting the number of requests from a single user/IP."
+          "description": "Protect APIs from abuse by limiting the number of requests from a single user/IP.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html#rate-limiting",
+          "summary": "Use rate limiting to mitigate denial-of-service attacks and prevent excessive API abuse."
         },
         {
           "id": "sec-4-item-3",
           "title": "Validate all API inputs",
-          "description": "Thoroughly validate all parameters and payload data sent to APIs."
+          "description": "Thoroughly validate all parameters and payload data sent to APIs.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+          "summary": "Ensure all API inputs are validated to prevent injection attacks and maintain data integrity."
         },
         {
           "id": "sec-4-item-4",
           "title": "Implement proper error handling in APIs",
-          "description": "Return appropriate error codes without exposing sensitive information."
+          "description": "Return appropriate error codes without exposing sensitive information.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html",
+          "summary": "Design API errors to avoid leaking internal implementation details to users or attackers."
         },
         {
           "id": "sec-4-item-5",
           "title": "Use API versioning",
-          "description": "Implement proper API versioning to maintain backward compatibility."
+          "description": "Implement proper API versioning to maintain backward compatibility.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html#versioning",
+          "summary": "Manage API changes over time by versioning endpoints, ensuring compatibility for clients."
         },
         {
           "id": "sec-4-item-6",
           "title": "Implement JWT best practices",
-          "description": "If using JWTs, ensure proper signing, validation, and expiration handling."
+          "description": "If using JWTs, ensure proper signing, validation, and expiration handling.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_Cheat_Sheet_for_Java.html",
+          "summary": "Protect JWTs with strong signing, validate properly, and use short expiration times to limit risks."
         },
         {
           "id": "sec-4-item-7",
           "title": "Protect against CSRF in APIs",
-          "description": "Implement anti-CSRF measures for APIs that change state."
+          "description": "Implement anti-CSRF measures for APIs that change state.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html",
+          "summary": "Use CSRF tokens or same-site cookies to prevent unauthorized state changes through cross-site requests."
         },
         {
           "id": "sec-4-item-8",
           "title": "Monitor API usage for suspicious activity",
-          "description": "Implement monitoring to detect unusual patterns or potential attacks."
+          "description": "Implement monitoring to detect unusual patterns or potential attacks.",
+          "link": "https://owasp.org/www-project-api-security/",
+          "summary": "Track API usage to detect signs of abuse or intrusion, helping identify attacks early."
         },
         {
           "id": "sec-4-item-9",
           "title": "Regularly rotate sensitive API tokens and keys",
-          "description": "Don't use the same key for a long period of time - minimize the risk of leaked keys."
+          "description": "Don't use the same key for a long period of time - minimize the risk of leaked keys.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+          "summary": "Periodically replace API keys and credentials to reduce the impact of key compromise."
         }
       ]
     },
@@ -202,22 +268,30 @@
         {
           "id": "sec-5-item-1",
           "title": "Implement network security controls",
-          "description": "Use firewalls, security groups, and network ACLs to restrict access."
+          "description": "Use firewalls, security groups, and network ACLs to restrict access.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html",
+          "summary": "Apply strict network controls such as firewalls and allow-lists to limit unnecessary exposure."
         },
         {
           "id": "sec-5-item-2",
           "title": "Use infrastructure as code with security checks",
-          "description": "Define infrastructure as code and include security validation in the process."
+          "description": "Define infrastructure as code and include security validation in the process.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html",
+          "summary": "Automate infrastructure deployment and include security scanning to catch misconfigurations early."
         },
         {
           "id": "sec-5-item-3",
           "title": "Implement proper logging and monitoring",
-          "description": "Set up comprehensive logging and monitoring to detect security incidents."
+          "description": "Set up comprehensive logging and monitoring to detect security incidents.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html",
+          "summary": "Monitor systems closely with effective logging to detect and respond to incidents faster."
         },
         {
           "id": "sec-5-item-4",
           "title": "Use secure container configurations",
-          "description": "If using containers, follow security best practices for images and runtime."
+          "description": "If using containers, follow security best practices for images and runtime.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Container_Security_Cheat_Sheet.html",
+          "summary": "Secure containerized environments by minimizing permissions, using trusted images, and isolating workloads."
         }
       ]
     },
@@ -229,47 +303,65 @@
         {
           "id": "sec-6-item-1",
           "title": "Implement Content Security Policy (CSP)",
-          "description": "Use CSP headers to prevent XSS and other code injection attacks."
+          "description": "Use CSP headers to prevent XSS and other code injection attacks.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html",
+          "summary": "Deploy a strong CSP to restrict the sources of executable scripts and mitigate XSS attacks."
         },
         {
           "id": "sec-6-item-2",
           "title": "Use subresource integrity for external scripts",
-          "description": "Add integrity attributes to ensure external resources haven't been tampered with."
+          "description": "Add integrity attributes to ensure external resources haven't been tampered with.",
+          "link": "https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity",
+          "summary": "Use Subresource Integrity (SRI) to ensure externally loaded scripts and stylesheets haven't been altered."
         },
         {
           "id": "sec-6-item-3",
           "title": "Secure cookie usage",
-          "description": "Set appropriate flags (Secure, HttpOnly, SameSite) on cookies to enhance security."
+          "description": "Set appropriate flags (Secure, HttpOnly, SameSite) on cookies to enhance security.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#cookies",
+          "summary": "Protect cookies with Secure, HttpOnly, and SameSite attributes to defend against theft and CSRF."
         },
         {
           "id": "sec-6-item-4",
           "title": "Implement proper CORS policies",
-          "description": "Configure Cross-Origin Resource Sharing to restrict which domains can access your resources."
+          "description": "Configure Cross-Origin Resource Sharing to restrict which domains can access your resources.",
+          "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS",
+          "summary": "Configure CORS headers carefully to limit which external domains can interact with your APIs and assets."
         },
         {
           "id": "sec-6-item-5",
           "title": "Sanitize user-generated content",
-          "description": "Always sanitize user-generated content before rendering it to prevent XSS attacks."
+          "description": "Always sanitize user-generated content before rendering it to prevent XSS attacks.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html",
+          "summary": "Ensure all user content is sanitized to strip dangerous scripts and prevent Cross-Site Scripting."
         },
         {
           "id": "sec-6-item-6",
           "title": "Implement CSRF protection",
-          "description": "Use anti-CSRF tokens for forms and state-changing operations."
+          "description": "Use anti-CSRF tokens for forms and state-changing operations.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html",
+          "summary": "Require CSRF tokens for state-changing requests to prevent malicious third-party websites from submitting requests."
         },
         {
           "id": "sec-6-item-7",
           "title": "Minimize use of localStorage for sensitive data",
-          "description": "Avoid storing sensitive information in localStorage as it's vulnerable to XSS attacks."
+          "description": "Avoid storing sensitive information in localStorage as it's vulnerable to XSS attacks.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Web_Storage_Security_Cheat_Sheet.html",
+          "summary": "Avoid storing sensitive data like tokens in localStorage because it can be accessed by any JavaScript on the page."
         },
         {
           "id": "sec-6-item-8",
           "title": "Validate all client-side redirects",
-          "description": "Ensure redirects and forwards validate destination URLs to prevent open redirect vulnerabilities."
+          "description": "Ensure redirects and forwards validate destination URLs to prevent open redirect vulnerabilities.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html",
+          "summary": "Validate redirect URLs carefully to prevent attackers from exploiting redirects for phishing."
         },
         {
           "id": "sec-6-item-9",
           "title": "Use modern framework security features",
-          "description": "Leverage built-in security features of modern frameworks like React, Angular, or Vue."
+          "description": "Leverage built-in security features of modern frameworks like React, Angular, or Vue.",
+          "link": "https://owasp.org/www-project-top-ten/2017/A1_2017-Injection",
+          "summary": "Use the security features of frameworks (auto-escaping, component scoping) to minimize common vulnerabilities."
         }
       ]
     },
@@ -281,27 +373,37 @@
         {
           "id": "sec-7-item-1",
           "title": "Regularly scan dependencies for vulnerabilities",
-          "description": "Use tools like npm audit, Snyk, or Dependabot to identify vulnerable dependencies."
+          "description": "Use tools like npm audit, Snyk, or Dependabot to identify vulnerable dependencies.",
+          "link": "https://owasp.org/www-project-dependency-check/",
+          "summary": "Continuously scan for known vulnerabilities in dependencies and update affected packages quickly."
         },
         {
           "id": "sec-7-item-2",
           "title": "Maintain a dependency inventory",
-          "description": "Keep track of all third-party libraries and components used in your application."
+          "description": "Keep track of all third-party libraries and components used in your application.",
+          "link": "https://owasp.org/www-project-cyclonedx/",
+          "summary": "Track all third-party libraries in a Software Bill of Materials (SBOM) to understand exposure."
         },
         {
           "id": "sec-7-item-3",
           "title": "Use lockfiles to pin dependency versions",
-          "description": "Use package-lock.json, yarn.lock, or similar to ensure consistent dependency versions."
+          "description": "Use package-lock.json, yarn.lock, or similar to ensure consistent dependency versions.",
+          "link": "https://docs.npmjs.com/cli/v8/configuring-npm/package-lock-json",
+          "summary": "Lock down dependency versions to avoid automatically pulling in breaking or insecure updates."
         },
         {
           "id": "sec-7-item-4",
           "title": "Minimize dependency usage",
-          "description": "Only use dependencies when necessary and consider the security implications of each."
+          "description": "Only use dependencies when necessary and consider the security implications of each.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Third_Party_Software_Security_Cheat_Sheet.html",
+          "summary": "Reduce your security exposure by limiting unnecessary external libraries in your application."
         },
         {
           "id": "sec-7-item-5",
           "title": "Schedule regular checks for available software updates",
-          "description": "Packages regularly close known security issues, make sure to follow their updates."
+          "description": "Packages regularly close known security issues, make sure to follow their updates.",
+          "link": "https://owasp.org/www-project-dependency-check/",
+          "summary": "Update software dependencies frequently to ensure you benefit from security patches and improvements."
         }
       ]
     },
@@ -313,32 +415,44 @@
         {
           "id": "sec-8-item-1",
           "title": "Perform regular security testing",
-          "description": "Schedule regular security tests, including penetration testing and vulnerability scanning."
+          "description": "Schedule regular security tests, including penetration testing and vulnerability scanning.",
+          "link": "https://owasp.org/www-project-web-security-testing-guide/",
+          "summary": "Continuously test applications for vulnerabilities using manual and automated security testing."
         },
         {
           "id": "sec-8-item-2",
           "title": "Implement automated security testing in CI/CD",
-          "description": "Include security tests in your continuous integration and deployment pipelines."
+          "description": "Include security tests in your continuous integration and deployment pipelines.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/DevSecOps_Cheat_Sheet.html",
+          "summary": "Integrate security testing into CI/CD pipelines to catch vulnerabilities early in development."
         },
         {
           "id": "sec-8-item-3",
           "title": "Use static application security testing (SAST)",
-          "description": "Implement tools that analyze source code for security vulnerabilities."
+          "description": "Implement tools that analyze source code for security vulnerabilities.",
+          "link": "https://owasp.org/www-community/Source_Code_Analysis_Tools",
+          "summary": "Analyze your source code for security vulnerabilities with static analysis tools during development."
         },
         {
           "id": "sec-8-item-4",
           "title": "Use dynamic application security testing (DAST)",
-          "description": "Test running applications to find vulnerabilities that might not be apparent in the code."
+          "description": "Test running applications to find vulnerabilities that might not be apparent in the code.",
+          "link": "https://owasp.org/www-community/Vulnerability_Scanning_Tools",
+          "summary": "Scan your live applications for vulnerabilities using dynamic security testing tools."
         },
         {
           "id": "sec-8-item-5",
           "title": "Test for common OWASP vulnerabilities",
-          "description": "Specifically test for the OWASP Top 10 and other common vulnerabilities."
+          "description": "Specifically test for the OWASP Top 10 and other common vulnerabilities.",
+          "link": "https://owasp.org/www-project-top-ten/",
+          "summary": "Prioritize testing for critical risks highlighted in the OWASP Top 10 to cover the most common threats."
         },
         {
           "id": "sec-8-item-6",
-          "title": "Setup basic alerts (e.g., unusual logins, increased errors).",
-          "description": "If keys or tokens were pushed to git - make sure to rotate them and delete the old ones."
+          "title": "Setup basic alerts (e.g., unusual logins, increased errors)",
+          "description": "If keys or tokens were pushed to git - make sure to rotate them and delete the old ones.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html",
+          "summary": "Set up alerts for abnormal activities such as login spikes, key leakage, or error rate increases to catch incidents early."
         }
       ]
     },
@@ -350,27 +464,37 @@
         {
           "id": "sec-9-item-1",
           "title": "Identify applicable regulations",
-          "description": "Determine which regulations apply to your application (GDPR, CCPA, HIPAA, etc.)."
+          "description": "Determine which regulations apply to your application (GDPR, CCPA, HIPAA, etc.).",
+          "link": "https://gdpr-info.eu/",
+          "summary": "Understand and comply with privacy and data protection regulations relevant to your application's users and markets."
         },
         {
           "id": "sec-9-item-2",
           "title": "Maintain security documentation",
-          "description": "Keep security documentation up-to-date as the application evolves."
+          "description": "Keep security documentation up-to-date as the application evolves.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Security_Development_Lifecycle_Cheat_Sheet.html",
+          "summary": "Maintain living documentation of security policies, system architecture, and controls for audits and internal clarity."
         },
         {
           "id": "sec-9-item-3",
           "title": "Create a data flow diagram",
-          "description": "Document how data flows through your application to identify security considerations."
+          "description": "Document how data flows through your application to identify security considerations.",
+          "link": "https://owasp.org/www-community/Threat_Modeling",
+          "summary": "Draw and maintain data flow diagrams to help understand where data travels and where security controls must be applied."
         },
         {
           "id": "sec-9-item-4",
           "title": "Implement proper consent mechanisms",
-          "description": "Ensure users can provide informed consent for data collection and processing."
+          "description": "Ensure users can provide informed consent for data collection and processing.",
+          "link": "https://gdpr-info.eu/art-7-gdpr/",
+          "summary": "Provide clear, informed choices to users about data collection to comply with consent requirements like GDPR."
         },
         {
           "id": "sec-9-item-5",
           "title": "Document third-party service providers",
-          "description": "Maintain documentation of all third-party services used and their security implications."
+          "description": "Maintain documentation of all third-party services used and their security implications.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Third_Party_Software_Security_Cheat_Sheet.html",
+          "summary": "Track and assess all external service providers to ensure their security and compliance obligations are met."
         }
       ]
     },
@@ -382,22 +506,30 @@
         {
           "id": "sec-10-item-1",
           "title": "Implement proper secrets management",
-          "description": "Use a secure vault or secrets manager for storing and accessing credentials."
+          "description": "Use a secure vault or secrets manager for storing and accessing credentials.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+          "summary": "Store sensitive keys and credentials in dedicated secret management systems instead of code or environment variables directly."
         },
         {
           "id": "sec-10-item-2",
           "title": "Verify no .env or sensitive config files are pushed to Git",
-          "description": "If .env files or config files were pushed to git - make sure to rotate the secrets inside."
+          "description": "If .env files or config files were pushed to git - make sure to rotate the secrets inside.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+          "summary": "Keep configuration and secret files out of source control to prevent accidental exposure."
         },
         {
           "id": "sec-10-item-3",
           "title": "Check your Git repository for accidentally committed API keys",
-          "description": "If keys or tokens were pushed to git - make sure to rotate them and delete the old ones."
+          "description": "If keys or tokens were pushed to git - make sure to rotate them and delete the old ones.",
+          "link": "https://github.com/zricethezav/gitleaks",
+          "summary": "Scan git repositories for leaked secrets and rotate any exposed credentials immediately."
         },
         {
           "id": "sec-10-item-4",
           "title": "Always use production mode (not debug mode) in live apps",
-          "description": "Sensitive information might leak in debug mode."
+          "description": "Sensitive information might leak in debug mode.",
+          "link": "https://cheatsheetseries.owasp.org/cheatsheets/Configuration_Cheat_Sheet.html",
+          "summary": "Deploy production builds with debug features disabled to avoid leaking sensitive application internals."
         }
       ]
     },
@@ -409,22 +541,30 @@
         {
           "id": "sec-11-item-1",
           "title": "Implement proper access controls for AI services",
-          "description": "Secure access to any AI services or APIs used in your application."
+          "description": "Secure access to any AI services or APIs used in your application.",
+          "link": "https://owasp.org/www-project-machine-learning-security-top-10/",
+          "summary": "Protect AI models and services with strong authentication and authorization to prevent abuse."
         },
         {
           "id": "sec-11-item-2",
           "title": "Validate AI-generated database queries",
-          "description": "Ensure all database queries generated by AI are properly validated and parameterized."
+          "description": "Ensure all database queries generated by AI are properly validated and parameterized.",
+          "link": "https://owasp.org/www-project-machine-learning-security-top-10/",
+          "summary": "Review AI-generated queries for injection risks and validate parameters before execution."
         },
         {
           "id": "sec-11-item-3",
           "title": "Implement fallbacks for AI components",
-          "description": "Create fallback mechanisms in case components who rely on AI fail or behave unexpectedly."
+          "description": "Create fallback mechanisms in case components who rely on AI fail or behave unexpectedly.",
+          "link": "https://owasp.org/www-project-machine-learning-security-top-10/",
+          "summary": "Plan for errors and outages in AI components by providing safe fallback logic."
         },
         {
           "id": "sec-11-item-4",
           "title": "Stay updated on AI security research",
-          "description": "Keep informed about emerging security concerns and best practices specific to AI-generated code."
+          "description": "Keep informed about emerging security concerns and best practices specific to AI-generated code.",
+          "link": "https://owasp.org/www-project-machine-learning-security-top-10/",
+          "summary": "Follow evolving best practices for securing AI models, data, and generated outputs against new threats."
         }
       ]
     }

@@ -21,159 +21,353 @@ const STORAGE_KEY = "vibe-checklist-state";
 const checklistData: Checklist = {
   "title": "Vibe Engineering Quality Checklist",
   "sections": [
-    {
-      "id": "foundations",
-      "title": "Foundations",
-      "items": [
-        {
-          "id": "foundations-1",
-          "text": "All strings visible to users can be translated (i18n)"
-        },
-        {
-          "id": "foundations-2",
-          "text": "The code follows the style guide"
-        },
-        {
-          "id": "foundations-3",
-          "text": "No unnecessary comments"
-        },
-        {
-          "id": "foundations-4",
-          "text": "No commented out code"
-        },
-        {
-          "id": "foundations-5",
-          "text": "No TODOs in the code"
-        },
-        {
-          "id": "foundations-6",
-          "text": "No debugger statements"
-        },
-        {
-          "id": "foundations-7",
-          "text": "No console.log statements"
-        }
-      ]
-    },
-    {
-      "id": "operability",
-      "title": "Operability",
-      "items": [
-        {
-          "id": "operability-1",
-          "text": "Important user events are tracked"
-        },
-        {
-          "id": "operability-2",
-          "text": "All errors are reported and monitored"
-        },
-        {
-          "id": "operability-3",
-          "text": "All async operations provide feedback to the user"
-        },
-        {
-          "id": "operability-4",
-          "text": "All features are described in the documentation"
-        }
-      ]
-    },
-    {
-      "id": "security",
-      "title": "Security",
-      "items": [
-        {
-          "id": "security-1",
-          "text": "Sensitive data is handled securely"
-        },
-        {
-          "id": "security-2",
-          "text": "Authentication and authorization are implemented correctly"
-        },
-        {
-          "id": "security-3",
-          "text": "User input is validated and sanitized"
-        },
-        {
-          "id": "security-4",
-          "text": "External dependencies are up-to-date and have no known vulnerabilities"
-        }
-      ]
-    },
-    {
-      "id": "testing",
-      "title": "Testing",
-      "items": [
-        {
-          "id": "testing-1",
-          "text": "Unit tests cover business logic"
-        },
-        {
-          "id": "testing-2",
-          "text": "Tests exercise error and edge cases"
-        },
-        {
-          "id": "testing-3",
-          "text": "E2E tests cover main user flows"
-        }
-      ]
-    },
-    {
-      "id": "performance",
-      "title": "Performance",
-      "items": [
-        {
-          "id": "performance-1",
-          "text": "Large lists are virtualized or paginated"
-        },
-        {
-          "id": "performance-2",
-          "text": "Images are optimized"
-        },
-        {
-          "id": "performance-3",
-          "text": "Expensive operations are cached, memoized, and/or lazy-loaded"
-        },
-        {
-          "id": "performance-4",
-          "text": "Bunding size is reasonable"
-        },
-        {
-          "id": "performance-5",
-          "text": "Elements don't repaint/reflow unnecessarily"
-        }
-      ]
-    },
-    {
-      "id": "accessibility",
-      "title": "Accessibility",
-      "items": [
-        {
-          "id": "accessibility-1",
-          "text": "Content is accessible via keyboard navigation"
-        },
-        {
-          "id": "accessibility-2",
-          "text": "Elements have appropriate ARIA attributes"
-        },
-        {
-          "id": "accessibility-3",
-          "text": "Color contrast meets WCAG requirements"
-        },
-        {
-          "id": "accessibility-4",
-          "text": "Text has appropriate size and spacing"
-        },
-        {
-          "id": "accessibility-5",
-          "text": "Focus states are visually indicated"
-        },
-        {
-          "id": "accessibility-6",
-          "text": "UI elements have proper semantic HTML tags"
-        }
-      ]
-    }
-  ]
+  {
+    "title": "Authentication & Authorization",
+    "description": "Ensure your app properly authenticates users and controls access to resources",
+    "items": [
+      {
+        "title": "Implement strong password policies",
+        "description": "Require passwords with minimum length (8+ chars), complexity (mix of letters, numbers, symbols), and prevent common passwords."
+      },
+      {
+        "title": "Use secure session management",
+        "description": "Implement secure session handling with proper timeout, secure cookies, and protection against session fixation attacks."
+      },
+      {
+        "title": "Implement multi-factor authentication (MFA)",
+        "description": "Add an additional layer of security by requiring a second form of verification beyond passwords."
+      },
+      {
+        "title": "Use secure password storage",
+        "description": "Store passwords using strong, adaptive hashing algorithms (bcrypt, Argon2) with proper salting."
+      },
+      {
+        "title": "Implement proper account lockout policies",
+        "description": "Lock accounts after multiple failed login attempts to prevent brute force attacks."
+      },
+      {
+        "title": "Use secure password reset mechanisms",
+        "description": "Implement time-limited, single-use tokens for password resets sent to verified email addresses."
+      },
+      {
+        "title": "Use secure OAuth implementations",
+        "description": "If using OAuth, follow security best practices for implementation and token handling."
+      },
+      {
+        "title": "Implement secure logout functionality",
+        "description": "Ensure logout properly invalidates sessions on both client and server sides."
+      },
+      {
+        "title": "Verify sensitive actions",
+        "description": "Ensure actions like account deletion must be confirmed via email before execution."
+      }
+    ]
+  },
+  {
+    "title": "Input Validation & Data Sanitization",
+    "description": "Protect your app from malicious input and ensure data integrity",
+    "items": [
+      {
+        "title": "Validate all user inputs on the server side",
+        "description": "Never trust client-side validation alone; always validate data on the server."
+      },
+      {
+        "title": "Implement input length restrictions",
+        "description": "Set appropriate maximum lengths for all user inputs to prevent buffer overflow attacks."
+      },
+      {
+        "title": "Use parameterized queries for database operations",
+        "description": "Prevent SQL injection by using parameterized queries or prepared statements instead of string concatenation."
+      },
+      {
+        "title": "Validate file uploads",
+        "description": "Check file types, scan for malware, restrict file sizes, and store uploaded files outside the webroot."
+      },
+      {
+        "title": "Implement proper error handling",
+        "description": "Catch and handle errors appropriately without exposing sensitive information to users (Consider using services like Sentry)."
+      },
+      {
+        "title": "Validate and sanitize URL parameters",
+        "description": "Check all URL parameters for validity and sanitize them before use."
+      },
+      {
+        "title": "Validate data types and formats",
+        "description": "Ensure inputs match expected data types (numbers, dates, emails) and formats."
+      }
+    ]
+  },
+  {
+    "title": "Data Protection & Privacy",
+    "description": "Secure sensitive data and ensure user privacy",
+    "items": [
+      {
+        "title": "Use encryption for sensitive data storage",
+        "description": "Encrypt sensitive data at rest using industry-standard encryption algorithms."
+      },
+      {
+        "title": "Use HTTPS (SSL) for all connections",
+        "description": "Use TLS/SSL for all data transmission and properly configure certificates."
+      },
+      {
+        "title": "Minimize collection of personal data",
+        "description": "Only collect personal data that's absolutely necessary for your application's functionality."
+      },
+      {
+        "title": "Implement proper data retention policies",
+        "description": "Define how long different types of data should be kept and implement automated deletion."
+      },
+      {
+        "title": "Secure API keys and credentials",
+        "description": "Never expose API keys, passwords, or other credentials in client-side code or repositories."
+      },
+      {
+        "title": "Implement data access logging",
+        "description": "Log all access to sensitive data for audit purposes."
+      },
+      {
+        "title": "Clearly state your data policy (Privacy Policy)",
+        "description": "Develop and display a clear privacy policy explaining what data you collect and how it's used."
+      },
+      {
+        "title": "Secure database configurations",
+        "description": "Ensure databases are properly configured with secure defaults and limited network access."
+      }
+    ]
+  },
+  {
+    "title": "API Security",
+    "description": "Secure your application's APIs against common threats",
+    "items": [
+      {
+        "title": "Use proper authentication for all API endpoints",
+        "description": "Ensure all API endpoints require appropriate authentication."
+      },
+      {
+        "title": "Implement API rate limiting",
+        "description": "Protect APIs from abuse by limiting the number of requests from a single user/IP."
+      },
+      {
+        "title": "Validate all API inputs",
+        "description": "Thoroughly validate all parameters and payload data sent to APIs."
+      },
+      {
+        "title": "Implement proper error handling in APIs",
+        "description": "Return appropriate error codes without exposing sensitive information."
+      },
+      {
+        "title": "Use API versioning",
+        "description": "Implement proper API versioning to maintain backward compatibility."
+      },
+      {
+        "title": "Implement JWT best practices",
+        "description": "If using JWTs, ensure proper signing, validation, and expiration handling."
+      },
+      {
+        "title": "Protect against CSRF in APIs",
+        "description": "Implement anti-CSRF measures for APIs that change state."
+      },
+      {
+        "title": "Monitor API usage for suspicious activity",
+        "description": "Implement monitoring to detect unusual patterns or potential attacks."
+      },
+      {
+        "title": "Regularly rotate sensitive API tokens and keys",
+        "description": "Don't use the same key for a long period of time - minimize the risk of leaked keys."
+      }
+    ]
+  },
+  {
+    "title": "Infrastructure & Deployment Security",
+    "description": "Secure your hosting environment and deployment pipeline",
+    "items": [
+      {
+        "title": "Implement network security controls",
+        "description": "Use firewalls, security groups, and network ACLs to restrict access."
+      },
+      {
+        "title": "Use infrastructure as code with security checks",
+        "description": "Define infrastructure as code and include security validation in the process."
+      },
+      {
+        "title": "Implement proper logging and monitoring",
+        "description": "Set up comprehensive logging and monitoring to detect security incidents."
+      },
+      {
+        "title": "Use secure container configurations",
+        "description": "If using containers, follow security best practices for images and runtime."
+      }
+    ]
+  },
+  {
+    "title": "Frontend Security",
+    "description": "Secure the client-side of your application",
+    "items": [
+      {
+        "title": "Implement Content Security Policy (CSP)",
+        "description": "Use CSP headers to prevent XSS and other code injection attacks."
+      },
+      {
+        "title": "Use subresource integrity for external scripts",
+        "description": "Add integrity attributes to ensure external resources haven't been tampered with."
+      },
+      {
+        "title": "Secure cookie usage",
+        "description": "Set appropriate flags (Secure, HttpOnly, SameSite) on cookies to enhance security."
+      },
+      {
+        "title": "Implement proper CORS policies",
+        "description": "Configure Cross-Origin Resource Sharing to restrict which domains can access your resources."
+      },
+      {
+        "title": "Sanitize user-generated content",
+        "description": "Always sanitize user-generated content before rendering it to prevent XSS attacks."
+      },
+      {
+        "title": "Implement CSRF protection",
+        "description": "Use anti-CSRF tokens for forms and state-changing operations."
+      },
+      {
+        "title": "Minimize use of localStorage for sensitive data",
+        "description": "Avoid storing sensitive information in localStorage as it's vulnerable to XSS attacks."
+      },
+      {
+        "title": "Validate all client-side redirects",
+        "description": "Ensure redirects and forwards validate destination URLs to prevent open redirect vulnerabilities."
+      },
+      {
+        "title": "Use modern framework security features",
+        "description": "Leverage built-in security features of modern frameworks like React, Angular, or Vue."
+      }
+    ]
+  },
+  {
+    "title": "Dependency & Supply Chain Security",
+    "description": "Secure your application's dependencies and third-party components",
+    "items": [
+      {
+        "title": "Regularly scan dependencies for vulnerabilities",
+        "description": "Use tools like npm audit, Snyk, or Dependabot to identify vulnerable dependencies."
+      },
+      {
+        "title": "Maintain a dependency inventory",
+        "description": "Keep track of all third-party libraries and components used in your application."
+      },
+      {
+        "title": "Use lockfiles to pin dependency versions",
+        "description": "Use package-lock.json, yarn.lock, or similar to ensure consistent dependency versions."
+      },
+      {
+        "title": "Minimize dependency usage",
+        "description": "Only use dependencies when necessary and consider the security implications of each."
+      },
+      {
+        "title": "Schedule regular checks for available software updates",
+        "description": "Packages regularly close known security issues, make sure to follow their updates."
+      }
+    ]
+  },
+  {
+    "title": "Security Testing & Verification",
+    "description": "Verify your application's security through testing",
+    "items": [
+      {
+        "title": "Perform regular security testing",
+        "description": "Schedule regular security tests, including penetration testing and vulnerability scanning."
+      },
+      {
+        "title": "Implement automated security testing in CI/CD",
+        "description": "Include security tests in your continuous integration and deployment pipelines."
+      },
+      {
+        "title": "Use static application security testing (SAST)",
+        "description": "Implement tools that analyze source code for security vulnerabilities."
+      },
+      {
+        "title": "Use dynamic application security testing (DAST)",
+        "description": "Test running applications to find vulnerabilities that might not be apparent in the code."
+      },
+      {
+        "title": "Test for common OWASP vulnerabilities",
+        "description": "Specifically test for the OWASP Top 10 and other common vulnerabilities."
+      },
+      {
+        "title": "Setup basic alerts (e.g., unusual logins, increased errors).",
+        "description": "If keys or tokens were pushed to git - make sure to rotate them and delete the old ones."
+      }
+    ]
+  },
+  {
+    "title": "Compliance & Documentation",
+    "description": "Ensure your application meets regulatory requirements and is well-documented",
+    "items": [
+      {
+        "title": "Identify applicable regulations",
+        "description": "Determine which regulations apply to your application (GDPR, CCPA, HIPAA, etc.)."
+      },
+      {
+        "title": "Maintain security documentation",
+        "description": "Keep security documentation up-to-date as the application evolves."
+      },
+      {
+        "title": "Create a data flow diagram",
+        "description": "Document how data flows through your application to identify security considerations."
+      },
+      {
+        "title": "Implement proper consent mechanisms",
+        "description": "Ensure users can provide informed consent for data collection and processing."
+      },
+      {
+        "title": "Document third-party service providers",
+        "description": "Maintain documentation of all third-party services used and their security implications."
+      }
+    ]
+  },
+  {
+    "title": "Manage Your Secrets",
+    "description": "Make sure your secrets are properly stored and managed.",
+    "items": [
+      {
+        "title": "Implement proper secrets management",
+        "description": "Use a secure vault or secrets manager for storing and accessing credentials."
+      },
+      {
+        "title": "Verify no .env or sensitive config files are pushed to Git",
+        "description": "If .env files or config files were pushed to git - make sure to rotate the secrets inside."
+      },
+      {
+        "title": "Check your Git repository for accidentally committed API keys",
+        "description": "If keys or tokens were pushed to git - make sure to rotate them and delete the old ones."
+      },
+      {
+        "title": "Always use production mode (not debug mode) in live apps",
+        "description": "Sensitive information might leak in debug mode."
+      },
+    ]
+  },
+  {
+    "title": "AI-Specific Security Considerations",
+    "description": "Address security concerns specific to AI-generated applications",
+    "items": [
+      {
+        "title": "Implement proper access controls for AI services",
+        "description": "Secure access to any AI services or APIs used in your application."
+      },
+      {
+        "title": "Validate AI-generated database queries",
+        "description": "Ensure all database queries generated by AI are properly validated and parameterized."
+      },
+      {
+        "title": "Implement fallbacks for AI components",
+        "description": "Create fallback mechanisms in case components who rely on AI fail or behave unexpectedly."
+      },
+      {
+        "title": "Stay updated on AI security research",
+        "description": "Keep informed about emerging security concerns and best practices specific to AI-generated code."
+      }
+    ]
+  }
+]
 };
 
 export async function fetchChecklist(): Promise<Checklist> {

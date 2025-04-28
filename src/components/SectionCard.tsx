@@ -70,7 +70,7 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
           <Progress 
             value={progress} 
             className={`h-2 ${isAnimating ? 'animate-progress-fill' : ''}`}
-            style={{ '--progress-width': `${progress}%` } as React.CSSProperties}
+
           />
         </div>
       </CardHeader>

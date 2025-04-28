@@ -51,7 +51,9 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
       <CardHeader className="pb-2">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <CardTitle className="text-xl font-semibold text-vibe-dark-gray">{section.title}</CardTitle>
+            <CardTitle className="text-xl font-semibold dark:text-white text-vibe-dark-gray">
+              {section.title}
+            </CardTitle>
             <Button
               variant="ghost"
               size="sm"
@@ -61,7 +63,7 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
               Clear all
             </Button>
           </div>
-          <span className="text-sm font-medium text-vibe-gray">
+          <span className="text-sm font-medium text-vibe-gray dark:text-gray-300">
             {section.items.filter(item => checkedItems[item.id]).length}/{section.items.length}
           </span>
         </div>

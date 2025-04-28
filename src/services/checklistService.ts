@@ -1,9 +1,11 @@
+
 export interface ChecklistItem {
   id: string;
   title: string;
   description: string;
   summary?: string;
   externalLink?: string;
+  link?: string;
 }
 
 export interface ChecklistSection {
@@ -22,7 +24,8 @@ const STORAGE_KEY = "vibe-checklist-state";
 
 export async function fetchChecklist(): Promise<Checklist> {
   try {
-    const response = await fetch('/src/data/checklist-data.json');
+    // Updated path to fetch from the public directory
+    const response = await fetch('/checklist-data.json');
     if (!response.ok) {
       throw new Error('Failed to load checklist data');
     }

@@ -30,6 +30,7 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
     title: string;
     summary?: string;
     externalLink?: string;
+    link?: string;
   }>(null);
 
   useEffect(() => {
@@ -124,7 +125,7 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
               >
                 {item.title}
               </Label>
-              {(item.summary || item.externalLink) && (
+              {(item.summary || item.link) && (
                 <Button
                   variant="ghost"
                   size="icon"
@@ -158,7 +159,7 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
                   className="text-primary hover:underline inline-flex items-center gap-1"
                 >
                   Learn more
-                  <ExternalLink className="h-4 w-4" />
+                  <ExternalLink className="h-4 w-4 ml-1" />
                 </a>
               </div>
             )}

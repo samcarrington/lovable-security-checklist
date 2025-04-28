@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useToast } from "@/components/ui/use-toast";
 import { 
@@ -69,7 +68,6 @@ const Index = () => {
     });
   };
 
-  // Scale background intensity from 30 (minimum) to 70 (maximum) based on progress
   const backgroundIntensity = Math.max(20, Math.min(90, 30 + (totalProgress * 0.4)));
   
   if (isLoading) {
@@ -131,7 +129,6 @@ const Index = () => {
           <p className="text-vibe-gray max-w-2xl mx-auto text-xs">
             *The list is not exhaustive and should not be used as the only means of security validation..
           </p>
-        </header>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

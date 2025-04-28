@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useToast } from "@/components/ui/use-toast";
 import { 
@@ -102,7 +103,7 @@ const Index = () => {
     <div className="container py-8 px-4 mx-auto max-w-5xl">
       <ThemeToggle />
       <header className="text-center mb-12">
-        <h1 className="text-3xl md:text-4xl font-bold text-vibe-dark-gray mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold mb-8 dark:text-white text-vibe-dark-gray">
           {checklist.title}
         </h1>
         

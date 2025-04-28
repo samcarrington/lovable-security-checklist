@@ -28,9 +28,9 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
   };
 
   // Calculate dash values for SVG circle
-  const radius = 40;
-  const backgroundStrokeWidth = 8;
-  const progressStrokeWidth = 12; // Increased thickness for better visibility
+  const radius = 80;
+  const backgroundStrokeWidth = 12;
+  const progressStrokeWidth = 14; // Increased thickness for better visibility
   
   // Calculate the path for the progress arc
   const innerRadius = radius - progressStrokeWidth / 2; 

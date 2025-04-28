@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { ChecklistSection, ChecklistItem } from '@/services/checklistService';
+import { ChecklistSection } from '@/services/checklistService';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
@@ -36,10 +36,14 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
     // Get all items that are currently checked
     const checkedItemsInSection = section.items.filter(item => checkedItems[item.id]);
     
-    // Uncheck each checked item one by one
-    for (const item of checkedItemsInSection) {
+    // The bug is here: We need to ensure each onItemToggle call is executed separately
+    // Create a copy of the checkedItemsInSection array to avoid issues with mutation during iteration
+    const itemsToUncheck = [...checkedItemsInSection];
+    
+    // Uncheck each item individually
+    itemsToUncheck.forEach(item => {
       onItemToggle(item.id, false);
-    }
+    });
   };
 
   return (

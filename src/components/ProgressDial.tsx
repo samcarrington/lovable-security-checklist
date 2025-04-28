@@ -22,15 +22,15 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
   }, [percentage]);
 
   const sizeClasses = {
-    sm: 'w-24 h-24 text-2xl',
-    md: 'w-32 h-32 text-3xl',
-    lg: 'w-40 h-40 text-4xl',
+    sm: 'w-24 h-24 text-xl',
+    md: 'w-32 h-32 text-2xl',
+    lg: 'w-40 h-40 text-3xl',
   };
 
   // Calculate dash values for SVG circle
-  const radius = 40; // Main circle radius
+  const radius = 40;
   const backgroundStrokeWidth = 8;
-  const progressStrokeWidth = 10; // Slightly thicker for visibility
+  const progressStrokeWidth = 12; // Increased thickness for better visibility
   
   // Calculate the path for the progress arc
   const innerRadius = radius - progressStrokeWidth / 2; 
@@ -56,7 +56,7 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
           strokeWidth={backgroundStrokeWidth}
           stroke="currentColor" 
           fill="none" 
-          className="text-gray-200 opacity-30" // Much lighter background for contrast
+          className="text-gray-200" 
         />
         
         {/* Progress arc */}
@@ -77,12 +77,13 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
         />
       </svg>
       
-      {/* Inner circle with percentage */}
-      <div className="absolute inset-4 rounded-full bg-white flex items-center justify-center">
-        <div className="flex flex-col items-center">
-          <span className="font-bold">{Math.round(safePercentage)}%</span>
-          <CircleGauge className="text-vibe-purple mt-1" size={size === 'lg' ? 24 : size === 'md' ? 20 : 16} />
-        </div>
+      {/* Inner content with percentage */}
+      <div className="relative z-10 flex flex-col items-center justify-center gap-1">
+        <span className="font-bold">{Math.round(safePercentage)}%</span>
+        <CircleGauge 
+          className="text-vibe-purple" 
+          size={size === 'lg' ? 20 : size === 'md' ? 16 : 14} 
+        />
       </div>
     </div>
   );

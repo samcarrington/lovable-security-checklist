@@ -14,7 +14,6 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
   
   // Clamp percentage between 0 and 100
   const safePercentage = Math.min(100, Math.max(0, percentage));
-  const rotationAngle = safePercentage * 3.6; // 3.6 degrees per percentage point (360/100)
   
   useEffect(() => {
     setIsAnimating(true);
@@ -28,6 +27,12 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
     lg: 'w-40 h-40 text-4xl',
   };
 
+  // Calculate dash values for SVG circle
+  const radius = 48;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDasharray = circumference;
+  const strokeDashoffset = circumference * (1 - safePercentage / 100);
+
   return (
     <div 
       className={cn(
@@ -36,21 +41,36 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
         className
       )}
     >
-      {/* Background circle */}
-      <div className="absolute inset-0 rounded-full border-8 border-vibe-light-purple"></div>
-      
-      {/* Progress circle - using CSS custom property for animation */}
-      <div 
-        className={cn(
-          "absolute inset-0 rounded-full border-8 border-vibe-purple",
-          isAnimating ? "animate-dial-rotate" : ""
-        )}
-        style={{ 
-          clipPath: 'polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 50% 0%)',
-          transform: !isAnimating ? `rotate(${rotationAngle}deg)` : 'rotate(0deg)',
-          '--rotation-angle': `${rotationAngle}deg`
-        } as React.CSSProperties}
-      ></div>
+      {/* SVG based progress circle */}
+      <svg className="absolute inset-0 w-full h-full -rotate-90">
+        {/* Background circle */}
+        <circle 
+          cx="50%" 
+          cy="50%" 
+          r={radius} 
+          strokeWidth="8"
+          stroke="currentColor" 
+          fill="none" 
+          className="text-vibe-light-purple"
+        />
+        
+        {/* Progress arc */}
+        <circle 
+          cx="50%" 
+          cy="50%" 
+          r={radius} 
+          strokeWidth="8"
+          stroke="currentColor" 
+          fill="none" 
+          strokeLinecap="round"
+          className={cn(
+            "text-vibe-purple",
+            isAnimating ? "transition-all duration-1500 ease-out" : ""
+          )}
+          strokeDasharray={strokeDasharray}
+          strokeDashoffset={isAnimating ? circumference : strokeDashoffset}
+        />
+      </svg>
       
       {/* Inner circle with percentage */}
       <div className="absolute inset-2 rounded-full bg-white flex items-center justify-center">

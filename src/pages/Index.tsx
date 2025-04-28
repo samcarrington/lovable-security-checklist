@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useToast } from "@/components/ui/use-toast";
 import { ExternalLink } from "lucide-react";
@@ -128,7 +129,7 @@ const Index = () => {
             Use this list* to set areas of priority for your work once you're entering human-in-the-loop territory and guiding a project toward Production and release.
           </p>
           <p className="text-vibe-gray max-w-2xl mx-auto text-xs">
-            *The list is not exhaustive and should not be used as the only means of security validation..
+            *The list is not exhaustive and should not be used as the only means of security validation.
           </p>
         </header>
 

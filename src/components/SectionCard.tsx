@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { ChecklistSection, ChecklistItem } from '@/services/checklistService';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -32,10 +33,12 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
   }, [checkedItems, section.items, progress]);
 
   const handleClearSection = () => {
-    section.items.forEach(item => {
-      if (checkedItems[item.id]) {
-        onItemToggle(item.id, false);
-      }
+    // Fix: Create an array of items that are currently checked and need to be cleared
+    const itemsToClear = section.items.filter(item => checkedItems[item.id]);
+    
+    // Then clear each one
+    itemsToClear.forEach(item => {
+      onItemToggle(item.id, false);
     });
   };
 

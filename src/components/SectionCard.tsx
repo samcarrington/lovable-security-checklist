@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { ChecklistSection, ChecklistItem } from '@/services/checklistService';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -6,7 +5,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import { X } from 'lucide-react';
 
 interface SectionCardProps {
   section: ChecklistSection;
@@ -18,14 +16,12 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
   const [progress, setProgress] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Calculate section progress
   useEffect(() => {
     const checkedCount = section.items.filter(item => checkedItems[item.id]).length;
     const newProgress = section.items.length > 0 
       ? (checkedCount / section.items.length) * 100 
       : 0;
     
-    // Trigger animation when progress changes
     if (newProgress !== progress) {
       setIsAnimating(true);
       setProgress(newProgress);
@@ -52,11 +48,10 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 px-2 text-muted-foreground hover:text-destructive"
+              className="text-sm text-muted-foreground hover:text-destructive"
               onClick={handleClearSection}
             >
-              <X className="h-4 w-4" />
-              <span className="sr-only">Clear {section.title} selection</span>
+              Clear all
             </Button>
           </div>
           <span className="text-sm font-medium text-vibe-gray">

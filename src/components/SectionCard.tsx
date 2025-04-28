@@ -5,6 +5,8 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
+import { Button } from '@/components/ui/button';
+import { X } from 'lucide-react';
 
 interface SectionCardProps {
   section: ChecklistSection;
@@ -33,11 +35,30 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
     }
   }, [checkedItems, section.items, progress]);
 
+  const handleClearSection = () => {
+    section.items.forEach(item => {
+      if (checkedItems[item.id]) {
+        onItemToggle(item.id, false);
+      }
+    });
+  };
+
   return (
     <Card className="shadow-md hover:shadow-lg transition-shadow">
       <CardHeader className="pb-2">
         <div className="flex justify-between items-center">
-          <CardTitle className="text-xl font-semibold text-vibe-dark-gray">{section.title}</CardTitle>
+          <div className="flex items-center gap-2">
+            <CardTitle className="text-xl font-semibold text-vibe-dark-gray">{section.title}</CardTitle>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-8 px-2 text-muted-foreground hover:text-destructive"
+              onClick={handleClearSection}
+            >
+              <X className="h-4 w-4" />
+              <span className="sr-only">Clear {section.title} selection</span>
+            </Button>
+          </div>
           <span className="text-sm font-medium text-vibe-gray">
             {section.items.filter(item => checkedItems[item.id]).length}/{section.items.length}
           </span>

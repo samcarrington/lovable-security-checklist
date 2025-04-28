@@ -27,12 +27,20 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
     lg: 'w-40 h-40 text-3xl',
   };
 
+  // Get color based on progress
+  const getProgressColor = (progress: number) => {
+    if (progress < 33) return 'text-red-500';
+    if (progress < 66) return 'text-amber-500';
+    return 'text-green-500';
+  };
+
+  const progressColor = getProgressColor(safePercentage);
+
   // Calculate dash values for SVG circle
   const radius = 80;
   const backgroundStrokeWidth = 12;
-  const progressStrokeWidth = 14; // Increased thickness for better visibility
+  const progressStrokeWidth = 14;
   
-  // Calculate the path for the progress arc
   const innerRadius = radius - progressStrokeWidth / 2; 
   const circumference = 2 * Math.PI * innerRadius;
   const strokeDasharray = circumference;
@@ -46,7 +54,6 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
         className
       )}
     >
-      {/* SVG based progress circle */}
       <svg className="absolute inset-0 w-full h-full -rotate-90">
         {/* Background circle */}
         <circle 
@@ -69,7 +76,7 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
           fill="none" 
           strokeLinecap="round"
           className={cn(
-            "text-vibe-purple",
+            progressColor,
             isAnimating ? "transition-all duration-1500 ease-out" : ""
           )}
           strokeDasharray={strokeDasharray}
@@ -77,11 +84,10 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
         />
       </svg>
       
-      {/* Inner content with percentage */}
       <div className="relative z-10 flex flex-col items-center justify-center gap-1">
-        <span className="font-bold">{Math.round(safePercentage)}%</span>
+        <span className={cn("font-bold", progressColor)}>{Math.round(safePercentage)}%</span>
         <CircleGauge 
-          className="text-vibe-purple" 
+          className={progressColor}
           size={size === 'lg' ? 20 : size === 'md' ? 16 : 14} 
         />
       </div>

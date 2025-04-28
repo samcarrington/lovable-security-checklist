@@ -13,6 +13,14 @@ export const ThemeToggle = () => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    // Force the theme to update when it changes
+    if (mounted) {
+      document.documentElement.classList.remove('light', 'dark');
+      document.documentElement.classList.add(theme === 'dark' ? 'dark' : 'light');
+    }
+  }, [theme, mounted]);
+
   if (!mounted) return null;
 
   return (

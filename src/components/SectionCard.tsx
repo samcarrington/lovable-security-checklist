@@ -59,7 +59,7 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
               >
                 Clear all
               </Button>
-              <span className="text-sm font-medium text-vibe-gray dark:text-gray-300">
+              <span className="text-sm font-medium text-vibe-gray dark:text-gray-300 py-2">
                 {section.items.filter(item => checkedItems[item.id]).length}/{section.items.length}
               </span>
             </div>

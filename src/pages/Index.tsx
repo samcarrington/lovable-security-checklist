@@ -67,6 +67,8 @@ const Index = () => {
     });
   };
 
+  const backgroundIntensity = Math.max(30, Math.min(70, 30 + (totalProgress * 0.4)));
+
   if (isLoading) {
     return (
       <GradientBackground intensity={30} brightness={95}>
@@ -104,7 +106,7 @@ const Index = () => {
   }
 
   return (
-    <GradientBackground intensity={40} brightness={98}>
+    <GradientBackground intensity={backgroundIntensity} brightness={98}>
       <div className="container py-8 px-4 mx-auto max-w-5xl">
         <ThemeToggle />
         <header className="text-center mb-12">

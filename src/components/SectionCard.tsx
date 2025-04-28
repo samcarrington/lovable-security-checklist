@@ -33,6 +33,8 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
     link?: string;
   }>(null);
 
+  const isFullyComplete = progress === 100;
+
   useEffect(() => {
     const checkedCount = section.items.filter(item => checkedItems[item.id]).length;
     const newProgress = section.items.length > 0 
@@ -66,7 +68,11 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
   };
 
   return (
-    <Card className="shadow-md hover:shadow-lg transition-shadow relative overflow-hidden">
+    <Card 
+      className={`shadow-md hover:shadow-lg transition-all duration-300 relative overflow-hidden
+        ${isFullyComplete ? 'border-2 border-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.3)]' : ''}
+      `}
+    >
       {showConfetti && (
         <div className="absolute inset-0 pointer-events-none">
           <ReactConfetti
@@ -78,10 +84,11 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
           />
         </div>
       )}
+      
       <CardHeader className="pb-2">
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-start">
-            <CardTitle className="text-xl font-semibold dark:text-white text-vibe-dark-gray pt-1">
+            <CardTitle className={`text-xl font-semibold pt-1 ${isFullyComplete ? 'text-amber-600 dark:text-amber-400' : 'dark:text-white text-vibe-dark-gray'}`}>
               {section.title}
             </CardTitle>
             <div className="flex items-start gap-4">
@@ -103,10 +110,11 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
           </p>
           <Progress 
             value={progress} 
-            className={`h-2 ${isAnimating ? 'animate-progress-fill' : ''}`}
+            className={`h-2 ${isAnimating ? 'animate-progress-fill' : ''} ${isFullyComplete ? 'bg-amber-100 dark:bg-amber-950' : ''}`}
           />
         </div>
       </CardHeader>
+      
       <CardContent className="pt-4">
         <ul className="space-y-3">
           {section.items.map((item) => (

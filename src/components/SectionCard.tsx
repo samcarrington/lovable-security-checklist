@@ -47,7 +47,7 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
       <CardHeader className="pb-2">
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-start">
-            <CardTitle className="text-xl font-semibold dark:text-white text-vibe-dark-gray pt-2">
+            <CardTitle className="text-xl font-semibold dark:text-white text-vibe-dark-gray pt-1">
               {section.title}
             </CardTitle>
             <div className="flex items-start gap-4">

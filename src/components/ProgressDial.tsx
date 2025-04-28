@@ -28,9 +28,12 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
   };
 
   // Calculate dash values for SVG circle
-  const radius = 45; // Main circle radius
-  const strokeWidth = 8;
-  const innerRadius = radius - strokeWidth / 2; // Adjusted for stroke width
+  const radius = 40; // Main circle radius
+  const backgroundStrokeWidth = 8;
+  const progressStrokeWidth = 10; // Slightly thicker for visibility
+  
+  // Calculate the path for the progress arc
+  const innerRadius = radius - progressStrokeWidth / 2; 
   const circumference = 2 * Math.PI * innerRadius;
   const strokeDasharray = circumference;
   const strokeDashoffset = circumference * (1 - safePercentage / 100);
@@ -50,10 +53,10 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
           cx="50%" 
           cy="50%" 
           r={innerRadius} 
-          strokeWidth={strokeWidth}
+          strokeWidth={backgroundStrokeWidth}
           stroke="currentColor" 
           fill="none" 
-          className="text-vibe-light-purple"
+          className="text-gray-200 opacity-30" // Much lighter background for contrast
         />
         
         {/* Progress arc */}
@@ -61,7 +64,7 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
           cx="50%" 
           cy="50%" 
           r={innerRadius} 
-          strokeWidth={strokeWidth}
+          strokeWidth={progressStrokeWidth}
           stroke="currentColor" 
           fill="none" 
           strokeLinecap="round"
@@ -70,12 +73,12 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
             isAnimating ? "transition-all duration-1500 ease-out" : ""
           )}
           strokeDasharray={strokeDasharray}
-          strokeDashoffset={isAnimating ? circumference : strokeDashoffset}
+          strokeDashoffset={strokeDashoffset}
         />
       </svg>
       
       {/* Inner circle with percentage */}
-      <div className="absolute inset-2 rounded-full bg-white flex items-center justify-center">
+      <div className="absolute inset-4 rounded-full bg-white flex items-center justify-center">
         <div className="flex flex-col items-center">
           <span className="font-bold">{Math.round(safePercentage)}%</span>
           <CircleGauge className="text-vibe-purple mt-1" size={size === 'lg' ? 24 : size === 'md' ? 20 : 16} />

@@ -1,0 +1,77 @@
+
+import { useState, useEffect } from 'react';
+import { ChecklistSection, ChecklistItem } from '@/services/checklistService';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { Progress } from '@/components/ui/progress';
+
+interface SectionCardProps {
+  section: ChecklistSection;
+  checkedItems: Record<string, boolean>;
+  onItemToggle: (itemId: string, checked: boolean) => void;
+}
+
+const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) => {
+  const [progress, setProgress] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Calculate section progress
+  useEffect(() => {
+    const checkedCount = section.items.filter(item => checkedItems[item.id]).length;
+    const newProgress = section.items.length > 0 
+      ? (checkedCount / section.items.length) * 100 
+      : 0;
+    
+    // Trigger animation when progress changes
+    if (newProgress !== progress) {
+      setIsAnimating(true);
+      setProgress(newProgress);
+      
+      const timer = setTimeout(() => setIsAnimating(false), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [checkedItems, section.items, progress]);
+
+  return (
+    <Card className="shadow-md hover:shadow-lg transition-shadow">
+      <CardHeader className="pb-2">
+        <div className="flex justify-between items-center">
+          <CardTitle className="text-xl font-semibold text-vibe-dark-gray">{section.title}</CardTitle>
+          <span className="text-sm font-medium text-vibe-gray">
+            {section.items.filter(item => checkedItems[item.id]).length}/{section.items.length}
+          </span>
+        </div>
+        <Progress 
+          value={progress} 
+          className={`h-2 ${isAnimating ? 'animate-progress-fill' : ''}`}
+          style={{ '--progress-width': `${progress}%` } as React.CSSProperties}
+        />
+      </CardHeader>
+      <CardContent className="pt-4">
+        <ul className="space-y-3">
+          {section.items.map((item) => (
+            <li key={item.id} className="flex items-start space-x-2">
+              <Checkbox
+                id={item.id}
+                checked={!!checkedItems[item.id]}
+                onCheckedChange={(checked) => {
+                  onItemToggle(item.id, checked === true);
+                }}
+                className="mt-1"
+              />
+              <Label
+                htmlFor={item.id}
+                className="text-sm leading-tight cursor-pointer"
+              >
+                {item.text}
+              </Label>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default SectionCard;

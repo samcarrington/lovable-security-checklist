@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				vibe: {
+					purple: '#9b87f5',
+					'dark-purple': '#7E69AB',
+					'light-purple': '#E5DEFF',
+					gray: '#8E9196',
+					'dark-gray': '#1A1F2C'
 				}
 			},
 			borderRadius: {
@@ -84,11 +92,21 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'progress-fill': {
+					'0%': { width: '0%' },
+					'100%': { width: 'var(--progress-width)' }
+				},
+				'dial-rotate': {
+					'0%': { transform: 'rotate(0deg)' },
+					'100%': { transform: 'rotate(var(--rotation-angle))' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'progress-fill': 'progress-fill 1s ease-out forwards',
+				'dial-rotate': 'dial-rotate 1.5s ease-out forwards'
 			}
 		}
 	},

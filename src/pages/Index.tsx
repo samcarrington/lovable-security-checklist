@@ -1,11 +1,139 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState, useEffect } from 'react';
+import { useToast } from "@/components/ui/use-toast";
+import { 
+  fetchChecklist, 
+  loadChecklistState, 
+  saveChecklistState, 
+  Checklist 
+} from '@/services/checklistService';
+import ProgressDial from '@/components/ProgressDial';
+import SectionCard from '@/components/SectionCard';
 
 const Index = () => {
+  const [checklist, setChecklist] = useState<Checklist | null>(null);
+  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [totalProgress, setTotalProgress] = useState(0);
+  const { toast } = useToast();
+
+  // Load checklist data and saved state
+  useEffect(() => {
+    async function loadData() {
+      try {
+        // Load saved state from localStorage
+        const savedState = loadChecklistState();
+        setCheckedItems(savedState);
+        
+        // Fetch checklist data
+        const data = await fetchChecklist();
+        setChecklist(data);
+      } catch (err) {
+        console.error('Failed to load checklist:', err);
+        setError('Failed to load checklist. Please try again later.');
+        toast({
+          variant: "destructive",
+          title: "Error loading checklist",
+          description: "Please try refreshing the page.",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    
+    loadData();
+  }, [toast]);
+
+  // Calculate total progress whenever checked items change
+  useEffect(() => {
+    if (!checklist) return;
+    
+    let totalItems = 0;
+    let checkedCount = 0;
+    
+    checklist.sections.forEach(section => {
+      totalItems += section.items.length;
+      checkedCount += section.items.filter(item => checkedItems[item.id]).length;
+    });
+    
+    const progress = totalItems > 0 ? (checkedCount / totalItems) * 100 : 0;
+    setTotalProgress(progress);
+  }, [checkedItems, checklist]);
+
+  // Handle item toggle
+  const handleItemToggle = (itemId: string, checked: boolean) => {
+    const newCheckedItems = {
+      ...checkedItems,
+      [itemId]: checked
+    };
+    
+    setCheckedItems(newCheckedItems);
+    saveChecklistState(newCheckedItems);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-vibe-purple mx-auto"></div>
+          <p className="mt-4 text-vibe-gray">Loading checklist...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center max-w-md p-6 bg-red-50 rounded-lg">
+          <h2 className="text-xl font-semibold text-red-600 mb-2">Something went wrong</h2>
+          <p className="text-red-700">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!checklist) {
+    return null;
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="container py-8 px-4 mx-auto max-w-5xl">
+      <header className="text-center mb-12">
+        <h1 className="text-3xl md:text-4xl font-bold text-vibe-dark-gray mb-8">
+          {checklist.title}
+        </h1>
+        
+        <div className="flex justify-center mb-6">
+          <ProgressDial 
+            percentage={totalProgress} 
+            size="lg"
+            className="mb-4"
+          />
+        </div>
+        
+        <p className="text-vibe-gray max-w-2xl mx-auto">
+          Track your progress through the checklist by checking off completed items. 
+          Your progress is automatically saved.
+        </p>
+      </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {checklist.sections.map((section) => (
+          <SectionCard
+            key={section.id}
+            section={section}
+            checkedItems={checkedItems}
+            onItemToggle={handleItemToggle}
+          />
+        ))}
       </div>
     </div>
   );

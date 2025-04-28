@@ -81,6 +81,7 @@ describe('SectionCard', () => {
     // Check that onItemToggle was called for each checked item
     expect(mockOnItemToggle).toHaveBeenCalledWith('item1', false);
     expect(mockOnItemToggle).toHaveBeenCalledWith('item3', false);
+    // item2 shouldn't be called since it wasn't checked
     expect(mockOnItemToggle).toHaveBeenCalledTimes(2);
   });
 });

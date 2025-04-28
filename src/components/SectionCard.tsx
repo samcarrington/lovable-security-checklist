@@ -89,7 +89,7 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
                 htmlFor={item.id}
                 className="text-sm leading-tight cursor-pointer"
               >
-                {item.text}
+                {item.title}
               </Label>
             </li>
           ))}

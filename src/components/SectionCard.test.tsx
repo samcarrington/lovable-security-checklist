@@ -10,10 +10,11 @@ describe('SectionCard', () => {
   const mockSection: ChecklistSection = {
     id: 'test-section',
     title: 'Test Section',
+    description: 'Test Description',
     items: [
-      { id: 'item1', text: 'Item 1' },
-      { id: 'item2', text: 'Item 2' },
-      { id: 'item3', text: 'Item 3' },
+      { id: 'item1', title: 'Item 1', description: 'Description 1' },
+      { id: 'item2', title: 'Item 2', description: 'Description 2' },
+      { id: 'item3', title: 'Item 3', description: 'Description 3' },
     ]
   };
 

@@ -71,8 +71,7 @@ const Index = () => {
 
   // Scale background intensity from 30 (minimum) to 70 (maximum) based on progress
   const backgroundIntensity = Math.max(20, Math.min(90, 30 + (totalProgress * 0.4)));
-  console.log(`Setting background intensity to: ${backgroundIntensity.toFixed(2)}`);
-
+  
   if (isLoading) {
     return (
       <GradientBackground intensity={30} brightness={95}>
@@ -127,9 +126,12 @@ const Index = () => {
           </div>
           
           <p className="text-vibe-gray max-w-2xl mx-auto">
-            Track your progress through the checklist by checking off completed items. 
-            Your progress is automatically saved.
+            Use this list* to set areas of priority for your work once you're entering human-in-the-loop territory and guiding a project toward Production and release.
           </p>
+          <p className="text-vibe-gray max-w-2xl mx-auto text-xs">
+            *The list is not exhaustive and should not be used as the only means of security validation..
+          </p>
+        </header>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

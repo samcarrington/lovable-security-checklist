@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { ChecklistSection } from '@/services/checklistService';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -5,6 +6,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
+import ReactConfetti from 'react-confetti';
 
 interface SectionCardProps {
   section: ChecklistSection;
@@ -15,6 +17,7 @@ interface SectionCardProps {
 const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) => {
   const [progress, setProgress] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     const checkedCount = section.items.filter(item => checkedItems[item.id]).length;
@@ -26,6 +29,12 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
       setIsAnimating(true);
       setProgress(newProgress);
       
+      if (newProgress === 100) {
+        setShowConfetti(true);
+        const timer = setTimeout(() => setShowConfetti(false), 5000);
+        return () => clearTimeout(timer);
+      }
+
       const timer = setTimeout(() => setIsAnimating(false), 1000);
       return () => clearTimeout(timer);
     }
@@ -43,7 +52,18 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
   };
 
   return (
-    <Card className="shadow-md hover:shadow-lg transition-shadow">
+    <Card className="shadow-md hover:shadow-lg transition-shadow relative overflow-hidden">
+      {showConfetti && (
+        <div className="absolute inset-0">
+          <ReactConfetti
+            width={400}
+            height={400}
+            recycle={false}
+            numberOfPieces={200}
+            gravity={0.2}
+          />
+        </div>
+      )}
       <CardHeader className="pb-2">
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-start">

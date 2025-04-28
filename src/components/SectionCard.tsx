@@ -54,7 +54,7 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
   return (
     <Card className="shadow-md hover:shadow-lg transition-shadow relative overflow-hidden">
       {showConfetti && (
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 pointer-events-none">
           <ReactConfetti
             width={400}
             height={400}

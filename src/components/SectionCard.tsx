@@ -162,7 +162,7 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
               />
               <Label
                 htmlFor={item.id}
-                className="text-sm leading-tight cursor-pointer flex-grow pt-1"
+                className={`text-sm leading-tight cursor-pointer flex-grow pt-1 ${!!checkedItems[item.id] ? 'line-through text-gray-500' : ''}`}
               >
                 {item.title}
               </Label>

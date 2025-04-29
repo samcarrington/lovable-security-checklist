@@ -126,9 +126,12 @@ const Index = () => {
           </div>
           
           <p className="text-vibe-gray max-w-2xl mx-auto">
-            Use this list* to set areas of priority for your work once you're entering human-in-the-loop territory and guiding a project toward Production and release.
+            Use this list* to set areas of priority for your work once you're entering human-in-the-loop territory
+            and guiding a project toward Production and release. If you are coding with LLM support and pairing, 
+            ensure you educate yourself on risks and limitations. No code should reach production without human 
+            review and approvals.
           </p>
-          <p className="text-vibe-gray max-w-2xl mx-auto text-xs pt-2">
+          <p className="text-vibe-gray max-w-2xl mx-auto text-xs pt-4">
             *The list is not exhaustive and should not be used as the only means of security validation.
           </p>
         </header>

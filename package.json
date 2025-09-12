@@ -2,12 +2,14 @@
   "name": "lovable-vibe-security-checklist",
   "private": true,
   "version": "1.0.0",
+  "license": "Private",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview"
   },
   "dependencies": {

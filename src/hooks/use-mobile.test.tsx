@@ -65,23 +65,29 @@ describe("useIsMobile", () => {
     let changeListeners: ((e: MediaQueryListEvent) => void)[] = [];
 
     // Mock matchMedia to capture change listeners
-    const mockMatchMedia = (query: string) => ({
+    const mockMatchMedia: typeof window.matchMedia = (query: string) => ({
       matches: false,
       media: query,
       onchange: null,
       addListener: () => {},
       removeListener: () => {},
-      addEventListener: (_: string, listener: (e: MediaQueryListEvent) => void) => {
+      addEventListener: (
+        _: string,
+        listener: (e: MediaQueryListEvent) => void
+      ) => {
         changeListeners.push(listener);
       },
-      removeEventListener: (_: string, listener: (e: MediaQueryListEvent) => void) => {
+      removeEventListener: (
+        _: string,
+        listener: (e: MediaQueryListEvent) => void
+      ) => {
         changeListeners = changeListeners.filter((l) => l !== listener);
       },
       dispatchEvent: () => false,
     });
 
     const originalMatchMedia = window.matchMedia;
-    window.matchMedia = mockMatchMedia as any;
+    window.matchMedia = mockMatchMedia;
 
     try {
       Object.defineProperty(window, "innerWidth", {

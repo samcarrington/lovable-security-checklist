@@ -109,13 +109,11 @@
       "permission": {
         "write": {
           "plans/**": "allow",
-          "docs/**": "allow",
-          "*": "deny"
+          "docs/**": "allow"
         },
         "edit": {
           "plans/**": "allow",
-          "docs/**": "allow",
-          "*": "deny"
+          "docs/**": "allow"
         },
         "bash": {
           "git branch*": "allow",
@@ -148,13 +146,11 @@
       "permission": {
         "write": {
           "plans/**": "allow",
-          "docs/**": "allow",
-          "*": "deny"
+          "docs/**": "allow"
         },
         "edit": {
           "plans/**": "allow",
-          "docs/**": "allow",
-          "*": "deny"
+          "docs/**": "allow"
         }
       }
     },
@@ -175,13 +171,16 @@
       },
       "permission": {
         "write": {
+          "vitest.config.ts ": "allow",
+          "vite.config.ts": "allow",
+          "package.json": "allow",
+          "index.html": "allow",
           "src/**": "allow",
           "tests/**": "allow",
           "test/**": "allow",
           "docs/designs/**": "allow",
           "docs/architecture/**": "allow",
-          "plans/TODO.md": "allow",
-          "*": "deny"
+          "plans/TODO.md": "allow"
         },
         "edit": {
           "src/**": "allow",
@@ -216,8 +215,7 @@
           "grep*": "allow",
           "sed*": "allow",
           "sort*": "allow",
-          "echo*": "allow",
-          "*": "ask"
+          "echo*": "allow"
         }
       }
     },

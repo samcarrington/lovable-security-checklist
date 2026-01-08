@@ -56,56 +56,62 @@ const ProgressDial = ({ percentage, size = 'md', className }: ProgressDialProps)
   const strokeDashoffset = circumference * (1 - safePercentage / 100); // Offset for the progress arc
 
   return (
-      <div
+    <div
+      className={cn(
+        'relative flex items-center justify-center', // Center the dial
+        sizeClasses[size], // Apply size-specific classes
+        className // Apply additional custom classes
+      )}
+      role="progressbar"
+      aria-valuenow={Math.round(safePercentage)}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-label={`Progress: ${Math.round(safePercentage)}%`}
+    >
+      <svg className="absolute inset-0 w-full h-full -rotate-90">
+        {/* Background circle */}
+        <circle
+          cx="50%" // Center X coordinate
+          cy="50%" // Center Y coordinate
+          r={innerRadius} // Radius of the circle
+          strokeWidth={backgroundStrokeWidth} // Stroke width
+          stroke="currentColor" // Use current text color
+          fill="none" // No fill
+          className="text-gray-200" // Light gray color for the background
+        />
+
+        {/* Progress arc */}
+        <circle
+          cx="50%" // Center X coordinate
+          cy="50%" // Center Y coordinate
+          r={innerRadius} // Radius of the circle
+          strokeWidth={progressStrokeWidth} // Stroke width
+          stroke="currentColor" // Use current text color
+          fill="none" // No fill
+          strokeLinecap="round" // Rounded ends for the arc
           className={cn(
-              'relative flex items-center justify-center', // Center the dial
-              sizeClasses[size], // Apply size-specific classes
-              className // Apply additional custom classes
+            progressColor, // Apply progress color
+            isAnimating ? "transition-all duration-1500 ease-out" : "" // Smooth animation
           )}
-      >
-        <svg className="absolute inset-0 w-full h-full -rotate-90">
-          {/* Background circle */}
-          <circle
-              cx="50%" // Center X coordinate
-              cy="50%" // Center Y coordinate
-              r={innerRadius} // Radius of the circle
-              strokeWidth={backgroundStrokeWidth} // Stroke width
-              stroke="currentColor" // Use current text color
-              fill="none" // No fill
-              className="text-gray-200" // Light gray color for the background
-          />
+          strokeDasharray={strokeDasharray} // Total length of the arc
+          strokeDashoffset={strokeDashoffset} // Offset to represent progress
+        />
+      </svg>
 
-          {/* Progress arc */}
-          <circle
-              cx="50%" // Center X coordinate
-              cy="50%" // Center Y coordinate
-              r={innerRadius} // Radius of the circle
-              strokeWidth={progressStrokeWidth} // Stroke width
-              stroke="currentColor" // Use current text color
-              fill="none" // No fill
-              strokeLinecap="round" // Rounded ends for the arc
-              className={cn(
-                  progressColor, // Apply progress color
-                  isAnimating ? "transition-all duration-1500 ease-out" : "" // Smooth animation
-              )}
-              strokeDasharray={strokeDasharray} // Total length of the arc
-              strokeDashoffset={strokeDashoffset} // Offset to represent progress
-          />
-        </svg>
-
-        {/* Content layer: Displays the percentage and an icon */}
-        <div className="relative z-10 flex flex-col items-center justify-center gap-1">
-          {/* Percentage label */}
-          <span className={cn("font-bold", progressColor)}>
+      {/* Content layer: Displays the percentage and an icon */}
+      <div className="relative z-10 flex flex-col items-center justify-center gap-1">
+        {/* Percentage label */}
+        <span className={cn("font-bold", progressColor)}>
           {Math.round(safePercentage)}% {/* Round the percentage to the nearest integer */}
         </span>
-          {/* Icon representing the progress */}
-          <CircleGauge
-              className={progressColor} // Apply progress color
-              size={size === 'lg' ? 20 : size === 'md' ? 16 : 14} // Adjust icon size based on the dial size
-          />
-        </div>
+        {/* Icon representing the progress */}
+        <CircleGauge
+          className={progressColor} // Apply progress color
+          size={size === 'lg' ? 20 : size === 'md' ? 16 : 14} // Adjust icon size based on the dial size
+          aria-hidden="true"
+        />
       </div>
+    </div>
   );
 };
 

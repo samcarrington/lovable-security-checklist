@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import { ChecklistSection } from '@/services/checklistService';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -21,7 +21,7 @@ interface SectionCardProps {
   onItemToggle: (itemId: string, checked: boolean) => void;
 }
 
-const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) => {
+const SectionCard = memo(function SectionCard({ section, checkedItems, onItemToggle }: SectionCardProps) {
   const [progress, setProgress] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -36,14 +36,16 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
 
   const isFullyComplete = progress === 100;
 
+  // Fixed ResizeObserver cleanup - capture ref value in closure
   useEffect(() => {
-    if (!cardRef.current) return;
+    const element = cardRef.current;
+    if (!element) return;
 
     const updateDimensions = () => {
-      if (cardRef.current) {
+      if (element) {
         setDimensions({
-          width: cardRef.current.offsetWidth,
-          height: cardRef.current.offsetHeight
+          width: element.offsetWidth,
+          height: element.offsetHeight
         });
       }
     };
@@ -51,9 +53,12 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
     updateDimensions();
 
     const observer = new ResizeObserver(updateDimensions);
-    observer.observe(cardRef.current);
+    observer.observe(element);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.unobserve(element);
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -83,7 +88,10 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
       .map(item => item.id);
       
     if (itemsToUncheck.length > 0) {
-      console.log(`Unchecking ${itemsToUncheck.length} items:`, itemsToUncheck);
+      // Log only in development
+      if (import.meta.env.DEV) {
+        console.log(`Unchecking ${itemsToUncheck.length} items:`, itemsToUncheck);
+      }
       itemsToUncheck.forEach(id => onItemToggle(id, false));
     }
   };
@@ -112,8 +120,8 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
             width={dimensions.width}
             height={dimensions.height}
             recycle={false}
-            numberOfPieces={200}
-            gravity={0.2}
+            numberOfPieces={50}
+            gravity={0.3}
           />
         </div>
       )}
@@ -159,10 +167,11 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
                   onItemToggle(item.id, checked === true);
                 }}
                 className="mt-1"
+                aria-label={item.title}
               />
               <Label
                 htmlFor={item.id}
-                className={`text-sm leading-tight cursor-pointer flex-grow pt-1 ${!!checkedItems[item.id] ? 'line-through text-gray-400 dark:text-gray-600' : ''}`}
+                className={`text-sm leading-tight cursor-pointer flex-grow pt-1 ${checkedItems[item.id] ? 'line-through text-gray-400 dark:text-gray-600' : ''}`}
               >
                 {item.title}
               </Label>
@@ -172,6 +181,7 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
                   size="icon"
                   className="h-6 w-6"
                   onClick={() => setSelectedItem(item)}
+                  aria-label={`More info about ${item.title}`}
                 >
                   <Info className="h-4 w-4" />
                 </Button>
@@ -209,6 +219,6 @@ const SectionCard = ({ section, checkedItems, onItemToggle }: SectionCardProps) 
       </CardContent>
     </Card>
   );
-};
+});
 
 export default SectionCard;

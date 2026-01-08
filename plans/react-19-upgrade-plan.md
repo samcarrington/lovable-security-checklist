@@ -136,22 +136,22 @@ out:
 
 ### Phase 7: Manual Testing & Verification (Complexity: M)
 
-- T-032 | Manual test: Checkbox interactions and state persistence | TBD | complexity: S | deps: [T-016] | done: false
-- T-033 | Manual test: Progress dial animations and calculations | TBD | complexity: S | deps: [T-016] | done: false
-- T-034 | Manual test: Section expand/collapse (if applicable) | TBD | complexity: S | deps: [T-016] | done: false
-- T-035 | Manual test: Confetti celebration on completion | TBD | complexity: S | deps: [T-016] | done: false
-- T-036 | Manual test: Theme switching (light/dark mode) | TBD | complexity: S | deps: [T-016] | done: false
-- T-037 | Manual test: LocalStorage data persistence | TBD | complexity: S | deps: [T-016] | done: false
-- T-038 | Manual test: Responsive design on mobile viewports | TBD | complexity: S | deps: [T-016] | done: false
-- T-039 | Manual test: Toast notifications | TBD | complexity: XS | deps: [T-016] | done: false
+- T-032 | Manual test: Checkbox interactions and state persistence | TBD | complexity: S | deps: [T-016] | done: false (manual testing required)
+- T-033 | Manual test: Progress dial animations and calculations | TBD | complexity: S | deps: [T-016] | done: false (manual testing required)
+- T-034 | Manual test: Section expand/collapse (if applicable) | TBD | complexity: S | deps: [T-016] | done: false (manual testing required)
+- T-035 | Manual test: Confetti celebration on completion | TBD | complexity: S | deps: [T-016] | done: false (manual testing required)
+- T-036 | Manual test: Theme switching (light/dark mode) | TBD | complexity: S | deps: [T-016] | done: false (manual testing required)
+- T-037 | Manual test: LocalStorage data persistence | TBD | complexity: S | deps: [T-016] | done: false (manual testing required)
+- T-038 | Manual test: Responsive design on mobile viewports | TBD | complexity: S | deps: [T-016] | done: false (manual testing required)
+- T-039 | Manual test: Toast notifications | TBD | complexity: XS | deps: [T-016] | done: false (manual testing required)
 
 ### Phase 8: Performance & Final Verification (Complexity: S)
 
-- T-040 | Compare bundle sizes before/after upgrade | TBD | complexity: S | deps: [T-016] | done: false
-- T-041 | Run Lighthouse audit and compare scores | TBD | complexity: S | deps: [T-016] | done: false
-- T-042 | Verify no console errors or warnings in production build | TBD | complexity: S | deps: [T-016] | done: false
-- T-043 | Run full test suite with coverage report | TBD | complexity: S | deps: [T-024, T-025, T-026, T-027, T-028, T-029, T-030, T-031] | done: false
-- T-044 | Update documentation if needed | TBD | complexity: S | deps: [T-043] | done: false
+- T-040 | Compare bundle sizes before/after upgrade | TBD | complexity: S | deps: [T-016] | done: true
+- T-041 | Run Lighthouse audit and compare scores | TBD | complexity: S | deps: [T-016] | done: false (manual audit required)
+- T-042 | Verify no console errors or warnings in production build | TBD | complexity: S | deps: [T-016] | done: false (manual check required)
+- T-043 | Run full test suite with coverage report | TBD | complexity: S | deps: [T-024, T-025, T-026, T-027, T-028, T-029, T-030, T-031] | done: true
+- T-044 | Update documentation if needed | TBD | complexity: S | deps: [T-043] | done: true
 
 ## 10. Risks and mitigations
 

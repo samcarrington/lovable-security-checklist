@@ -125,14 +125,14 @@ out:
 
 ### Phase 6: Fill Remaining Test Coverage Gaps (Complexity: M)
 
-- T-024 | Add tests for ChecklistGrid component | TBD | complexity: M | deps: [T-022] | done: false
-- T-025 | Add tests for ChecklistHeader component | TBD | complexity: S | deps: [T-022] | done: false
-- T-026 | Add tests for ThemeToggle component | TBD | complexity: S | deps: [T-022] | done: false
-- T-027 | Add tests for Footer component | TBD | complexity: XS | deps: [T-022] | done: false
-- T-028 | Add tests for LoadingState component | TBD | complexity: XS | deps: [T-022] | done: false
-- T-029 | Add tests for ErrorState component | TBD | complexity: XS | deps: [T-022] | done: false
-- T-030 | Add tests for GradientBackground component | TBD | complexity: XS | deps: [T-022] | done: false
-- T-031 | Add tests for use-mobile hook | TBD | complexity: S | deps: [T-022] | done: false
+- T-024 | Add tests for ChecklistGrid component | TBD | complexity: M | deps: [T-022] | done: true
+- T-025 | Add tests for ChecklistHeader component | TBD | complexity: S | deps: [T-022] | done: true
+- T-026 | Add tests for ThemeToggle component | TBD | complexity: S | deps: [T-022] | done: true
+- T-027 | Add tests for Footer component | TBD | complexity: XS | deps: [T-022] | done: true
+- T-028 | Add tests for LoadingState component | TBD | complexity: XS | deps: [T-022] | done: true
+- T-029 | Add tests for ErrorState component | TBD | complexity: XS | deps: [T-022] | done: true
+- T-030 | Add tests for GradientBackground component | TBD | complexity: XS | deps: [T-022] | done: true
+- T-031 | Add tests for use-mobile hook | TBD | complexity: S | deps: [T-022] | done: true
 
 ### Phase 7: Manual Testing & Verification (Complexity: M)
 

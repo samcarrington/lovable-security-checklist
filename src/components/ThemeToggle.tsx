@@ -1,4 +1,3 @@
-
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
@@ -13,13 +12,8 @@ export const ThemeToggle = () => {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    // Force the theme to update when it changes
-    if (mounted) {
-      document.documentElement.classList.remove('light', 'dark');
-      document.documentElement.classList.add(theme === 'dark' ? 'dark' : 'light');
-    }
-  }, [theme, mounted]);
+  // Removed manual DOM manipulation - next-themes handles this automatically
+  // when configured with attribute="class"
 
   if (!mounted) return null;
 
@@ -29,6 +23,7 @@ export const ThemeToggle = () => {
       size="icon"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       className="fixed top-4 right-4"
+      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
     >
       {theme === "dark" ? (
         <Sun className="h-5 w-5" />
@@ -38,3 +33,6 @@ export const ThemeToggle = () => {
     </Button>
   );
 };
+
+// Also export as default for backwards compatibility
+export default ThemeToggle;

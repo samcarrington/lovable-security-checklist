@@ -1,5 +1,4 @@
-
-import React from 'react';
+import { describe, test, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import SectionCard from './SectionCard';
@@ -20,8 +19,8 @@ describe('SectionCard', () => {
 
   // Test that the component renders correctly
   test('renders section title and items', () => {
-    const mockCheckedItems = {};
-    const mockOnItemToggle = jest.fn();
+    const mockCheckedItems: Record<string, boolean> = {};
+    const mockOnItemToggle = vi.fn();
 
     render(
       <SectionCard 
@@ -39,8 +38,8 @@ describe('SectionCard', () => {
 
   // Test that clicking on an item calls onItemToggle with correct parameters
   test('clicking an item toggles it', () => {
-    const mockCheckedItems = {};
-    const mockOnItemToggle = jest.fn();
+    const mockCheckedItems: Record<string, boolean> = {};
+    const mockOnItemToggle = vi.fn();
 
     render(
       <SectionCard 
@@ -61,11 +60,11 @@ describe('SectionCard', () => {
   // Test that clicking "Clear all" button unchecks all checked items
   test('clicking Clear all button unchecks all checked items', () => {
     // Set up mock with item1 and item3 checked
-    const mockCheckedItems = {
+    const mockCheckedItems: Record<string, boolean> = {
       'item1': true,
       'item3': true,
     };
-    const mockOnItemToggle = jest.fn();
+    const mockOnItemToggle = vi.fn();
 
     render(
       <SectionCard 

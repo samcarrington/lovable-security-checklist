@@ -42,7 +42,7 @@ const GradientBackground = ({
         <div className={cn("relative min-h-screen overflow-hidden", className)}>
             {/* First gradient layer (Base) */}
             <div
-                className="fixed inset-0 transition-opacity duration-1000" // Fixed position to cover viewport, smooth transition
+                className="fixed inset-0 transition-opacity duration-1000 will-change-[opacity]" // Fixed position to cover viewport, smooth transition
                 style={{
                     opacity: clampedIntensity, // Control visibility with intensity prop
                     filter: `brightness(${clampedBrightness})`, // Control brightness with brightness prop
@@ -58,7 +58,7 @@ const GradientBackground = ({
 
             {/* Second gradient layer (Overlay) - adds more depth */}
             <div
-                className="fixed inset-0 transition-opacity duration-1000" // Fixed position, smooth transition
+                className="fixed inset-0 transition-opacity duration-1000 will-change-[opacity]" // Fixed position, smooth transition
                 style={{
                     // Slightly less opaque and slightly brighter than the base layer for subtle variation
                     opacity: clampedIntensity * 0.7,

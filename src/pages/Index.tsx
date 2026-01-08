@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import {
   fetchChecklist,
@@ -7,7 +7,7 @@ import {
   Checklist,
 } from "@/services/checklistService";
 import GradientBackground from "@/components/GradientBackground";
-import ThemeToggle from "@/components/ThemeToggle";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import LoadingState from "@/components/LoadingState";
 import ErrorState from "@/components/ErrorState";
 import ChecklistHeader from "@/components/ChecklistHeader";
@@ -19,7 +19,6 @@ const Index = () => {
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [totalProgress, setTotalProgress] = useState(0);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -31,7 +30,10 @@ const Index = () => {
         const data = await fetchChecklist();
         setChecklist(data);
       } catch (err) {
-        console.error("Failed to load checklist:", err);
+        // Log errors in development only
+        if (import.meta.env.DEV) {
+          console.error("Failed to load checklist:", err);
+        }
         setError("Failed to load checklist. Please try again later.");
         toast({
           variant: "destructive",
@@ -46,8 +48,9 @@ const Index = () => {
     loadData();
   }, [toast]);
 
-  useEffect(() => {
-    if (!checklist) return;
+  // Memoized progress calculation - O(n×m) but only recalculates when deps change
+  const totalProgress = useMemo(() => {
+    if (!checklist) return 0;
 
     let totalItems = 0;
     let checkedCount = 0;
@@ -59,19 +62,17 @@ const Index = () => {
       ).length;
     });
 
-    const progress = totalItems > 0 ? (checkedCount / totalItems) * 100 : 0;
-    setTotalProgress(progress);
-    console.log(`Total progress updated: ${progress.toFixed(2)}%`);
+    return totalItems > 0 ? (checkedCount / totalItems) * 100 : 0;
   }, [checkedItems, checklist]);
 
-  const handleItemToggle = (itemId: string, checked: boolean) => {
-    console.log(`Toggling ${itemId} to ${checked}`);
+  // Memoized callback to prevent unnecessary re-renders of children
+  const handleItemToggle = useCallback((itemId: string, checked: boolean) => {
     setCheckedItems((prev) => {
       const newState = { ...prev, [itemId]: checked };
       saveChecklistState(newState);
       return newState;
     });
-  };
+  }, []);
 
   const backgroundIntensity = Math.max(
     20,

@@ -1,4 +1,3 @@
-
 export interface ChecklistItem {
   id: string;
   title: string;
@@ -31,7 +30,10 @@ export async function fetchChecklist(): Promise<Checklist> {
     }
     return response.json();
   } catch (error) {
-    console.error('Error loading checklist:', error);
+    // Log errors in development only
+    if (import.meta.env.DEV) {
+      console.error('Error loading checklist:', error);
+    }
     throw error;
   }
 }
@@ -45,7 +47,10 @@ export function loadChecklistState(): Record<string, boolean> {
     const savedState = localStorage.getItem(STORAGE_KEY);
     return savedState ? JSON.parse(savedState) : {};
   } catch (error) {
-    console.error("Error loading checklist state:", error);
+    // Log errors in development only
+    if (import.meta.env.DEV) {
+      console.error("Error loading checklist state:", error);
+    }
     return {};
   }
 }

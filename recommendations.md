@@ -25,7 +25,7 @@ This application is a security checklist ironically riddled with security vulner
 ### 1. 🚨 API Key Committed to Version Control
 - **Severity:** Critical
 - **Location:** `.env:1`
-- **Issue:** The file `.env` contains `CONTEXT7_API_KEY=***REMOVED***` and **is NOT in `.gitignore`**. This key is now part of git history forever.
+- **Issue:** The file `.env` contains `CONTEXT7_API_KEY=tx7sk-c9fd7e4a-0703-47b0-8883-07b02ec1afab` and **is NOT in `.gitignore`**. This key is now part of git history forever.
 - **Impact:** Anyone with repo access has your API credentials. This is the EXACT thing the checklist item "sec-10-item-2" warns against. Delicious irony.
 - **Recommendation:** 
   1. Add `.env` to `.gitignore` IMMEDIATELY

@@ -1,8 +1,8 @@
 {
   "name": "lovable-vibe-security-checklist",
   "private": true,
-  "version": "1.0.0",
-  "license": "Private",
+  "version": "2.0.0",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",

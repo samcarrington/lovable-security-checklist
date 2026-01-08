@@ -107,15 +107,15 @@ out:
 
 - T-013 | Run TypeScript compilation and fix any type errors | TBD | complexity: M | deps: [T-012] | done: true
 - T-014 | Run ESLint and fix any new linting errors | TBD | complexity: S | deps: [T-012] | done: true
-- T-015 | Verify application starts with `npm run dev` | TBD | complexity: XS | deps: [T-013, T-014] | done: false
+- T-015 | Verify application starts with `npm run dev` | TBD | complexity: XS | deps: [T-013, T-014] | done: true
 - T-016 | Verify application builds with `npm run build` | TBD | complexity: XS | deps: [T-015] | done: true
 
 ### Phase 4: API Migration (if needed) (Complexity: S)
 
-- T-017 | Review and address any forwardRef deprecation warnings | TBD | complexity: S | deps: [T-015] | done: false
-- T-018 | Review and update any ref callback patterns if needed | TBD | complexity: S | deps: [T-015] | done: false
-- T-019 | Update Context.Provider to Context syntax if desired | TBD | complexity: XS | deps: [T-015] | done: false
-- T-020 | Address any other React 19 deprecation warnings | TBD | complexity: M | deps: [T-015] | done: false
+- T-017 | Review and address any forwardRef deprecation warnings | TBD | complexity: S | deps: [T-015] | done: true (only in shadcn/ui - excluded)
+- T-018 | Review and update any ref callback patterns if needed | TBD | complexity: S | deps: [T-015] | done: true (none found)
+- T-019 | Update Context.Provider to Context syntax if desired | TBD | complexity: XS | deps: [T-015] | done: true (none found)
+- T-020 | Address any other React 19 deprecation warnings | TBD | complexity: M | deps: [T-015] | done: true (none found)
 
 ### Phase 5: Test Suite Verification (Complexity: M)
 

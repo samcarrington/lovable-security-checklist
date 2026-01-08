@@ -94,21 +94,21 @@ out:
 
 ### Phase 2: Core Dependency Updates (Complexity: M)
 
-- T-005 | Update react and react-dom to ^19.0.0 | TBD | complexity: S | deps: [T-001] | done: false
-- T-006 | Update @types/react to ^19.0.0 | TBD | complexity: XS | deps: [T-005] | done: false
-- T-007 | Update @types/react-dom to ^19.0.0 | TBD | complexity: XS | deps: [T-005] | done: false
-- T-008 | Update @vitejs/plugin-react-swc to ^4.x (React 19 support) | TBD | complexity: S | deps: [T-005] | done: false
-- T-009 | Update vite to ^6.x as required | TBD | complexity: M | deps: [T-008] | done: false
-- T-010 | Update vitest and @vitest/coverage-v8 to compatible versions | TBD | complexity: S | deps: [T-009] | done: false
-- T-011 | Update @testing-library/react if needed for React 19 | TBD | complexity: S | deps: [T-005] | done: false
-- T-012 | Run npm install and resolve any peer dependency conflicts | TBD | complexity: M | deps: [T-005, T-006, T-007, T-008, T-009, T-010, T-011] | done: false
+- T-005 | Update react and react-dom to ^19.0.0 | TBD | complexity: S | deps: [T-001] | done: true
+- T-006 | Update @types/react to ^19.0.0 | TBD | complexity: XS | deps: [T-005] | done: true
+- T-007 | Update @types/react-dom to ^19.0.0 | TBD | complexity: XS | deps: [T-005] | done: true
+- T-008 | Update @vitejs/plugin-react-swc to ^4.x (React 19 support) | TBD | complexity: S | deps: [T-005] | done: true
+- T-009 | Update vite to ^6.x as required | TBD | complexity: M | deps: [T-008] | done: true (already on 7.x)
+- T-010 | Update vitest and @vitest/coverage-v8 to compatible versions | TBD | complexity: S | deps: [T-009] | done: true (already on 4.x)
+- T-011 | Update @testing-library/react if needed for React 19 | TBD | complexity: S | deps: [T-005] | done: true (already compatible)
+- T-012 | Run npm install and resolve any peer dependency conflicts | TBD | complexity: M | deps: [T-005, T-006, T-007, T-008, T-009, T-010, T-011] | done: true
 
 ### Phase 3: Code Compatibility Verification (Complexity: S)
 
-- T-013 | Run TypeScript compilation and fix any type errors | TBD | complexity: M | deps: [T-012] | done: false
-- T-014 | Run ESLint and fix any new linting errors | TBD | complexity: S | deps: [T-012] | done: false
+- T-013 | Run TypeScript compilation and fix any type errors | TBD | complexity: M | deps: [T-012] | done: true
+- T-014 | Run ESLint and fix any new linting errors | TBD | complexity: S | deps: [T-012] | done: true
 - T-015 | Verify application starts with `npm run dev` | TBD | complexity: XS | deps: [T-013, T-014] | done: false
-- T-016 | Verify application builds with `npm run build` | TBD | complexity: XS | deps: [T-015] | done: false
+- T-016 | Verify application builds with `npm run build` | TBD | complexity: XS | deps: [T-015] | done: true
 
 ### Phase 4: API Migration (if needed) (Complexity: S)
 
@@ -119,9 +119,9 @@ out:
 
 ### Phase 5: Test Suite Verification (Complexity: M)
 
-- T-021 | Run all existing tests and fix any failures | TBD | complexity: M | deps: [T-012] | done: false
-- T-022 | Verify test utilities (test-utils.tsx) work correctly with React 19 | TBD | complexity: S | deps: [T-021] | done: false
-- T-023 | Update any act() usage patterns if needed | TBD | complexity: S | deps: [T-021] | done: false
+- T-021 | Run all existing tests and fix any failures | TBD | complexity: M | deps: [T-012] | done: true
+- T-022 | Verify test utilities (test-utils.tsx) work correctly with React 19 | TBD | complexity: S | deps: [T-021] | done: true
+- T-023 | Update any act() usage patterns if needed | TBD | complexity: S | deps: [T-021] | done: true (no changes needed)
 
 ### Phase 6: Fill Remaining Test Coverage Gaps (Complexity: M)
 

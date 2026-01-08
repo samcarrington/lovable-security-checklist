@@ -30,15 +30,15 @@ blockers: []
 
 ## 5. Success criteria
 
-| Name | Metric | Target | Verification |
-|------|--------|--------|--------------|
-| Build Success | Build completes without errors | 0 errors | Run `npm run build` successfully |
-| Test Pass Rate | All existing tests pass | 100% | Run `npm run test:run` |
-| No Runtime Errors | Console errors in browser | 0 errors | Manual inspection in Chrome DevTools |
-| Core Functionality | Checklist interactions work | All features functional | Manual E2E testing of all user flows |
-| Bundle Size | Gzipped bundle size | Within 10% of current | Compare build output sizes |
-| Performance | Lighthouse performance score | >= current score | Run Lighthouse audit before/after |
-| Test Coverage | Coverage for untested components | Add tests for remaining gaps | Run `npm run test:coverage` |
+| Name               | Metric                           | Target                       | Verification                         |
+| ------------------ | -------------------------------- | ---------------------------- | ------------------------------------ |
+| Build Success      | Build completes without errors   | 0 errors                     | Run `npm run build` successfully     |
+| Test Pass Rate     | All existing tests pass          | 100%                         | Run `npm run test:run`               |
+| No Runtime Errors  | Console errors in browser        | 0 errors                     | Manual inspection in Chrome DevTools |
+| Core Functionality | Checklist interactions work      | All features functional      | Manual E2E testing of all user flows |
+| Bundle Size        | Gzipped bundle size              | Within 10% of current        | Compare build output sizes           |
+| Performance        | Lighthouse performance score     | >= current score             | Run Lighthouse audit before/after    |
+| Test Coverage      | Coverage for untested components | Add tests for remaining gaps | Run `npm run test:coverage`          |
 
 ## 6. Scope
 
@@ -69,15 +69,15 @@ out:
 
 ## 7. Stakeholders & Roles
 
-| Name | Role | Responsibility | Contact |
-|------|------|----------------|---------|
-| TBD | Engineering Lead | Delivery and technical decisions | TBD |
-| TBD | QA | Manual testing verification | TBD |
+| Name | Role             | Responsibility                   | Contact |
+| ---- | ---------------- | -------------------------------- | ------- |
+| TBD  | Engineering Lead | Delivery and technical decisions | TBD     |
+| TBD  | QA               | Manual testing verification      | TBD     |
 
 ## 8. High-level timeline & milestones
 
 1. `M1` - Plan approved - TBD - Engineering Lead
-2. `M2` - Dependencies updated, app compiles - TBD - Engineering Lead  
+2. `M2` - Dependencies updated, app compiles - TBD - Engineering Lead
 3. `M3` - All existing tests passing - TBD - Engineering Lead
 4. `M4` - Manual testing complete - TBD - QA
 5. `M5` - Test coverage gaps filled - TBD - Engineering Lead
@@ -87,10 +87,10 @@ out:
 
 ### Phase 1: Preparation and Baseline (Complexity: S)
 
-- T-001 | Create backup branch of current working state | TBD | complexity: XS | deps: [] | done: false
-- T-002 | Document current bundle sizes and Lighthouse scores for comparison | TBD | complexity: XS | deps: [] | done: false
-- T-003 | Run existing test suite to confirm baseline (4 test files) | TBD | complexity: XS | deps: [] | done: false
-- T-004 | Verify react-confetti 6.4.0 compatibility with React 19 | TBD | complexity: S | deps: [] | done: false
+- T-001 | Create backup branch of current working state | TBD | complexity: XS | deps: [] | done: true
+- T-002 | Document current bundle sizes and Lighthouse scores for comparison | TBD | complexity: XS | deps: [] | done: true
+- T-003 | Run existing test suite to confirm baseline (4 test files) | TBD | complexity: XS | deps: [] | done: true
+- T-004 | Verify react-confetti 6.4.0 compatibility with React 19 | TBD | complexity: S | deps: [] | done: true
 
 ### Phase 2: Core Dependency Updates (Complexity: M)
 
@@ -155,15 +155,15 @@ out:
 
 ## 10. Risks and mitigations
 
-| ID | Description | Probability | Impact | Mitigation | Owner |
-|----|-------------|-------------|--------|------------|-------|
-| R-001 | react-confetti may not be compatible with React 19 | Low | Medium | Test early; if incompatible, find alternative library or fork and fix | TBD |
-| R-002 | Vite/Vitest major version updates introduce breaking changes | Medium | Medium | Follow migration guides; pin to specific versions if needed | TBD |
-| R-003 | Third-party Radix UI components have React 19 issues | Low | Medium | Radix UI officially supports React 19; update to latest versions | TBD |
-| R-004 | TypeScript type incompatibilities between React 18 and 19 | Medium | Low | Use @types/react@19 and fix type errors incrementally | TBD |
-| R-005 | Performance regression after upgrade | Low | Medium | Benchmark before/after; React 19 generally improves performance | TBD |
-| R-006 | Breaking changes in forwardRef or ref handling | Low | Low | Codebase uses shadcn/ui patterns with forwardRef; apply codemods if needed | TBD |
-| R-007 | Existing tests fail due to React 19 behavior changes | Medium | Medium | Fix tests incrementally; React Testing Library supports React 19 | TBD |
+| ID    | Description                                                  | Probability | Impact | Mitigation                                                                 | Owner |
+| ----- | ------------------------------------------------------------ | ----------- | ------ | -------------------------------------------------------------------------- | ----- |
+| R-001 | react-confetti may not be compatible with React 19           | Low         | Medium | Test early; if incompatible, find alternative library or fork and fix      | TBD   |
+| R-002 | Vite/Vitest major version updates introduce breaking changes | Medium      | Medium | Follow migration guides; pin to specific versions if needed                | TBD   |
+| R-003 | Third-party Radix UI components have React 19 issues         | Low         | Medium | Radix UI officially supports React 19; update to latest versions           | TBD   |
+| R-004 | TypeScript type incompatibilities between React 18 and 19    | Medium      | Low    | Use @types/react@19 and fix type errors incrementally                      | TBD   |
+| R-005 | Performance regression after upgrade                         | Low         | Medium | Benchmark before/after; React 19 generally improves performance            | TBD   |
+| R-006 | Breaking changes in forwardRef or ref handling               | Low         | Low    | Codebase uses shadcn/ui patterns with forwardRef; apply codemods if needed | TBD   |
+| R-007 | Existing tests fail due to React 19 behavior changes         | Medium      | Medium | Fix tests incrementally; React Testing Library supports React 19           | TBD   |
 
 ## 11. Assumptions
 
@@ -179,6 +179,7 @@ out:
 ## 12. Implementation approach / Technical narrative
 
 ### TL;DR
+
 This is a low-risk upgrade due to the modern codebase architecture and well-established test infrastructure. The main work involves updating package versions and verification. React 19's breaking changes primarily affect legacy patterns not used in this project. Vitest is already configured with 4 test files providing a solid baseline.
 
 ### Current Architecture Assessment
@@ -194,6 +195,7 @@ The lovable-security-checklist project is well-positioned for React 19 upgrade:
 ### Current Test Infrastructure Status
 
 **Vitest is fully configured**:
+
 - `vitest.config.ts` with jsdom environment and path aliases
 - `src/test/setup.ts` with testing-library matchers and mocks (matchMedia, ResizeObserver, localStorage)
 - `src/test/test-utils.tsx` with provider wrapper (QueryClient, ThemeProvider, BrowserRouter)
@@ -201,6 +203,7 @@ The lovable-security-checklist project is well-positioned for React 19 upgrade:
 - Coverage configured with v8 provider, excluding shadcn/ui components
 
 **Existing test files (4)**:
+
 - `src/services/checklistService.test.ts` - Service layer tests
 - `src/pages/Index.test.tsx` - Page integration tests
 - `src/components/SectionCard.test.tsx` - Component tests
@@ -208,18 +211,18 @@ The lovable-security-checklist project is well-positioned for React 19 upgrade:
 
 ### React 19 Breaking Changes Assessment
 
-| Breaking Change | Impact on Project | Action Required |
-|-----------------|-------------------|-----------------|
-| `ReactDOM.render` removed | None - already using `createRoot` | None |
-| `ReactDOM.hydrate` removed | None - not using SSR | None |
-| `unmountComponentAtNode` removed | None - not used | None |
-| `ReactDOM.findDOMNode` removed | None - not used | None |
-| Legacy Context removed | None - using modern Context | None |
-| String refs removed | None - using `useRef` | None |
-| Factory components removed | None - not used | None |
-| `propTypes` removed from React | None - using TypeScript | None |
-| `defaultProps` for function components deprecated | None - using default parameters | None |
-| `forwardRef` may be deprecated | Low - used in shadcn/ui components | Monitor for warnings |
+| Breaking Change                                   | Impact on Project                  | Action Required      |
+| ------------------------------------------------- | ---------------------------------- | -------------------- |
+| `ReactDOM.render` removed                         | None - already using `createRoot`  | None                 |
+| `ReactDOM.hydrate` removed                        | None - not using SSR               | None                 |
+| `unmountComponentAtNode` removed                  | None - not used                    | None                 |
+| `ReactDOM.findDOMNode` removed                    | None - not used                    | None                 |
+| Legacy Context removed                            | None - using modern Context        | None                 |
+| String refs removed                               | None - using `useRef`              | None                 |
+| Factory components removed                        | None - not used                    | None                 |
+| `propTypes` removed from React                    | None - using TypeScript            | None                 |
+| `defaultProps` for function components deprecated | None - using default parameters    | None                 |
+| `forwardRef` may be deprecated                    | Low - used in shadcn/ui components | Monitor for warnings |
 
 ### React 19 New Features (Optional Adoption)
 
@@ -253,17 +256,17 @@ graph TD
 
 ### Package Version Targets
 
-| Package | Current | Target | Notes |
-|---------|---------|--------|-------|
-| react | 18.3.1 | ^19.0.0 | Core upgrade |
-| react-dom | 18.3.1 | ^19.0.0 | Core upgrade |
-| @types/react | 18.3.24 | ^19.0.0 | Type definitions |
-| @types/react-dom | 18.3.7 | ^19.0.0 | Type definitions |
-| @vitejs/plugin-react-swc | 3.11.0 | ^4.0.0 | React 19 JSX transform |
-| vite | 5.4.20 | ^6.0.0 | Build tool |
-| vitest | 2.1.8 | ^3.0.0 | Test runner |
-| @vitest/coverage-v8 | 2.1.8 | ^3.0.0 | Coverage |
-| @testing-library/react | 16.3.0 | ^16.3.0 | Already compatible |
+| Package                  | Current | Target  | Notes                  |
+| ------------------------ | ------- | ------- | ---------------------- |
+| react                    | 18.3.1  | ^19.0.0 | Core upgrade           |
+| react-dom                | 18.3.1  | ^19.0.0 | Core upgrade           |
+| @types/react             | 18.3.24 | ^19.0.0 | Type definitions       |
+| @types/react-dom         | 18.3.7  | ^19.0.0 | Type definitions       |
+| @vitejs/plugin-react-swc | 3.11.0  | ^4.0.0  | React 19 JSX transform |
+| vite                     | 5.4.20  | ^6.0.0  | Build tool             |
+| vitest                   | 2.1.8   | ^3.0.0  | Test runner            |
+| @vitest/coverage-v8      | 2.1.8   | ^3.0.0  | Coverage               |
+| @testing-library/react   | 16.3.0  | ^16.3.0 | Already compatible     |
 
 ### Rollback Strategy
 
@@ -286,6 +289,7 @@ Based on codebase analysis, minimal code changes are expected:
 ### Existing Test Infrastructure
 
 Vitest is fully configured and ready:
+
 - **Config**: `vitest.config.ts` with jsdom, globals, and coverage
 - **Setup**: `src/test/setup.ts` with mocks for matchMedia, ResizeObserver, localStorage
 - **Utilities**: `src/test/test-utils.tsx` with provider wrapper
@@ -293,25 +297,25 @@ Vitest is fully configured and ready:
 
 ### Existing Test Files (4)
 
-| File | Description | Coverage |
-|------|-------------|----------|
-| `checklistService.test.ts` | Service layer tests | Data fetching, persistence |
-| `Index.test.tsx` | Page integration tests | Loading, error, rendering |
-| `SectionCard.test.tsx` | Component tests | Rendering, interactions |
-| `ProgressDial.test.tsx` | Component tests | Animation, percentage |
+| File                       | Description            | Coverage                   |
+| -------------------------- | ---------------------- | -------------------------- |
+| `checklistService.test.ts` | Service layer tests    | Data fetching, persistence |
+| `Index.test.tsx`           | Page integration tests | Loading, error, rendering  |
+| `SectionCard.test.tsx`     | Component tests        | Rendering, interactions    |
+| `ProgressDial.test.tsx`    | Component tests        | Animation, percentage      |
 
 ### Components Requiring New Tests
 
-| Component | Type | Priority | Notes |
-|-----------|------|----------|-------|
-| `ChecklistGrid.tsx` | Component | Medium | Grid layout logic |
-| `ChecklistHeader.tsx` | Component | Low | Static header |
-| `ThemeToggle.tsx` | Component | Medium | Theme switching |
-| `Footer.tsx` | Component | Low | Static footer |
-| `LoadingState.tsx` | Component | Low | Loading spinner |
-| `ErrorState.tsx` | Component | Low | Error display |
-| `GradientBackground.tsx` | Component | Low | Background effect |
-| `use-mobile.tsx` | Hook | Medium | Responsive hook |
+| Component                | Type      | Priority | Notes             |
+| ------------------------ | --------- | -------- | ----------------- |
+| `ChecklistGrid.tsx`      | Component | Medium   | Grid layout logic |
+| `ChecklistHeader.tsx`    | Component | Low      | Static header     |
+| `ThemeToggle.tsx`        | Component | Medium   | Theme switching   |
+| `Footer.tsx`             | Component | Low      | Static footer     |
+| `LoadingState.tsx`       | Component | Low      | Loading spinner   |
+| `ErrorState.tsx`         | Component | Low      | Error display     |
+| `GradientBackground.tsx` | Component | Low      | Background effect |
+| `use-mobile.tsx`         | Hook      | Medium   | Responsive hook   |
 
 ### Integration Tests
 
@@ -326,15 +330,15 @@ Vitest is fully configured and ready:
 
 ### Manual Testing Checklist
 
-| Feature | Test Steps | Expected Result |
-|---------|------------|-----------------|
-| Checkbox Toggle | Click checkboxes | State updates, progress recalculates |
-| Progress Dial | Complete items | Dial animates, shows percentage |
-| Completion | Complete all items | Confetti animation plays |
-| Theme Toggle | Click theme button | Theme switches with transition |
-| Persistence | Refresh page | Checked items are preserved |
-| Mobile View | Resize to mobile | Layout adapts responsively |
-| Toast Notifications | Trigger error | Toast appears correctly |
+| Feature             | Test Steps         | Expected Result                      |
+| ------------------- | ------------------ | ------------------------------------ |
+| Checkbox Toggle     | Click checkboxes   | State updates, progress recalculates |
+| Progress Dial       | Complete items     | Dial animates, shows percentage      |
+| Completion          | Complete all items | Confetti animation plays             |
+| Theme Toggle        | Click theme button | Theme switches with transition       |
+| Persistence         | Refresh page       | Checked items are preserved          |
+| Mobile View         | Resize to mobile   | Layout adapts responsively           |
+| Toast Notifications | Trigger error      | Toast appears correctly              |
 
 ### Performance Testing
 
@@ -362,6 +366,7 @@ Vitest is fully configured and ready:
 ### Rollback Criteria
 
 Trigger rollback if any of the following occur:
+
 - Application fails to start
 - Critical user flows are broken
 - Significant performance regression (>20%)
@@ -378,13 +383,13 @@ Trigger rollback if any of the following occur:
 
 ### Metrics to Monitor
 
-| Metric | Tool | Target |
-|--------|------|--------|
-| Console Errors | Browser DevTools | 0 |
-| Build Errors | CI Pipeline | 0 |
-| Test Failures | Vitest | 0 |
-| Bundle Size | Build Output | Within 10% baseline |
-| Lighthouse Score | Lighthouse | >= baseline |
+| Metric           | Tool             | Target              |
+| ---------------- | ---------------- | ------------------- |
+| Console Errors   | Browser DevTools | 0                   |
+| Build Errors     | CI Pipeline      | 0                   |
+| Test Failures    | Vitest           | 0                   |
+| Bundle Size      | Build Output     | Within 10% baseline |
+| Lighthouse Score | Lighthouse       | >= baseline         |
 
 ### Post-Deployment Checks
 
@@ -414,11 +419,11 @@ Trigger rollback if any of the following occur:
 
 ### Stakeholder Notifications
 
-| Event | Audience | Channel | Timing |
-|-------|----------|---------|--------|
-| Plan Approval | Dev Team | PR Review | Before work starts |
-| Upgrade Complete | Dev Team | PR Merge | On completion |
-| Production Deploy | Stakeholders | Slack/Email | After deploy |
+| Event             | Audience     | Channel     | Timing             |
+| ----------------- | ------------ | ----------- | ------------------ |
+| Plan Approval     | Dev Team     | PR Review   | Before work starts |
+| Upgrade Complete  | Dev Team     | PR Merge    | On completion      |
+| Production Deploy | Stakeholders | Slack/Email | After deploy       |
 
 ### Issue Escalation
 
@@ -508,69 +513,69 @@ Trigger rollback if any of the following occur:
 
 ### B. Current Project Component Structure
 
-| File | Type | Has Tests | Notes |
-|------|------|-----------|-------|
-| `src/pages/Index.tsx` | Page | ✅ Yes | Main app logic |
-| `src/components/SectionCard.tsx` | Component | ✅ Yes | Checklist section |
-| `src/components/ProgressDial.tsx` | Component | ✅ Yes | Progress indicator |
-| `src/components/ChecklistGrid.tsx` | Component | ❌ No | Grid layout |
-| `src/components/ChecklistHeader.tsx` | Component | ❌ No | Header |
-| `src/components/ThemeToggle.tsx` | Component | ❌ No | Theme switching |
-| `src/components/Footer.tsx` | Component | ❌ No | Footer |
-| `src/components/LoadingState.tsx` | Component | ❌ No | Loading spinner |
-| `src/components/ErrorState.tsx` | Component | ❌ No | Error display |
-| `src/components/GradientBackground.tsx` | Component | ❌ No | Background effect |
-| `src/hooks/use-mobile.tsx` | Hook | ❌ No | Responsive hook |
-| `src/services/checklistService.ts` | Service | ✅ Yes | Data layer |
-| `src/components/ui/*` | UI Library | Excluded | shadcn/ui |
+| File                                    | Type       | Has Tests | Notes              |
+| --------------------------------------- | ---------- | --------- | ------------------ |
+| `src/pages/Index.tsx`                   | Page       | ✅ Yes    | Main app logic     |
+| `src/components/SectionCard.tsx`        | Component  | ✅ Yes    | Checklist section  |
+| `src/components/ProgressDial.tsx`       | Component  | ✅ Yes    | Progress indicator |
+| `src/components/ChecklistGrid.tsx`      | Component  | ❌ No     | Grid layout        |
+| `src/components/ChecklistHeader.tsx`    | Component  | ❌ No     | Header             |
+| `src/components/ThemeToggle.tsx`        | Component  | ❌ No     | Theme switching    |
+| `src/components/Footer.tsx`             | Component  | ❌ No     | Footer             |
+| `src/components/LoadingState.tsx`       | Component  | ❌ No     | Loading spinner    |
+| `src/components/ErrorState.tsx`         | Component  | ❌ No     | Error display      |
+| `src/components/GradientBackground.tsx` | Component  | ❌ No     | Background effect  |
+| `src/hooks/use-mobile.tsx`              | Hook       | ❌ No     | Responsive hook    |
+| `src/services/checklistService.ts`      | Service    | ✅ Yes    | Data layer         |
+| `src/components/ui/*`                   | UI Library | Excluded  | shadcn/ui          |
 
 ### C. Test Infrastructure Files
 
-| File | Purpose |
-|------|---------|
-| `vitest.config.ts` | Vitest configuration with jsdom, globals, coverage |
-| `src/test/setup.ts` | Test setup with mocks (matchMedia, ResizeObserver, localStorage) |
+| File                      | Purpose                                                                  |
+| ------------------------- | ------------------------------------------------------------------------ |
+| `vitest.config.ts`        | Vitest configuration with jsdom, globals, coverage                       |
+| `src/test/setup.ts`       | Test setup with mocks (matchMedia, ResizeObserver, localStorage)         |
 | `src/test/test-utils.tsx` | Custom render with providers (QueryClient, ThemeProvider, BrowserRouter) |
 
 ### D. React 19 API Changes Reference
 
-| Old API | New API | Status |
-|---------|---------|--------|
-| `ReactDOM.render()` | `createRoot().render()` | Already migrated |
-| `ReactDOM.hydrate()` | `hydrateRoot()` | N/A (no SSR) |
-| `forwardRef` | `ref` as prop | Optional migration |
-| `<Context.Provider>` | `<Context>` | Optional migration |
-| `useFormState` | `useActionState` | N/A (not used) |
+| Old API              | New API                 | Status             |
+| -------------------- | ----------------------- | ------------------ |
+| `ReactDOM.render()`  | `createRoot().render()` | Already migrated   |
+| `ReactDOM.hydrate()` | `hydrateRoot()`         | N/A (no SSR)       |
+| `forwardRef`         | `ref` as prop           | Optional migration |
+| `<Context.Provider>` | `<Context>`             | Optional migration |
+| `useFormState`       | `useActionState`        | N/A (not used)     |
 
 ### E. Vitest Configuration (Current)
 
 ```typescript
 // vitest.config.ts
-import { defineConfig } from 'vitest/config';
-import react from '@vitejs/plugin-react-swc';
-import path from 'path';
+import { defineConfig } from "vitest/config";
+import react from "@vitejs/plugin-react-swc";
+import path from "path";
 
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'jsdom',
-    setupFiles: ['./src/test/setup.ts'],
+    environment: "jsdom",
+    setupFiles: ["./src/test/setup.ts"],
     globals: true,
-    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
+      provider: "v8",
+      reporter: ["text", "json", "html"],
       exclude: [
-        'node_modules/',
-        'src/test/',
-        '**/*.d.ts',
-        'src/components/ui/**', // Exclude shadcn/ui components
+        "node_modules/",
+        "src/test/",
+        "**/*.d.ts",
+        "src/components/ui/**", // Exclude shadcn/ui components
       ],
     },
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      "@": path.resolve(__dirname, "./src"),
     },
   },
 });

@@ -62,25 +62,52 @@ describe("useIsMobile", () => {
   });
 
   it("responds to window resize events", () => {
-    Object.defineProperty(window, "innerWidth", {
-      writable: true,
-      configurable: true,
-      value: 1024,
+    let changeListeners: ((e: MediaQueryListEvent) => void)[] = [];
+
+    // Mock matchMedia to capture change listeners
+    const mockMatchMedia = (query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: () => {},
+      removeListener: () => {},
+      addEventListener: (_: string, listener: (e: MediaQueryListEvent) => void) => {
+        changeListeners.push(listener);
+      },
+      removeEventListener: (_: string, listener: (e: MediaQueryListEvent) => void) => {
+        changeListeners = changeListeners.filter((l) => l !== listener);
+      },
+      dispatchEvent: () => false,
     });
 
-    const { result } = renderHook(() => useIsMobile());
-    expect(result.current).toBe(false);
+    const originalMatchMedia = window.matchMedia;
+    window.matchMedia = mockMatchMedia as any;
 
-    act(() => {
+    try {
       Object.defineProperty(window, "innerWidth", {
         writable: true,
         configurable: true,
-        value: 500,
+        value: 1024,
       });
-      window.dispatchEvent(new Event("resize"));
-    });
 
-    // Note: matchMedia mock in setup.ts handles the change event
-    // In real usage, this would update based on the media query listener
+      const { result } = renderHook(() => useIsMobile());
+      expect(result.current).toBe(false);
+
+      act(() => {
+        Object.defineProperty(window, "innerWidth", {
+          writable: true,
+          configurable: true,
+          value: 500,
+        });
+        // Trigger all registered change listeners
+        changeListeners.forEach((listener) => {
+          listener({ matches: true } as MediaQueryListEvent);
+        });
+      });
+
+      expect(result.current).toBe(true);
+    } finally {
+      window.matchMedia = originalMatchMedia;
+    }
   });
 });

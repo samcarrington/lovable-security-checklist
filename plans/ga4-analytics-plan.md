@@ -54,6 +54,7 @@ in:
   - Custom event tracking for checkbox interactions (data layer push)
   - Section completion and progress milestone events
   - Theme toggle and clear all button events
+  - External link click tracking (checklist item links, footer links)
   - Debug mode for development environment
 
 out:
@@ -434,6 +435,19 @@ export function trackThemeChange(theme: string): void {
 }
 
 export function trackClearAll(sectionId: string, sectionTitle: string): void {
+
+export function trackExternalLinkClick(
+  linkUrl: string,
+  linkText?: string,
+  linkContext?: string
+): void {
+  const params: Record<string, string> = {
+    link_url: linkUrl,
+  };
+  if (linkText) params.link_text = linkText;
+  if (linkContext) params.link_context = linkContext;
+  pushEvent("external_link_click", params);
+}
   pushEvent("clear_all", {
     section_id: sectionId,
     section_title: sectionTitle,
@@ -458,6 +472,7 @@ Configure the following in GTM:
 4. `Custom Event: progress_milestone` - Event equals "progress_milestone"
 5. `Custom Event: theme_change` - Event equals "theme_change"
 6. `Custom Event: clear_all` - Event equals "clear_all"
+7. `Custom Event: external_link_click` - Event equals "external_link_click"
 
 **Tags:**
 
@@ -474,7 +489,7 @@ Configure the following in GTM:
    - Event Parameters: item_id, section_id, section_title, item_title, checked
    - Trigger: Custom Event: checkbox_toggle
 
-4. Similar tags for section_complete, progress_milestone, theme_change, clear_all
+4. Similar tags for section_complete, progress_milestone, theme_change, clear_all, external_link_click
 
 ### Component Integration
 
@@ -694,6 +709,7 @@ trackClearAll(section.id, section.title);
 | `progress_milestone` | Overall progress milestone | `percentage` (25, 50, 75, 100)                                    | Custom Event   |
 | `theme_change`       | Theme toggle clicked       | `theme` (light, dark)                                             | Custom Event   |
 | `clear_all`          | Clear all button clicked   | `section_id`, `section_title`                                     | Custom Event   |
+| `external_link_click` | External link clicked      | `link_url`, `link_text` (optional), `link_context` (optional)    | Custom Event   |
 
 ### GA4 Enhanced Measurement Analysis
 
@@ -719,6 +735,7 @@ trackClearAll(section.id, section.title);
 | `src/components/SectionCard.tsx`         | Modify      | Add checkbox and section event tracking            |
 | `src/pages/Index.tsx`                    | Modify      | Add milestone tracking                             |
 | `src/components/ThemeToggle.tsx`         | Modify      | Add theme change tracking                          |
+| `src/components/Footer.tsx`              | Modify      | Add external link tracking                         |
 
 ### GTM Container Configuration Checklist
 

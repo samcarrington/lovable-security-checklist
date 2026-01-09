@@ -72,6 +72,30 @@ Navigate to **Variables** > **User-Defined Variables** > **New** and create the 
 
 ### 1.8 `dlv - theme`
 
+### 1.9 `dlv - link_url`
+
+| Field                    | Value               |
+| ------------------------ | ------------------- |
+| Variable Type            | Data Layer Variable |
+| Data Layer Variable Name | `link_url`          |
+| Data Layer Version       | Version 2           |
+
+### 1.10 `dlv - link_text`
+
+| Field                    | Value               |
+| ------------------------ | ------------------- |
+| Variable Type            | Data Layer Variable |
+| Data Layer Variable Name | `link_text`         |
+| Data Layer Version       | Version 2           |
+
+### 1.11 `dlv - link_context`
+
+| Field                    | Value               |
+| ------------------------ | ------------------- |
+| Variable Type            | Data Layer Variable |
+| Data Layer Variable Name | `link_context`      |
+| Data Layer Version       | Version 2           |
+
 | Field                    | Value               |
 | ------------------------ | ------------------- |
 | Variable Type            | Data Layer Variable |
@@ -124,7 +148,15 @@ Navigate to **Triggers** > **New** and create the following Custom Event trigger
 | Event name            | `clear_all`       |
 | This trigger fires on | All Custom Events |
 
-### 2.6 `History Change` (for SPA page views)
+### 2.6 `CE - external_link_click`
+
+| Field                 | Value                   |
+| --------------------- | ----------------------- |
+| Trigger Type          | Custom Event            |
+| Event name            | `external_link_click`   |
+| This trigger fires on | All Custom Events       |
+
+### 2.7 `History Change` (for SPA page views)
 
 | Field                 | Value               |
 | --------------------- | ------------------- |
@@ -251,6 +283,25 @@ Navigate to **Tags** > **New** and create the following GA4 Event tags:
 
 ---
 
+### 4.7 `GA4 Event - External Link Click`
+
+| Field                      | Value                       |
+| -------------------------- | --------------------------- |
+| Tag Type                   | Google Analytics: GA4 Event |
+| Configuration Tag          | `GA4 Configuration`         |
+| Event Name                 | `external_link_click`       |
+| **Event Parameters**       |                             |
+| Parameter Name             | Parameter Value             |
+| `link_url`                 | `{{dlv - link_url}}`        |
+| `link_text`                | `{{dlv - link_text}}`       |
+| `link_context`             | `{{dlv - link_context}}`    |
+| **Consent Settings**       |                             |
+| Require additional consent | ☑️ `analytics_storage`      |
+| **Triggering**             |                             |
+| Firing Triggers            | `CE - external_link_click`  |
+
+---
+
 ## Step 5: Configure Consent Mode
 
 The application handles Consent Mode defaults in the `index.html` file. GTM will respect these consent signals automatically when you:
@@ -289,6 +340,7 @@ This allows GTM tags requiring `analytics_storage` consent to fire.
    - Reach progress milestones (25%, 50%, 75%, 100%) → `progress_milestone` events
    - Toggle theme → `theme_change` event
    - Click "Clear all" → `clear_all` event
+   - Click external links (checklist items, footer) → `external_link_click` events
    - Navigate via history (if applicable) → `page_view` event
 
 4. Verify in GA4 DebugView:
@@ -318,6 +370,7 @@ Once testing is complete:
 | `progress_milestone` | Overall progress milestone | `percentage` (25, 50, 75, 100)                                    |
 | `theme_change`       | Theme toggle clicked       | `theme` (light, dark)                                             |
 | `clear_all`          | Clear all button clicked   | `section_id`, `section_title`                                     |
+| `external_link_click` | External link clicked      | `link_url`, `link_text` (optional), `link_context` (optional)    |
 
 ---
 
@@ -355,3 +408,4 @@ Once testing is complete:
 | `src/components/SectionCard.tsx`         | Added event tracking for checkboxes, sections, clear  |
 | `src/pages/Index.tsx`                    | Added progress milestone tracking                     |
 | `src/components/ThemeToggle.tsx`         | Added theme change tracking                           |
+| `src/components/Footer.tsx`              | Added external link tracking                          |

@@ -17,7 +17,8 @@ import ReactConfetti from 'react-confetti';
 import { 
   trackCheckboxToggle, 
   trackSectionComplete, 
-  trackClearAll 
+  trackClearAll,
+  trackExternalLinkClick 
 } from '@/lib/analytics';
 
 interface SectionCardProps {
@@ -230,6 +231,11 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary hover:underline inline-flex items-center gap-1"
+                  onClick={() => trackExternalLinkClick(
+                    selectedItem.link!,
+                    `Learn more [${extractDomain(selectedItem.link!)}]`,
+                    'checklist_item'
+                  )}
                 >
                   Learn more [{extractDomain(selectedItem.link)}]
                   <ExternalLink className="h-4 w-4 ml-1" />

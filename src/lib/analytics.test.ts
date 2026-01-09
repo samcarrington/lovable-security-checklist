@@ -11,6 +11,7 @@ import {
   trackThemeChange,
   trackClearAll,
   trackPageView,
+  trackExternalLinkClick,
   isConsentGranted,
   getEventQueueLength,
   clearEventQueue,
@@ -638,6 +639,58 @@ describe('analytics', () => {
       
       expect(getEventQueueLength()).toBe(1);
       expect(mockDataLayer.filter((i: DataLayerItem) => i.event === 'page_view').length).toBe(0);
+    });
+  });
+
+
+  describe('trackExternalLinkClick', () => {
+    beforeEach(() => {
+      updateConsent(ConsentState.GRANTED);
+    });
+
+    test('tracks external link click with URL and text', () => {
+      trackExternalLinkClick('https://example.com', 'Example Site');
+
+      expect(mockDataLayer).toContainEqual(
+        expect.objectContaining({
+          event: 'external_link_click',
+          link_url: 'https://example.com',
+          link_text: 'Example Site',
+        })
+      );
+    });
+
+    test('tracks external link click with URL only', () => {
+      trackExternalLinkClick('https://github.com/user/repo');
+
+      expect(mockDataLayer).toContainEqual(
+        expect.objectContaining({
+          event: 'external_link_click',
+          link_url: 'https://github.com/user/repo',
+        })
+      );
+    });
+
+    test('tracks external link click with optional context', () => {
+      trackExternalLinkClick('https://docs.example.com', 'Learn More', 'checklist_item');
+
+      expect(mockDataLayer).toContainEqual(
+        expect.objectContaining({
+          event: 'external_link_click',
+          link_url: 'https://docs.example.com',
+          link_text: 'Learn More',
+          link_context: 'checklist_item',
+        })
+      );
+    });
+
+    test('queues external link click events before consent', () => {
+      resetConsentState();
+      
+      trackExternalLinkClick('https://example.com', 'Test');
+      
+      expect(getEventQueueLength()).toBe(1);
+      expect(mockDataLayer.filter((i: DataLayerItem) => i.event === 'external_link_click').length).toBe(0);
     });
   });
 

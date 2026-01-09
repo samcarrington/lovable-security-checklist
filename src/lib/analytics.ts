@@ -271,3 +271,29 @@ export function trackPageView(pagePath: string, pageTitle?: string): void {
 
   pushEvent('page_view', params);
 }
+
+/**
+ * Track external link click events
+ * @param linkUrl - The URL of the external link
+ * @param linkText - Optional text/label of the link
+ * @param linkContext - Optional context describing where the link is located (e.g., 'checklist_item', 'footer')
+ */
+export function trackExternalLinkClick(
+  linkUrl: string,
+  linkText?: string,
+  linkContext?: string
+): void {
+  const params: Record<string, string> = {
+    link_url: linkUrl,
+  };
+
+  if (linkText) {
+    params.link_text = linkText;
+  }
+
+  if (linkContext) {
+    params.link_context = linkContext;
+  }
+
+  pushEvent('external_link_click', params);
+}

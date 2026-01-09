@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import {
   fetchChecklist,
@@ -13,6 +13,10 @@ import ErrorState from "@/components/ErrorState";
 import ChecklistHeader from "@/components/ChecklistHeader";
 import ChecklistGrid from "@/components/ChecklistGrid";
 import Footer from "@/components/Footer";
+import { trackProgressMilestone } from "@/lib/analytics";
+
+// Progress milestones to track
+const MILESTONES = [25, 50, 75, 100];
 
 const Index = () => {
   const [checklist, setChecklist] = useState<Checklist | null>(null);
@@ -20,6 +24,9 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
+  
+  // Track which milestones have been fired to avoid duplicates
+  const firedMilestones = useRef<Set<number>>(new Set());
 
   useEffect(() => {
     async function loadData() {
@@ -64,6 +71,23 @@ const Index = () => {
 
     return totalItems > 0 ? (checkedCount / totalItems) * 100 : 0;
   }, [checkedItems, checklist]);
+
+  // Track progress milestones
+  useEffect(() => {
+    MILESTONES.forEach((milestone) => {
+      if (totalProgress >= milestone && !firedMilestones.current.has(milestone)) {
+        firedMilestones.current.add(milestone);
+        trackProgressMilestone(milestone);
+      }
+    });
+    
+    // Reset milestones if progress goes back down (e.g., user clears items)
+    MILESTONES.forEach((milestone) => {
+      if (totalProgress < milestone && firedMilestones.current.has(milestone)) {
+        firedMilestones.current.delete(milestone);
+      }
+    });
+  }, [totalProgress]);
 
   // Memoized callback to prevent unnecessary re-renders of children
   const handleItemToggle = useCallback((itemId: string, checked: boolean) => {

@@ -10,10 +10,10 @@
     />
     <meta name="author" content="Sam Carrington (and Lovable)" />
 
-    <!-- Content Security Policy -->
+    <!-- Content Security Policy - Updated for GTM and GA4 -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' https://cdn.gpteng.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https:;"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.gpteng.co https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self' data:; connect-src 'self' https: https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://region1.google-analytics.com; frame-src https://www.googletagmanager.com;"
     />
 
     <meta
@@ -33,13 +33,56 @@
       name="twitter:image"
       content="https://lovable.dev/opengraph-image-p98pqg.png"
     />
+
+    <!-- Google Tag Manager with Consent Mode v2 defaults -->
+    <script>
+      // Initialize dataLayer
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      // Set default consent to denied (GDPR compliant)
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: "denied",
+        wait_for_update: 500,
+      });
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NJ7W8HQ8");
+    </script>
   </head>
 
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NJ7W8HQ8"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      >
+      </iframe>
+    </noscript>
+
     <div id="root"></div>
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script 
-      src="https://cdn.gpteng.co/gptengineer.js" 
+    <script
+      src="https://cdn.gpteng.co/gptengineer.js"
       type="module"
       integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb"
       crossorigin="anonymous"

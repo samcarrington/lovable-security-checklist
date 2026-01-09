@@ -14,6 +14,12 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import ReactConfetti from 'react-confetti';
+import { 
+  trackCheckboxToggle, 
+  trackSectionComplete, 
+  trackClearAll,
+  trackExternalLinkClick 
+} from '@/lib/analytics';
 
 interface SectionCardProps {
   section: ChecklistSection;
@@ -33,6 +39,8 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
     externalLink?: string;
     link?: string;
   }>(null);
+  // Track if we've already fired section_complete for this completion
+  const sectionCompleteFired = useRef(false);
 
   const isFullyComplete = progress === 100;
 
@@ -71,16 +79,29 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
       setIsAnimating(true);
       setProgress(newProgress);
       
-      if (newProgress === 100) {
+      // Track section completion - only fire once per completion
+      if (newProgress === 100 && !sectionCompleteFired.current) {
         setShowConfetti(true);
+        sectionCompleteFired.current = true;
+        trackSectionComplete(section.id, section.title, section.items.length);
         const timer = setTimeout(() => setShowConfetti(false), 5000);
         return () => clearTimeout(timer);
+      }
+      
+      // Reset the flag if we're no longer complete
+      if (newProgress < 100) {
+        sectionCompleteFired.current = false;
       }
 
       const timer = setTimeout(() => setIsAnimating(false), 1000);
       return () => clearTimeout(timer);
     }
-  }, [checkedItems, section.items, progress]);
+  }, [checkedItems, section.items, section.id, section.title, progress]);
+
+  const handleCheckboxChange = (item: { id: string; title: string }, checked: boolean) => {
+    onItemToggle(item.id, checked);
+    trackCheckboxToggle(item.id, section.id, section.title, item.title, checked);
+  };
 
   const handleClearSection = () => {
     const itemsToUncheck = section.items
@@ -92,6 +113,8 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
       if (import.meta.env.DEV) {
         console.log(`Unchecking ${itemsToUncheck.length} items:`, itemsToUncheck);
       }
+      // Track clear all event before unchecking
+      trackClearAll(section.id, section.title);
       itemsToUncheck.forEach(id => onItemToggle(id, false));
     }
   };
@@ -164,7 +187,7 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
                 id={item.id}
                 checked={!!checkedItems[item.id]}
                 onCheckedChange={(checked) => {
-                  onItemToggle(item.id, checked === true);
+                  handleCheckboxChange(item, checked === true);
                 }}
                 className="mt-1"
                 aria-label={item.title}
@@ -208,6 +231,11 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary hover:underline inline-flex items-center gap-1"
+                  onClick={() => trackExternalLinkClick(
+                    selectedItem.link!,
+                    `Learn more [${extractDomain(selectedItem.link!)}]`,
+                    'checklist_item'
+                  )}
                 >
                   Learn more [{extractDomain(selectedItem.link)}]
                   <ExternalLink className="h-4 w-4 ml-1" />

@@ -599,13 +599,13 @@ trackClearAll(section.id, section.title);
 
 ### Metrics to Collect
 
-| Metric                         | Unit       | Target                  |
-| ------------------------------ | ---------- | ----------------------- |
-| Consent Rate                   | percentage | Track accept vs decline |
-| Daily Active Users (consented) | count      | Baseline tracking       |
-| Session Duration               | seconds    | > 60s average           |
-| Checklist Completion Rate      | percentage | Track over time         |
-| Events per Session             | count      | 3-10 typical            |
+| Metric                    | Unit       | Target                |
+| ------------------------- | ---------- | --------------------- |
+| Daily Active Users        | count      | Baseline tracking     |
+| Session Duration          | seconds    | > 60s average         |
+| Checklist Completion Rate | percentage | Track over time       |
+| Events per Session        | count      | 3-10 typical          |
+| Page Views                | count      | Track user navigation |
 
 ### Alerts
 

@@ -254,3 +254,20 @@ export function trackClearAll(sectionId: string, sectionTitle: string): void {
     section_title: sectionTitle,
   });
 }
+
+/**
+ * Track page view events
+ * @param pagePath - The page path (e.g., '/', '/about')
+ * @param pageTitle - Optional page title
+ */
+export function trackPageView(pagePath: string, pageTitle?: string): void {
+  const params: Record<string, string> = {
+    page_path: pagePath,
+  };
+
+  if (pageTitle) {
+    params.page_title = pageTitle;
+  }
+
+  pushEvent('page_view', params);
+}

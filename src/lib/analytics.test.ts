@@ -10,6 +10,7 @@ import {
   trackProgressMilestone,
   trackThemeChange,
   trackClearAll,
+  trackPageView,
   isConsentGranted,
   getEventQueueLength,
   clearEventQueue,
@@ -588,6 +589,55 @@ describe('analytics', () => {
 
       const clearAllEvents = mockDataLayer.filter((item: DataLayerItem) => item.event === 'clear_all');
       expect(clearAllEvents.length).toBe(2);
+    });
+  });
+
+  describe('trackPageView', () => {
+    beforeEach(() => {
+      updateConsent(ConsentState.GRANTED);
+    });
+
+    test('tracks page view with path parameter', () => {
+      trackPageView('/');
+
+      expect(mockDataLayer).toContainEqual(
+        expect.objectContaining({
+          event: 'page_view',
+          page_path: '/',
+        })
+      );
+    });
+
+    test('tracks page view with title parameter', () => {
+      trackPageView('/', 'Security Checklist');
+
+      expect(mockDataLayer).toContainEqual(
+        expect.objectContaining({
+          event: 'page_view',
+          page_path: '/',
+          page_title: 'Security Checklist',
+        })
+      );
+    });
+
+    test('tracks page view for different paths', () => {
+      trackPageView('/about');
+
+      expect(mockDataLayer).toContainEqual(
+        expect.objectContaining({
+          event: 'page_view',
+          page_path: '/about',
+        })
+      );
+    });
+
+    test('queues page view events before consent', () => {
+      resetConsentState();
+      
+      trackPageView('/');
+      
+      expect(getEventQueueLength()).toBe(1);
+      expect(mockDataLayer.filter((i: DataLayerItem) => i.event === 'page_view').length).toBe(0);
     });
   });
 

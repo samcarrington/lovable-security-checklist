@@ -7,14 +7,16 @@ import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { CookieConsentBanner } from "./components/CookieConsentBanner";
-import { restoreConsent } from "./lib/analytics";
+import { restoreConsent, trackPageView } from "./lib/analytics";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  // Restore consent state on app load
+  // Restore consent state and track initial page view on app load
   useEffect(() => {
     restoreConsent();
+    // Track initial page view - will be queued if consent not yet granted
+    trackPageView(window.location.pathname, document.title || 'Security Checklist');
   }, []);
 
   return (

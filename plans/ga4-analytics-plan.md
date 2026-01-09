@@ -672,7 +672,9 @@ trackClearAll(section.id, section.title);
 
 ## 18. Related documents & links
 
-- [GA4 Implementation Research Findings](./ga4-research-findings.md)
+- [GA4 Implementation Research Findings](./archive/ga4-research-findings.md)
+- [Detailed Research Findins](./archive/ga4-detailed-research-findings.md)
+- [Plan Review Findings](./archive/ga4-plan-review-findings.md)
 - [Google Tag Manager Documentation](https://support.google.com/tagmanager)
 - [GTM Consent Mode v2 Guide](https://support.google.com/tagmanager/answer/10718549)
 - [Google Analytics 4 Documentation](https://developers.google.com/analytics/devguides/collection/ga4)

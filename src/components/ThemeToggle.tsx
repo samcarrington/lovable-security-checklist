@@ -2,6 +2,7 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { trackThemeChange } from "@/lib/analytics";
 
 export const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
@@ -12,8 +13,11 @@ export const ThemeToggle = () => {
     setMounted(true);
   }, []);
 
-  // Removed manual DOM manipulation - next-themes handles this automatically
-  // when configured with attribute="class"
+  const handleThemeToggle = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    trackThemeChange(newTheme);
+  };
 
   if (!mounted) return null;
 
@@ -21,7 +25,7 @@ export const ThemeToggle = () => {
     <Button
       variant="outline"
       size="icon"
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      onClick={handleThemeToggle}
       className="fixed top-4 right-4"
       aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
     >

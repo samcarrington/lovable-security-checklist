@@ -10,6 +10,10 @@ import {
   trackProgressMilestone,
   trackThemeChange,
   trackClearAll,
+  isConsentGranted,
+  getEventQueueLength,
+  clearEventQueue,
+  resetConsentState,
   CONSENT_STORAGE_KEY,
 } from './analytics';
 
@@ -47,6 +51,9 @@ describe('analytics', () => {
     vi.clearAllMocks();
     localStorageMock.clear();
     
+    // Reset internal state
+    resetConsentState();
+    
     // Setup fresh mocks for each test
     mockGtag = vi.fn();
     mockDataLayer = [];
@@ -67,6 +74,7 @@ describe('analytics', () => {
   afterEach(() => {
     vi.clearAllMocks();
     localStorageMock.clear();
+    resetConsentState();
   });
 
   describe('ConsentState enum', () => {
@@ -134,6 +142,23 @@ describe('analytics', () => {
       expect(mockGtag).toHaveBeenCalledTimes(3);
       expect(localStorageMock.setItem).toHaveBeenCalledTimes(3);
     });
+
+    test('sets consentGranted to true when consent is granted', () => {
+      expect(isConsentGranted()).toBe(false);
+      
+      updateConsent(ConsentState.GRANTED);
+      
+      expect(isConsentGranted()).toBe(true);
+    });
+
+    test('sets consentGranted to false when consent is denied', () => {
+      updateConsent(ConsentState.GRANTED);
+      expect(isConsentGranted()).toBe(true);
+      
+      updateConsent(ConsentState.DENIED);
+      
+      expect(isConsentGranted()).toBe(false);
+    });
   });
 
   describe('restoreConsent', () => {
@@ -194,7 +219,118 @@ describe('analytics', () => {
     });
   });
 
+  describe('Event Queuing', () => {
+    test('queues events when consent has not been granted', () => {
+      expect(isConsentGranted()).toBe(false);
+      
+      pushEvent('test_event');
+      
+      expect(getEventQueueLength()).toBe(1);
+      expect(mockDataLayer.length).toBe(0); // Not pushed to dataLayer yet
+    });
+
+    test('pushes events directly to dataLayer when consent is granted', () => {
+      updateConsent(ConsentState.GRANTED);
+      
+      pushEvent('test_event');
+      
+      expect(getEventQueueLength()).toBe(0);
+      expect(mockDataLayer).toContainEqual(
+        expect.objectContaining({ event: 'test_event' })
+      );
+    });
+
+    test('flushes queued events when consent is granted', () => {
+      // Queue some events before consent
+      pushEvent('event_1');
+      pushEvent('event_2', { param: 'value' });
+      pushEvent('event_3');
+      
+      expect(getEventQueueLength()).toBe(3);
+      expect(mockDataLayer.length).toBe(0);
+      
+      // Grant consent - should flush queue
+      updateConsent(ConsentState.GRANTED);
+      
+      expect(getEventQueueLength()).toBe(0);
+      expect(mockDataLayer.length).toBe(3);
+      expect(mockDataLayer).toContainEqual(expect.objectContaining({ event: 'event_1' }));
+      expect(mockDataLayer).toContainEqual(expect.objectContaining({ event: 'event_2', param: 'value' }));
+      expect(mockDataLayer).toContainEqual(expect.objectContaining({ event: 'event_3' }));
+    });
+
+    test('preserves event order when flushing queue', () => {
+      pushEvent('first');
+      pushEvent('second');
+      pushEvent('third');
+      
+      updateConsent(ConsentState.GRANTED);
+      
+      const events = mockDataLayer.map((item: DataLayerItem) => item.event);
+      expect(events).toEqual(['first', 'second', 'third']);
+    });
+
+    test('does not flush queue when consent is denied', () => {
+      pushEvent('event_1');
+      pushEvent('event_2');
+      
+      updateConsent(ConsentState.DENIED);
+      
+      expect(getEventQueueLength()).toBe(2);
+      expect(mockDataLayer.length).toBe(0);
+    });
+
+    test('clears queue only after successful flush', () => {
+      pushEvent('event_1');
+      expect(getEventQueueLength()).toBe(1);
+      
+      updateConsent(ConsentState.GRANTED);
+      
+      expect(getEventQueueLength()).toBe(0);
+    });
+
+    test('new events after consent go directly to dataLayer', () => {
+      pushEvent('queued_event');
+      updateConsent(ConsentState.GRANTED);
+      pushEvent('direct_event');
+      
+      expect(getEventQueueLength()).toBe(0);
+      expect(mockDataLayer.length).toBe(2);
+    });
+
+    test('queues events again if consent is revoked and re-granted', () => {
+      updateConsent(ConsentState.GRANTED);
+      pushEvent('event_1'); // Goes to dataLayer
+      
+      updateConsent(ConsentState.DENIED);
+      pushEvent('event_2'); // Gets queued
+      
+      expect(mockDataLayer.length).toBe(1);
+      expect(getEventQueueLength()).toBe(1);
+      
+      updateConsent(ConsentState.GRANTED);
+      
+      expect(mockDataLayer.length).toBe(2);
+      expect(getEventQueueLength()).toBe(0);
+    });
+
+    test('clearEventQueue removes all queued events', () => {
+      pushEvent('event_1');
+      pushEvent('event_2');
+      expect(getEventQueueLength()).toBe(2);
+      
+      clearEventQueue();
+      
+      expect(getEventQueueLength()).toBe(0);
+    });
+  });
+
   describe('pushEvent', () => {
+    beforeEach(() => {
+      // Grant consent for basic pushEvent tests
+      updateConsent(ConsentState.GRANTED);
+    });
+
     test('pushes event to window.dataLayer with correct structure', () => {
       pushEvent('page_view');
 
@@ -258,7 +394,6 @@ describe('analytics', () => {
       pushEvent('event_2', { param: 'value' });
       pushEvent('event_3');
 
-      expect(mockDataLayer.length).toBeGreaterThanOrEqual(3);
       const events = mockDataLayer
         .filter((item: DataLayerItem) => item.event)
         .map((item: DataLayerItem) => item.event);
@@ -269,6 +404,10 @@ describe('analytics', () => {
   });
 
   describe('trackCheckboxToggle', () => {
+    beforeEach(() => {
+      updateConsent(ConsentState.GRANTED);
+    });
+
     test('tracks checkbox toggle with all parameters', () => {
       trackCheckboxToggle('item-1', 'section-1', 'Security', 'Enable 2FA', true);
 
@@ -307,9 +446,22 @@ describe('analytics', () => {
       const toggleEvents = mockDataLayer.filter((item: DataLayerItem) => item.event === 'checkbox_toggle');
       expect(toggleEvents.length).toBe(3);
     });
+
+    test('queues checkbox toggle events before consent', () => {
+      resetConsentState();
+      
+      trackCheckboxToggle('item-1', 'section-1', 'Security', 'Enable 2FA', true);
+      
+      expect(getEventQueueLength()).toBe(1);
+      expect(mockDataLayer.filter((i: DataLayerItem) => i.event === 'checkbox_toggle').length).toBe(0);
+    });
   });
 
   describe('trackSectionComplete', () => {
+    beforeEach(() => {
+      updateConsent(ConsentState.GRANTED);
+    });
+
     test('tracks section completion with all parameters', () => {
       trackSectionComplete('section-1', 'Security', 5);
 
@@ -336,6 +488,10 @@ describe('analytics', () => {
   });
 
   describe('trackProgressMilestone', () => {
+    beforeEach(() => {
+      updateConsent(ConsentState.GRANTED);
+    });
+
     test('tracks 25% progress milestone', () => {
       trackProgressMilestone(25);
 
@@ -382,6 +538,10 @@ describe('analytics', () => {
   });
 
   describe('trackThemeChange', () => {
+    beforeEach(() => {
+      updateConsent(ConsentState.GRANTED);
+    });
+
     test('tracks light theme change', () => {
       trackThemeChange('light');
 
@@ -406,6 +566,10 @@ describe('analytics', () => {
   });
 
   describe('trackClearAll', () => {
+    beforeEach(() => {
+      updateConsent(ConsentState.GRANTED);
+    });
+
     test('tracks clear all button click with section info', () => {
       trackClearAll('section-1', 'Security');
 
@@ -428,6 +592,26 @@ describe('analytics', () => {
   });
 
   describe('Integration scenarios', () => {
+    test('flow: events queued before consent, then flushed on accept', () => {
+      // User interacts before accepting consent
+      trackCheckboxToggle('item-1', 'section-1', 'Security', 'Enable 2FA', true);
+      trackProgressMilestone(25);
+      trackThemeChange('dark');
+      
+      expect(getEventQueueLength()).toBe(3);
+      expect(mockDataLayer.length).toBe(0);
+      
+      // User accepts consent
+      updateConsent(ConsentState.GRANTED);
+      
+      // All queued events should be flushed
+      expect(getEventQueueLength()).toBe(0);
+      expect(mockDataLayer.length).toBe(3);
+      expect(mockDataLayer).toContainEqual(expect.objectContaining({ event: 'checkbox_toggle' }));
+      expect(mockDataLayer).toContainEqual(expect.objectContaining({ event: 'progress_milestone' }));
+      expect(mockDataLayer).toContainEqual(expect.objectContaining({ event: 'theme_change' }));
+    });
+
     test('flow: user grants consent then tracks events', () => {
       updateConsent(ConsentState.GRANTED);
       pushEvent('app_start');
@@ -448,24 +632,23 @@ describe('analytics', () => {
       );
     });
 
-    test('flow: complete user journey tracking', () => {
-      // User arrives
+    test('flow: complete user journey with pre-consent activity', () => {
+      // User arrives and interacts before consent
       pushEvent('page_view', { page_title: 'Checklist' });
-      
-      // User completes items
       trackCheckboxToggle('item-1', 'security', 'Security', 'Enable 2FA', true);
-      trackCheckboxToggle('item-2', 'security', 'Security', 'Update password', true);
-      
-      // User completes section
-      trackSectionComplete('security', 'Security', 2);
-      
-      // Track progress
       trackProgressMilestone(25);
       
-      // User changes theme
+      expect(getEventQueueLength()).toBe(3);
+      
+      // User accepts consent
+      updateConsent(ConsentState.GRANTED);
+      
+      // Continue interacting
+      trackCheckboxToggle('item-2', 'security', 'Security', 'Update password', true);
+      trackSectionComplete('security', 'Security', 2);
       trackThemeChange('dark');
       
-      // Verify events were tracked
+      // All events should be in dataLayer
       const events = mockDataLayer
         .filter((item: DataLayerItem) => item.event)
         .map((item: DataLayerItem) => item.event);
@@ -474,6 +657,32 @@ describe('analytics', () => {
       expect(events).toContain('section_complete');
       expect(events).toContain('progress_milestone');
       expect(events).toContain('theme_change');
+      expect(mockDataLayer.length).toBe(6);
+    });
+
+    test('flow: user declines consent - events stay queued', () => {
+      trackCheckboxToggle('item-1', 'section-1', 'Security', 'Enable 2FA', true);
+      trackProgressMilestone(25);
+      
+      updateConsent(ConsentState.DENIED);
+      
+      // Events should remain queued
+      expect(getEventQueueLength()).toBe(2);
+      expect(mockDataLayer.length).toBe(0);
+    });
+
+    test('flow: restore consent on page reload with queued events', () => {
+      // Simulate events before consent restore
+      pushEvent('page_view');
+      expect(getEventQueueLength()).toBe(1);
+      
+      // Restore consent (simulating page reload with previously granted consent)
+      localStorageMock.getItem.mockReturnValue(ConsentState.GRANTED);
+      restoreConsent();
+      
+      // Queued events should be flushed
+      expect(getEventQueueLength()).toBe(0);
+      expect(mockDataLayer).toContainEqual(expect.objectContaining({ event: 'page_view' }));
     });
   });
 
@@ -488,6 +697,7 @@ describe('analytics', () => {
     });
 
     test('handles empty string parameters', () => {
+      updateConsent(ConsentState.GRANTED);
       trackCheckboxToggle('', '', '', '', true);
 
       expect(mockDataLayer).toContainEqual(
@@ -495,6 +705,13 @@ describe('analytics', () => {
           event: 'checkbox_toggle',
         })
       );
+    });
+
+    test('handles empty queue flush gracefully', () => {
+      expect(getEventQueueLength()).toBe(0);
+      
+      // Should not throw when flushing empty queue
+      expect(() => updateConsent(ConsentState.GRANTED)).not.toThrow();
     });
   });
 });

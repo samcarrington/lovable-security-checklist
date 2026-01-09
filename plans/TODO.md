@@ -46,9 +46,9 @@ S1 tasks map to T-001 to T-005 in `./security-final-remediation-plan.md` (Securi
 | Task ID | Description                                          | Status      | Notes                                  |
 | ------- | ---------------------------------------------------- | ----------- | -------------------------------------- |
 | T-001   | GTM container created and GA4 tag configured         | Done        | GTM-NJ7W8HQ8, G-517LEH65ZW             |
-| T-008   | Configure GTM Consent Mode v2 with regional defaults | Not started | See docs/gtm-setup-instructions.md     |
-| T-010   | Configure GTM History Change trigger for SPA         | Not started | See docs/gtm-setup-instructions.md     |
-| T-016   | Create GTM triggers and tags for custom events       | Not started | See docs/gtm-setup-instructions.md     |
+| T-008   | Configure GTM Consent Mode v2 with regional defaults | Done        | See docs/gtm-setup-instructions.md     |
+| T-010   | Configure GTM History Change trigger for SPA         | Done        | See docs/gtm-setup-instructions.md     |
+| T-016   | Create GTM triggers and tags for custom events       | Done        | See docs/gtm-setup-instructions.md     |
 | T-018   | Test consent flow in GTM Preview mode                | Not started | After T-016 complete                   |
 | T-019   | Validate all events in GA4 DebugView                 | Not started | After T-018 complete                   |
 | T-020   | Test consent banner across browsers                  | Not started | Chrome, Firefox, Safari                |
@@ -59,3 +59,4 @@ S1 tasks map to T-001 to T-005 in `./security-final-remediation-plan.md` (Securi
 - 2026-01-02: Added P1
 - 2026-01-09: Added S1-01 - Security remediation complete (24/24 findings closed)
 - 2026-01-09: Updated P1-01 - GA4 Analytics code implementation complete, added detailed task breakdown
+- 2026-01-09: Updated T-008, T-010, T-016

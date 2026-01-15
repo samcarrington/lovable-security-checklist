@@ -18,6 +18,14 @@ export default defineConfig({
         '**/*.d.ts',
         'src/components/ui/**', // Exclude shadcn/ui components from coverage
       ],
+      thresholds: {
+        global: {
+          statements: 90,
+          branches: 70,
+          functions: 80,
+          lines: 90,
+        },
+      },
     },
   },
   resolve: {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo } from 'react';
+import React, { useState, useEffect, useRef, memo, useCallback, lazy, Suspense } from 'react';
 import { ChecklistSection } from '@/services/checklistService';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -13,13 +13,16 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import ReactConfetti from 'react-confetti';
 import { 
   trackCheckboxToggle, 
   trackSectionComplete, 
   trackClearAll,
   trackExternalLinkClick 
 } from '@/lib/analytics';
+import { isValidExternalUrl } from '@/lib/urlValidation';
+
+// Lazy load react-confetti to reduce initial bundle size
+const ReactConfetti = lazy(() => import('react-confetti'));
 
 interface SectionCardProps {
   section: ChecklistSection;
@@ -39,8 +42,13 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
     externalLink?: string;
     link?: string;
   }>(null);
+  
   // Track if we've already fired section_complete for this completion
   const sectionCompleteFired = useRef(false);
+  
+  // Timer refs for proper cleanup
+  const confettiTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const animationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isFullyComplete = progress === 100;
 
@@ -69,6 +77,7 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
     };
   }, []);
 
+  // Progress and confetti effect with proper timer cleanup
   useEffect(() => {
     const checkedCount = section.items.filter(item => checkedItems[item.id]).length;
     const newProgress = section.items.length > 0 
@@ -79,13 +88,22 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
       setIsAnimating(true);
       setProgress(newProgress);
       
+      // Clear existing timers
+      if (confettiTimerRef.current) {
+        clearTimeout(confettiTimerRef.current);
+        confettiTimerRef.current = null;
+      }
+      if (animationTimerRef.current) {
+        clearTimeout(animationTimerRef.current);
+        animationTimerRef.current = null;
+      }
+      
       // Track section completion - only fire once per completion
       if (newProgress === 100 && !sectionCompleteFired.current) {
         setShowConfetti(true);
         sectionCompleteFired.current = true;
         trackSectionComplete(section.id, section.title, section.items.length);
-        const timer = setTimeout(() => setShowConfetti(false), 5000);
-        return () => clearTimeout(timer);
+        confettiTimerRef.current = setTimeout(() => setShowConfetti(false), 5000);
       }
       
       // Reset the flag if we're no longer complete
@@ -93,17 +111,27 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
         sectionCompleteFired.current = false;
       }
 
-      const timer = setTimeout(() => setIsAnimating(false), 1000);
-      return () => clearTimeout(timer);
+      animationTimerRef.current = setTimeout(() => setIsAnimating(false), 1000);
     }
+    
+    // Cleanup function always runs on unmount
+    return () => {
+      if (confettiTimerRef.current) {
+        clearTimeout(confettiTimerRef.current);
+      }
+      if (animationTimerRef.current) {
+        clearTimeout(animationTimerRef.current);
+      }
+    };
   }, [checkedItems, section.items, section.id, section.title, progress]);
 
-  const handleCheckboxChange = (item: { id: string; title: string }, checked: boolean) => {
+  // Memoized event handlers with useCallback
+  const handleCheckboxChange = useCallback((item: { id: string; title: string }, checked: boolean) => {
     onItemToggle(item.id, checked);
     trackCheckboxToggle(item.id, section.id, section.title, item.title, checked);
-  };
+  }, [onItemToggle, section.id, section.title]);
 
-  const handleClearSection = () => {
+  const handleClearSection = useCallback(() => {
     const itemsToUncheck = section.items
       .filter(item => checkedItems[item.id])
       .map(item => item.id);
@@ -117,16 +145,32 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
       trackClearAll(section.id, section.title);
       itemsToUncheck.forEach(id => onItemToggle(id, false));
     }
-  };
+  }, [section.items, section.id, section.title, checkedItems, onItemToggle]);
 
-  const extractDomain = (url: string) => {
+  const handleSelectItem = useCallback((item: typeof selectedItem) => {
+    setSelectedItem(item);
+  }, []);
+
+  const handleCloseDialog = useCallback(() => {
+    setSelectedItem(null);
+  }, []);
+
+  const extractDomain = useCallback((url: string) => {
     try {
       const domain = new URL(url).hostname.replace('www.', '');
       return domain;
     } catch {
       return '';
     }
-  };
+  }, []);
+
+  const handleExternalLinkClick = useCallback((link: string) => {
+    trackExternalLinkClick(
+      link,
+      `Learn more [${extractDomain(link)}]`,
+      'checklist_item'
+    );
+  }, [extractDomain]);
 
   return (
     <Card 
@@ -139,13 +183,15 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
     >
       {showConfetti && dimensions.width > 0 && dimensions.height > 0 && (
         <div className="absolute inset-0 pointer-events-none">
-          <ReactConfetti
-            width={dimensions.width}
-            height={dimensions.height}
-            recycle={false}
-            numberOfPieces={50}
-            gravity={0.3}
-          />
+          <Suspense fallback={null}>
+            <ReactConfetti
+              width={dimensions.width}
+              height={dimensions.height}
+              recycle={false}
+              numberOfPieces={50}
+              gravity={0.3}
+            />
+          </Suspense>
         </div>
       )}
       
@@ -159,6 +205,7 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
               <Button
                 variant="ghost"
                 size="sm"
+                type="button"
                 className="text-sm text-muted-foreground hover:text-destructive"
                 onClick={handleClearSection}
               >
@@ -202,8 +249,9 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
                 <Button
                   variant="ghost"
                   size="icon"
+                  type="button"
                   className="h-6 w-6"
-                  onClick={() => setSelectedItem(item)}
+                  onClick={() => handleSelectItem(item)}
                   aria-label={`More info about ${item.title}`}
                 >
                   <Info className="h-4 w-4" />
@@ -213,7 +261,7 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
           ))}
         </ul>
 
-        <Dialog open={!!selectedItem} onOpenChange={() => setSelectedItem(null)}>
+        <Dialog open={!!selectedItem} onOpenChange={handleCloseDialog}>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>{selectedItem?.title}</DialogTitle>
@@ -224,18 +272,14 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
               )}
             </DialogHeader>
             
-            {selectedItem?.link && (
+            {selectedItem?.link && isValidExternalUrl(selectedItem.link) && (
               <div className="mt-4 flex items-center">
                 <a
                   href={selectedItem.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary hover:underline inline-flex items-center gap-1"
-                  onClick={() => trackExternalLinkClick(
-                    selectedItem.link!,
-                    `Learn more [${extractDomain(selectedItem.link!)}]`,
-                    'checklist_item'
-                  )}
+                  onClick={() => handleExternalLinkClick(selectedItem.link!)}
                 >
                   Learn more [{extractDomain(selectedItem.link)}]
                   <ExternalLink className="h-4 w-4 ml-1" />

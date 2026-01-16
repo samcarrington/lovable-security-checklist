@@ -17,6 +17,7 @@ import {
   clearEventQueue,
   resetConsentState,
   CONSENT_STORAGE_KEY,
+  MAX_QUEUE_SIZE,
 } from './analytics';
 
 // Type for dataLayer items
@@ -815,6 +816,58 @@ describe('analytics', () => {
       
       // Should not throw when flushing empty queue
       expect(() => updateConsent(ConsentState.GRANTED)).not.toThrow();
+    });
+  });
+
+
+  describe('Queue size limit (MAX_QUEUE_SIZE)', () => {
+    test('MAX_QUEUE_SIZE constant is 100', () => {
+      expect(MAX_QUEUE_SIZE).toBe(100);
+    });
+
+    test('enforces maximum queue size with FIFO eviction', () => {
+      resetConsentState();
+      
+      // Fill the queue to capacity
+      for (let i = 0; i < MAX_QUEUE_SIZE; i++) {
+        pushEvent(`event_${i}`);
+      }
+      
+      expect(getEventQueueLength()).toBe(MAX_QUEUE_SIZE);
+      
+      // Add one more event - should evict the oldest
+      pushEvent('overflow_event');
+      
+      expect(getEventQueueLength()).toBe(MAX_QUEUE_SIZE);
+    });
+
+    test('evicts oldest event when queue is full', () => {
+      resetConsentState();
+      
+      // Fill queue completely
+      for (let i = 0; i < MAX_QUEUE_SIZE; i++) {
+        pushEvent(`event_${i}`, { index: i });
+      }
+      
+      // Queue should be at max capacity
+      expect(getEventQueueLength()).toBe(MAX_QUEUE_SIZE);
+      
+      // Add new event
+      pushEvent('new_event', { index: MAX_QUEUE_SIZE });
+      
+      // Queue should still be at max capacity
+      expect(getEventQueueLength()).toBe(MAX_QUEUE_SIZE);
+      
+      // Now grant consent and check that oldest event was evicted
+      updateConsent(ConsentState.GRANTED);
+      
+      // First event (event_0) should have been evicted
+      const events = mockDataLayer.filter((item: DataLayerItem) => item.event === 'event_0');
+      expect(events.length).toBe(0);
+      
+      // New event should be present
+      const newEvents = mockDataLayer.filter((item: DataLayerItem) => item.event === 'new_event');
+      expect(newEvents.length).toBe(1);
     });
   });
 });

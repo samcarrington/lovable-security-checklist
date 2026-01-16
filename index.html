@@ -3,22 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vibe-check-progress-dial</title>
+    <title>Security & Quality Checklist</title>
     <meta
       name="description"
-      content="If you're vibe-cding you need to consider security. Use this checklist to give you some pointers"
+      content="If you're vibe-coding you need to consider security. Use this checklist to give you some pointers"
     />
     <meta name="author" content="Sam Carrington (and Lovable)" />
 
-    <!-- Content Security Policy - Updated for GTM and GA4 -->
+    <!-- 
+      Content Security Policy - Updated for GTM and GA4
+      
+      Security Notes:
+      - script-src: 'unsafe-inline' REMOVED - all scripts externalized or from allowed domains
+      - style-src: 'unsafe-inline' REQUIRED - Tailwind CSS generates dynamic inline styles via 
+        className props. Removing this requires either:
+        1. Pre-generating all style hashes (impractical with Tailwind's utility-first approach)
+        2. Using nonces with SSR (not available in this SPA)
+        3. Migrating to CSS Modules or pre-compiled CSS (significant refactoring)
+        See: https://tailwindcss.com/docs/content-configuration#dynamic-class-names
+      - /js/gtm-consent.js loads via 'self' policy (externalized consent script)
+      - GTM inline script on line 42 uses allowed domain (googletagmanager.com)
+    -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.gpteng.co https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self' data:; connect-src 'self' https: https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://region1.google-analytics.com; frame-src https://www.googletagmanager.com;"
+      content="default-src 'self'; script-src 'self' https://cdn.gpteng.co https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self' data:; connect-src 'self' https: https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://region1.google-analytics.com; frame-src https://www.googletagmanager.com;"
     />
 
     <meta
       property="og:title"
-      content="Vibe Check - How is your security on your app?"
+      content="Security & Quality Checklist - Vibe Check Your App"
     />
     <meta property="og:description" content="Lovable Generated Project" />
     <meta property="og:type" content="website" />
@@ -34,23 +47,8 @@
       content="https://lovable.dev/opengraph-image-p98pqg.png"
     />
 
-    <!-- Google Tag Manager with Consent Mode v2 defaults -->
-    <script>
-      // Initialize dataLayer
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-
-      // Set default consent to denied (GDPR compliant)
-      gtag("consent", "default", {
-        ad_storage: "denied",
-        ad_user_data: "denied",
-        ad_personalization: "denied",
-        analytics_storage: "denied",
-        wait_for_update: 500,
-      });
-    </script>
+    <!-- GTM Consent Mode v2 defaults (externalized for CSP compliance) -->
+    <script src="/js/gtm-consent.js"></script>
 
     <!-- Google Tag Manager -->
     <script>

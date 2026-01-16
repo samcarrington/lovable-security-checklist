@@ -26,6 +26,9 @@ export enum ConsentState {
 /** localStorage key for persisting consent state */
 export const CONSENT_STORAGE_KEY = 'consent_state';
 
+/** Maximum number of events to queue before consent (FIFO eviction) */
+export const MAX_QUEUE_SIZE = 100;
+
 /** Queue for events captured before consent is granted */
 let eventQueue: Array<Record<string, unknown>> = [];
 
@@ -151,6 +154,7 @@ export function resetConsentState(): void {
 /**
  * Push event to GTM data layer
  * If consent has not been granted, events are queued and sent later
+ * Queue has a maximum size limit with FIFO eviction to prevent memory issues
  * @param eventName - The event name (e.g., 'checkbox_toggle', 'page_view')
  * @param params - Optional event parameters
  */
@@ -172,7 +176,14 @@ export function pushEvent(
       console.log('[Analytics] Event pushed:', eventData);
     }
   } else {
-    // Consent not yet granted - queue the event
+    // Consent not yet granted - queue the event with FIFO eviction
+    if (eventQueue.length >= MAX_QUEUE_SIZE) {
+      // Remove oldest event (first in queue) before adding new one
+      const evictedEvent = eventQueue.shift();
+      if (import.meta.env.DEV) {
+        console.warn('[Analytics] Queue full, evicting oldest event:', evictedEvent);
+      }
+    }
     eventQueue.push(eventData);
 
     if (import.meta.env.DEV) {

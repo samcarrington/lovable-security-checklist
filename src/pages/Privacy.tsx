@@ -11,8 +11,8 @@ const Privacy = () => {
       <div className="max-w-3xl mx-auto">
         {/* Header with back link */}
         <div className="mb-8">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 underline inline-flex items-center gap-1"
           >
             ← Return to Home
@@ -35,15 +35,21 @@ const Privacy = () => {
             Data Collection
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
-            We collect minimal information to provide and improve our service. The data we collect includes:
+            We collect minimal information to provide and improve our service.
+            The data we collect includes:
           </p>
           <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2 ml-4">
-            <li>Checklist progress stored locally in your browser (localStorage)</li>
+            <li>
+              Checklist progress stored locally in your browser (localStorage)
+            </li>
             <li>Anonymous usage analytics when you provide consent</li>
-            <li>Technical information such as browser type and device information</li>
+            <li>
+              Technical information such as browser type and device information
+            </li>
           </ul>
           <p className="text-gray-600 dark:text-gray-300 mt-4">
-            We do not collect any personally identifiable information (PII) such as names, email addresses, or contact details.
+            We do not collect any personally identifiable information (PII) such
+            as names, email addresses, or contact details.
           </p>
         </section>
 
@@ -56,12 +62,23 @@ const Privacy = () => {
             We use cookies and similar technologies to enhance your experience:
           </p>
           <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2 ml-4">
-            <li><strong>Essential cookies:</strong> Required for the site to function properly, including storing your checklist progress</li>
-            <li><strong>Analytics cookies:</strong> Used only with your consent to track anonymous usage patterns</li>
-            <li><strong>Preference cookies:</strong> Remember your settings like theme preference (light/dark mode)</li>
+            <li>
+              <strong>Essential cookies:</strong> Required for the site to
+              function properly, including storing your checklist progress
+            </li>
+            <li>
+              <strong>Analytics cookies:</strong> Used only with your consent to
+              track anonymous usage patterns
+            </li>
+            <li>
+              <strong>Preference cookies:</strong> Remember your settings like
+              theme preference (light/dark mode)
+            </li>
           </ul>
           <p className="text-gray-600 dark:text-gray-300 mt-4">
-            You can control cookie preferences through our consent banner. Essential cookies cannot be disabled as they are required for basic functionality.
+            You can control cookie preferences through our consent banner.
+            Essential cookies cannot be disabled as they are required for basic
+            functionality.
           </p>
         </section>
 
@@ -71,7 +88,9 @@ const Privacy = () => {
             Analytics
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
-            When you grant consent, we use Google Analytics to understand how users interact with our service. This helps us improve the user experience and identify areas for enhancement.
+            When you grant consent, we use Google Analytics to understand how
+            users interact with our service. This helps us improve the user
+            experience and identify areas for enhancement.
           </p>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
             Analytics data collected includes:
@@ -83,7 +102,9 @@ const Privacy = () => {
             <li>Device and browser information</li>
           </ul>
           <p className="text-gray-600 dark:text-gray-300 mt-4">
-            All analytics data is anonymized and cannot be used to identify individual users. We use Google Tag Manager with Consent Mode v2 to ensure analytics only runs when you have granted permission.
+            All analytics data is anonymized and cannot be used to identify
+            individual users. We use Google Tag Manager with Consent Mode v2 to
+            ensure analytics only runs when you have granted permission.
           </p>
         </section>
 
@@ -93,20 +114,28 @@ const Privacy = () => {
             Contact Us
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
-            If you have any questions about this Privacy Policy or how we handle your data, please reach out to us:
+            If you have any questions about this Privacy Policy or how we handle
+            your data, please reach out to us:
           </p>
           <p className="text-gray-600 dark:text-gray-300">
-            Email: <a href="mailto:privacy@example.com" className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 underline">privacy@example.com</a>
+            Email:{" "}
+            <a
+              href="mailto:privacy@gwawr.co.uk"
+              className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 underline"
+            >
+              privacy@gwawr.co.uk
+            </a>
           </p>
           <p className="text-gray-600 dark:text-gray-300 mt-4">
-            We are committed to addressing your concerns and will respond to privacy-related inquiries within a reasonable timeframe.
+            We are committed to addressing your concerns and will respond to
+            privacy-related inquiries within a reasonable timeframe.
           </p>
         </section>
 
         {/* Footer with back link */}
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 underline"
           >
             ← Return to Home

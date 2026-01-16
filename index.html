@@ -10,8 +10,20 @@
     />
     <meta name="author" content="Sam Carrington (and Lovable)" />
 
-    <!-- Content Security Policy - Updated for GTM and GA4 -->
-    <!-- Note: 'unsafe-inline' for style-src is required by Tailwind CSS -->
+    <!-- 
+      Content Security Policy - Updated for GTM and GA4
+      
+      Security Notes:
+      - script-src: 'unsafe-inline' REMOVED - all scripts externalized or from allowed domains
+      - style-src: 'unsafe-inline' REQUIRED - Tailwind CSS generates dynamic inline styles via 
+        className props. Removing this requires either:
+        1. Pre-generating all style hashes (impractical with Tailwind's utility-first approach)
+        2. Using nonces with SSR (not available in this SPA)
+        3. Migrating to CSS Modules or pre-compiled CSS (significant refactoring)
+        See: https://tailwindcss.com/docs/content-configuration#dynamic-class-names
+      - /js/gtm-consent.js loads via 'self' policy (externalized consent script)
+      - GTM inline script on line 42 uses allowed domain (googletagmanager.com)
+    -->
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self' https://cdn.gpteng.co https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self' data:; connect-src 'self' https: https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://region1.google-analytics.com; frame-src https://www.googletagmanager.com;"

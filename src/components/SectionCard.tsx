@@ -88,18 +88,14 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
       setIsAnimating(true);
       setProgress(newProgress);
       
-      // Clear existing timers
-      if (confettiTimerRef.current) {
-        clearTimeout(confettiTimerRef.current);
-        confettiTimerRef.current = null;
-      }
-      if (animationTimerRef.current) {
-        clearTimeout(animationTimerRef.current);
-        animationTimerRef.current = null;
-      }
-      
       // Track section completion - only fire once per completion
       if (newProgress === 100 && !sectionCompleteFired.current) {
+        // Clear existing confetti timer only when setting a new one
+        if (confettiTimerRef.current) {
+          clearTimeout(confettiTimerRef.current);
+          confettiTimerRef.current = null;
+        }
+        
         setShowConfetti(true);
         sectionCompleteFired.current = true;
         trackSectionComplete(section.id, section.title, section.items.length);
@@ -111,6 +107,11 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
         sectionCompleteFired.current = false;
       }
 
+      // Clear existing animation timer only when setting a new one
+      if (animationTimerRef.current) {
+        clearTimeout(animationTimerRef.current);
+        animationTimerRef.current = null;
+      }
       animationTimerRef.current = setTimeout(() => setIsAnimating(false), 1000);
     }
     

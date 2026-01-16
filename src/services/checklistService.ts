@@ -1,16 +1,28 @@
 import { z } from 'zod';
 import debounce from 'lodash.debounce';
+import { isValidExternalUrl } from '@/lib/urlValidation';
+
+/**
+ * Custom Zod refinement for secure URL validation
+ * Uses isValidExternalUrl to ensure only http/https protocols are allowed
+ * This prevents XSS attacks via javascript:, data:, or other dangerous schemes
+ */
+const safeUrlSchema = z.string().refine(
+  (url) => isValidExternalUrl(url),
+  { message: 'URL must use http or https protocol' }
+);
 
 /**
  * Zod schema for checklist item validation
+ * Note: URLs are validated with safeUrlSchema to enforce http/https only
  */
 const ChecklistItemSchema = z.object({
   id: z.string().min(1, 'Item ID is required'),
   title: z.string().min(1, 'Item title is required'),
   description: z.string(),
   summary: z.string().optional(),
-  externalLink: z.string().url().optional(),
-  link: z.string().url().optional(),
+  externalLink: safeUrlSchema.optional(),
+  link: safeUrlSchema.optional(),
 });
 
 /**

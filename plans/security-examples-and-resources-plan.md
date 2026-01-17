@@ -38,6 +38,9 @@ blockers: []
 | Page accessibility      | New pages accessible via navigation              | All 3 resource pages linked | Navigate to each page from any page                |
 | Responsive design       | Navigation works on mobile/tablet/desktop        | Passes at 320px, 768px, 1024px | Test in browser dev tools at each breakpoint    |
 | Test coverage           | New components have unit tests                   | >= 80% coverage             | Run test:coverage and review report                |
+| Frontend design quality | Components pass design quality checklist         | 100% checklist items        | Run design quality checklist from Section 12       |
+| Accessibility           | WCAG AA compliance for all new components        | 4.5:1 contrast, keyboard nav | axe-core audit + manual keyboard testing         |
+| Interaction states      | All interactive elements have 8 states defined   | 100%                        | Visual audit of hover/focus/active/disabled states |
 
 ## 6. Scope
 
@@ -175,7 +178,196 @@ out:
 - External links are curated but not exhaustively verified; users should validate currency
 - Target audience has basic familiarity with AI coding assistants and security concepts
 
-## 12. Implementation approach / Technical narrative
+## 12. Frontend Design Requirements
+
+This section defines the visual design standards for all new UI components. These requirements ensure the implementation avoids generic "AI slop" aesthetics and creates a distinctive, production-grade interface.
+
+### Typography
+
+| Requirement | Specification | Rationale |
+|-------------|---------------|-----------|
+| Font family | Use existing project fonts from Tailwind config; avoid Inter, Roboto, Arial, Open Sans | Maintain consistency; avoid overused defaults |
+| Modular scale | Use a 5-size system: xs (0.75rem), sm (0.875rem), base (1rem), lg (1.25rem), xl+ (2rem+) | Clear visual hierarchy with distinct steps |
+| Fluid sizing | Use `clamp()` for headings: e.g., `clamp(1.5rem, 3vw + 1rem, 2.5rem)` | Responsive without breakpoint jumps |
+| Line height | Body: 1.5-1.6; Headings: 1.1-1.3; Increase +0.05 for dark mode | Readability and vertical rhythm |
+| Measure | Max-width 65ch for prose content using `max-width: 65ch` | Optimal reading line length |
+| Font loading | Use `font-display: swap` for web fonts; define fallback metrics to minimize CLS | Performance and layout stability |
+
+**Implementation Notes:**
+- Review existing typography scale in `tailwind.config.ts` and extend if needed
+- Navigation links and button text should use consistent weights (medium for interactive, regular for body)
+- Use `font-variant-numeric: tabular-nums` for any numerical data display
+
+### Color & Theme
+
+| Requirement | Specification | Rationale |
+|-------------|---------------|-----------|
+| Color system | Use OKLCH or existing Tailwind/shadcn tokens; define semantic tokens (--color-primary, --color-surface) | Perceptually uniform, maintainable |
+| Tinted neutrals | Add subtle brand hue to grays (chroma 0.01); never pure gray (#808080) or pure black (#000) | Cohesion and natural appearance |
+| 60-30-10 rule | 60% neutral backgrounds, 30% secondary colors, 10% accent for CTAs | Visual hierarchy and accent impact |
+| Dark mode | Support existing theme toggle; use lighter surfaces for elevation (not shadows); reduce font weight slightly; desaturate accents | Dark mode requires different decisions, not inversion |
+| Contrast ratios | Body text: 4.5:1 minimum (AA); Large text/UI: 3:1 minimum | WCAG compliance |
+
+**Anti-patterns to avoid:**
+- Cyan-on-dark, purple-to-blue gradients, neon accents on dark backgrounds ("AI color palette")
+- Gradient text for headings or metrics
+- Gray text on colored backgrounds (use tinted variant of background color instead)
+- Pure black (#000) or pure white (#fff) for large areas
+
+### Layout & Spatial Design
+
+| Requirement | Specification | Rationale |
+|-------------|---------------|-----------|
+| Spacing scale | Use 4pt base: 4, 8, 12, 16, 24, 32, 48, 64px (Tailwind: gap-1, gap-2, gap-3, gap-4, gap-6, gap-8, gap-12, gap-16) | Granular control with consistent rhythm |
+| Visual rhythm | Vary spacing intentionally—tight groupings for related items, generous separation for sections | Hierarchy through space, not uniformity |
+| Grid system | Use `repeat(auto-fit, minmax(280px, 1fr))` for responsive card grids without explicit breakpoints | Self-adjusting layouts |
+| Container queries | Use `@container` for component-level responsiveness (e.g., cards adapting to sidebar vs main content) | Components adapt to their container, not viewport |
+| Semantic z-index | Define scale: dropdown (10) → sticky (20) → modal-backdrop (30) → modal (40) → toast (50) → tooltip (60) | Predictable stacking without magic numbers |
+
+**Anti-patterns to avoid:**
+- Cards nested inside cards (flatten hierarchy with spacing/dividers)
+- Identical card grids (same-sized cards with icon + heading + text repeated endlessly)
+- Same spacing everywhere (creates monotonous layouts)
+- Everything centered (left-aligned text with asymmetric layouts feels more designed)
+
+### Interaction States (8-State Model)
+
+Every interactive element (buttons, links, cards, form fields) must define all 8 states:
+
+| State | When | Visual Treatment | Tailwind Example |
+|-------|------|------------------|------------------|
+| Default | At rest | Base styling | — |
+| Hover | Pointer over (not touch) | Subtle lift, color shift | `hover:bg-primary/90` |
+| Focus | Keyboard/programmatic focus | Visible ring with offset | `focus-visible:ring-2 focus-visible:ring-offset-2` |
+| Active | Being pressed | Pressed in, darker | `active:scale-95 active:bg-primary/80` |
+| Disabled | Not interactive | Reduced opacity, no pointer | `disabled:opacity-50 disabled:cursor-not-allowed` |
+| Loading | Processing | Spinner, skeleton, or pulse | Custom spinner component |
+| Error | Invalid state | Red border, icon, message | `border-destructive` |
+| Success | Completed action | Green check, confirmation | `border-green-500` |
+
+**Implementation Notes:**
+- Use `:focus-visible` (not `:focus`) to show focus rings only for keyboard users
+- Focus rings: 2px thick, high contrast (3:1 minimum), offset from element
+- Never remove focus indicators without providing alternatives
+
+### Responsive Design
+
+| Requirement | Specification | Rationale |
+|-------------|---------------|-----------|
+| Mobile-first CSS | Base styles for mobile; use `min-width` queries to layer complexity | Mobile loads only necessary styles |
+| Breakpoints | Content-driven: sm (640px), md (768px), lg (1024px), xl (1280px) per Tailwind defaults | Let content determine breaks |
+| Touch targets | Minimum 44x44px for all interactive elements; use padding or pseudo-elements if visual size is smaller | Accessibility and touch usability |
+| Input method detection | Use `@media (pointer: coarse)` for touch devices; `@media (hover: none)` to avoid hover-dependent features | Screen size doesn't indicate input method |
+| Safe areas | Use `env(safe-area-inset-*)` for mobile navigation and fixed elements | Handle notches and home indicators |
+
+**Navigation Component Specifics:**
+- Mobile (< 640px): Hamburger menu, full-screen overlay with 44px+ touch targets
+- Tablet (640-767px): Hamburger menu, slide-out panel
+- Desktop (≥ 768px): Horizontal navigation bar
+
+**Testing Requirements:**
+- Test on real devices (not just DevTools): One iPhone, one Android minimum
+- Verify at: 320px, 375px, 640px, 768px, 1024px, 1440px
+- Test landscape orientation on mobile
+
+### Motion & Animation
+
+| Requirement | Specification | Rationale |
+|-------------|---------------|-----------|
+| Duration scale | Instant feedback: 100-150ms; State changes: 200-300ms; Layout changes: 300-500ms | Appropriate timing for context |
+| Easing | Use exponential curves: `ease-out-quart` (0.25, 1, 0.5, 1) for entrances; avoid bounce/elastic | Natural deceleration; bounce feels dated |
+| Properties | Animate only `transform` and `opacity`; use `grid-template-rows: 0fr → 1fr` for height transitions | Avoid layout recalculation |
+| Reduced motion | Implement `@media (prefers-reduced-motion: reduce)` alternatives for all animations | Vestibular disorders affect ~35% of adults 40+ |
+| Exit animations | 75% of entrance duration | Exits feel faster than entrances |
+
+**Motion Tokens (define in Tailwind or CSS variables):**
+```css
+--duration-instant: 100ms;
+--duration-fast: 200ms;
+--duration-normal: 300ms;
+--duration-slow: 500ms;
+--ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+```
+
+**Anti-patterns to avoid:**
+- Animating width, height, padding, margin directly
+- Bounce or elastic easing (tacky, draws attention to animation)
+- Animation for animation's sake (animation fatigue is real)
+
+### Accessibility
+
+| Requirement | Specification | Verification |
+|-------------|---------------|--------------|
+| Focus visible | Use `:focus-visible` for keyboard-only focus rings; 2px, high contrast, offset | Tab through all interactive elements |
+| Skip links | Provide "Skip to main content" link, hidden off-screen, visible on focus | First Tab press on page |
+| ARIA labels | All icon-only buttons need `aria-label`; form fields need visible `<label>` | Screen reader testing |
+| Keyboard navigation | Full keyboard support for navigation, modals, dropdowns; Escape closes overlays | Tab, Enter, Escape, Arrow keys |
+| Roving tabindex | For tab groups/menus: one item tabbable, arrow keys move within group | Keyboard-only navigation test |
+| Reduced motion | Honor `prefers-reduced-motion`; provide fade alternatives for motion animations | OS reduced motion setting |
+| Color independence | Never use color alone to convey information; pair with icons/text | Grayscale screenshot test |
+
+**MarkdownViewer Modal Specifics:**
+- Use native `<dialog>` element or shadcn Dialog with proper focus trapping
+- Return focus to trigger button on close
+- Close on Escape key
+- Use `inert` attribute on background content
+
+### UX Writing
+
+| Element | Requirement | Example |
+|---------|-------------|---------|
+| Button labels | Specific verb + object; never "OK", "Submit", "Click here" | "Download Example", "View Markdown", "Open Menu" |
+| Link text | Standalone meaning; avoid "click here" or "learn more" | "View OWASP Authentication Guide" |
+| Error messages | What happened + why + how to fix | "Failed to load resources. Check your connection and try again." |
+| Empty states | Acknowledge briefly + explain value + provide action | "No examples loaded. Check your connection or try refreshing the page." |
+| Loading states | Specific action being performed | "Loading security examples...", "Fetching OWASP resources..." |
+
+**Anti-patterns to avoid:**
+- Redundant copy (heading restated in intro paragraph)
+- Vague errors ("Something went wrong")
+- Humor in error states
+- Generic placeholders used as labels
+
+### Component-Specific Design Requirements
+
+#### Navigation Component
+- Desktop: Horizontal layout with consistent spacing; active state indicator for current page
+- Mobile hamburger: 44px touch target; animated icon transition (hamburger → X)
+- Mobile menu: Full-screen overlay with generous touch targets; staggered entrance animation
+- Logo/brand mark aligned left; primary actions aligned right
+
+#### ExampleCard Component
+- Avoid card-in-card nesting; use flat layout with clear visual separation
+- Action buttons (View/Download) aligned consistently; primary action emphasized
+- Description truncated with ellipsis; full content in expanded view
+- Hover state: subtle elevation or background shift (not both)
+
+#### MarkdownViewer Modal
+- Max-width 4xl (896px); max-height 80vh with scroll
+- Code blocks: syntax highlighting with accessible contrast; copy-to-clipboard button
+- Header: filename prominent; close button with keyboard shortcut hint
+- Footer: Download action clearly labeled
+
+#### ResourceCategoryCard Component
+- Category title prominent; link count as secondary info
+- Consistent link styling; external link indicator (icon + `target="_blank"`)
+- Expandable/collapsible on mobile for long lists
+
+### Design Quality Checklist
+
+Before implementation is considered complete, verify:
+
+- [ ] **Squint test**: Blur the UI—can you identify the most important element and clear groupings?
+- [ ] **AI slop test**: Would someone immediately recognize this as "AI-generated"? If yes, revise.
+- [ ] **8-state audit**: Every interactive element has all 8 states designed
+- [ ] **Keyboard walkthrough**: Complete all tasks using only keyboard
+- [ ] **Reduced motion**: Verify experience with `prefers-reduced-motion: reduce`
+- [ ] **Touch target audit**: All interactive elements ≥ 44x44px
+- [ ] **Contrast check**: Run automated contrast checker on all text/background combinations
+- [ ] **Dark mode parity**: All features work equally in light and dark themes
+
+## 13. Implementation approach / Technical narrative
 
 **TL;DR:** Create example markdown files in `public/examples/` served as static downloadable assets. Add a responsive Navigation component, a Resources landing page with View/Download functionality, and dedicated pages for OWASP and agentic engineering links. Users can browse examples, view syntax-highlighted markdown in a modal, and download the raw files.
 
@@ -692,7 +884,7 @@ The `examples/resources/agentic-engineering.md` will curate:
 4. **Community Resources** - Repositories, blogs, tutorials
 5. **Transition Guides** - Moving from ad-hoc to systematic approaches
 
-## 13. Testing & validation plan
+## 14. Testing & validation plan
 
 ### Example Files (Markdown)
 
@@ -738,7 +930,7 @@ Per Quality Policy (`.github/copilot-instructions.md#quality-policy`):
 - Navigation (hot path): 100% coverage
 - Error handling paths: 100% coverage
 
-## 14. Deployment plan & roll-back strategy
+## 15. Deployment plan & roll-back strategy
 
 **Environments:** 
 - Development: Local dev server (npm run dev)
@@ -758,27 +950,27 @@ Per Quality Policy (`.github/copilot-instructions.md#quality-policy`):
 - Revert merge commit if issues discovered post-merge
 - Vercel supports instant rollback to previous deployment
 
-## 15. Monitoring & observability
+## 16. Monitoring & observability
 
 - **Vercel Analytics**: Already integrated; monitor page views for new pages
 - **Error Tracking**: Existing toast error handling extends to new pages
 - **Performance**: Monitor Core Web Vitals via Vercel dashboard
 - **Link Monitoring**: Consider adding periodic link checker for external resources
 
-## 16. Compliance, security & privacy considerations
+## 17. Compliance, security & privacy considerations
 
 - All content is educational/reference material
 - No credentials, secrets, or sensitive data in examples
 - External links are to public resources only
 - Examples should not contain real vulnerability details that could be exploited
 
-## 17. Communication plan
+## 18. Communication plan
 
 - PR description will summarize new examples available
 - README updates will make examples discoverable
 - No external notification required
 
-## 18. Related documents & links
+## 19. Related documents & links
 
 - Plan template: `plans/plan-template.md`
 - Existing agents: `.github/agents/`
@@ -786,8 +978,16 @@ Per Quality Policy (`.github/copilot-instructions.md#quality-policy`):
 - OpenCode commands: `.opencode/commands/`
 - Checklist data: `public/checklist-data.json`
 - Quality policy: `.github/copilot-instructions.md#quality-policy`
+- Frontend design skill: `.opencode/skill/skills/frontend-design/`
+- Typography reference: `.opencode/skill/skills/frontend-design/reference/typography.md`
+- Color reference: `.opencode/skill/skills/frontend-design/reference/color-and-contrast.md`
+- Spatial design reference: `.opencode/skill/skills/frontend-design/reference/spatial-design.md`
+- Motion design reference: `.opencode/skill/skills/frontend-design/reference/motion-design.md`
+- Interaction design reference: `.opencode/skill/skills/frontend-design/reference/interaction-design.md`
+- Responsive design reference: `.opencode/skill/skills/frontend-design/reference/responsive-design.md`
+- UX writing reference: `.opencode/skill/skills/frontend-design/reference/ux-writing.md`
 
-## 19. Appendix
+## 20. Appendix
 
 ### A. Sample OWASP Links from checklist-data.json
 
@@ -868,3 +1068,14 @@ _Checklist before marking plan as ready for review:_
 - [x] Security & compliance items are noted
 - [x] UI components specified with responsive breakpoints
 - [x] Test coverage requirements defined
+- [x] Frontend design requirements documented (Section 12)
+- [x] Typography requirements (font choices, modular scale, fluid sizing)
+- [x] Color/theme requirements (design tokens, dark mode, avoiding AI slop)
+- [x] Layout requirements (visual rhythm, spacing scale, container queries)
+- [x] Interaction state requirements (8-state model for all interactive elements)
+- [x] Responsive requirements (mobile-first, touch targets 44px+, input method detection)
+- [x] Motion requirements (exponential easing, reduced motion, transform/opacity only)
+- [x] Accessibility requirements (focus-visible, ARIA, keyboard navigation, skip links)
+- [x] UX writing requirements (button labels, error messages, empty states)
+- [x] Component-specific design requirements documented
+- [x] Design quality checklist provided

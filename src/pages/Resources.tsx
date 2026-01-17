@@ -85,7 +85,7 @@ const Resources = () => {
                 <SubHeading className="mb-2">
                   {heroAgent.title}
                 </SubHeading>
-                <ExampleCard example={heroAgent} />
+                <ExampleCard example={heroAgent} hideTitle />
               </div>
             )}
 

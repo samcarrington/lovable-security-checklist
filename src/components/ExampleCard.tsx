@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 
 interface ExampleCardProps {
   example: ExampleItem;
+  /** Hide the title (useful when title is rendered externally, e.g., in hero section) */
+  hideTitle?: boolean;
 }
 
 /**
@@ -17,7 +19,7 @@ interface ExampleCardProps {
  * - Direct download link
  * - Loading state while fetching content
  */
-const ExampleCard = ({ example }: ExampleCardProps) => {
+const ExampleCard = ({ example, hideTitle = false }: ExampleCardProps) => {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [content, setContent] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,22 +52,29 @@ const ExampleCard = ({ example }: ExampleCardProps) => {
         className={cn(
           // Brutalist styling: sharp corners, clean border, no shadows
           "group relative flex flex-col p-4 rounded-sm border border-border bg-card",
-          "hover:border-primary transition-colors duration-150"
+          "hover:border-primary transition-colors duration-150",
+          // Remove border and padding when used in hero context (title shown externally)
+          hideTitle && "border-0 p-0 bg-transparent"
         )}
       >
         {/* Title with icon - no decorative background */}
-        <div className="flex items-start gap-3 mb-3">
-          <FileText 
-            className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" 
-            aria-hidden="true" 
-          />
-          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-            {example.title}
-          </h3>
-        </div>
+        {!hideTitle && (
+          <div className="flex items-start gap-3 mb-3">
+            <FileText 
+              className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" 
+              aria-hidden="true" 
+            />
+            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+              {example.title}
+            </h3>
+          </div>
+        )}
 
         {/* Description */}
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+        <p className={cn(
+          "text-sm text-muted-foreground mb-4",
+          !hideTitle && "line-clamp-2"
+        )}>
           {example.description}
         </p>
 

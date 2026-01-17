@@ -72,6 +72,22 @@ describe('ExampleCard', () => {
       const title = screen.getByText(mockExample.title);
       expect(title.tagName).toBe('H3');
     });
+
+    it('should hide title when hideTitle prop is true', () => {
+      render(<ExampleCard example={mockExample} hideTitle />);
+
+      // Title should not be rendered as h3
+      expect(screen.queryByRole('heading', { level: 3 })).not.toBeInTheDocument();
+      // But description should still be visible
+      expect(screen.getByText(mockExample.description)).toBeInTheDocument();
+    });
+
+    it('should still show View and Download buttons when hideTitle is true', () => {
+      render(<ExampleCard example={mockExample} hideTitle />);
+
+      expect(screen.getByRole('button', { name: /View/i })).toBeInTheDocument();
+      expect(screen.getByRole('link', { name: /Download/i })).toBeInTheDocument();
+    });
   });
 
   describe('View Button', () => {

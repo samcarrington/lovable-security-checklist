@@ -19,7 +19,7 @@ How to use:
 | S1-01 | Security  | Complete security remediation   | `./archive/security-final-remediation-plan.md`      | All 24 findings closed, tests passing | High     | AI    | Done        | 24/24 findings closed, archived     |
 | C1-01 | Quality   | Code review remediation         | `./archive/code-review-remediation-plan-2026-01.md` | 259 tests, 93% coverage               | High     | AI    | Done        | PR #12 merged, 259 tests, archived  |
 | E1-01 | Resources | Security examples and resources | `./security-examples-and-resources-plan.md`         | Examples + pages + nav + tests        | High     | AI    | In progress | Phase 1-6 complete, Phase 7 pending |
-| D1-01 | Design    | Design system overhaul          | `./design-system-overhaul-plan.md`                  | OKLCH tokens, brutalist styling, tests pass | High | AI | In progress | Phase 1-3 complete, awaiting review |
+| D1-01 | Design    | Design system overhaul          | `./design-system-overhaul-plan.md`                  | OKLCH tokens, brutalist styling, tests pass | High | AI | In progress | PR #16 open, visual QA pending |
 
 ### Archived Plans
 
@@ -42,3 +42,4 @@ All completed plans have been moved to `./archive/`:
 - 2026-01-16: Added C1-01 - Code review remediation complete (PR #12 merged)
 - 2026-01-16: Archived all completed plans, cleaned up TODO structure
 - 2026-01-17: Added E1-01 - Security examples and resources plan (Phases 1-6 complete)
+- 2026-01-17: Updated D1-01 - Design system overhaul PR #16 created, pending visual QA

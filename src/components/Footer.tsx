@@ -18,8 +18,7 @@ const GitHubIcon = ({ className }: { className?: string }) => (
 const Footer = () => (
   <footer className="mt-16 text-center text-sm text-muted-foreground">
     <p>
-      Made by Sam Carrington and Lovable (then properly with OpenCode and Opus)
-      using source material from ChatGPT and original JSON from{" "}
+      Made by Sam Carrington using JSON from{" "}
       <a
         href="https://www.fine.dev"
         target="_blank"

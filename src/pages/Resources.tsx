@@ -62,13 +62,17 @@ const Resources = () => {
               Security Resources
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl">
-              Example agents, prompts, and curated links to help you build secure software with AI assistance.
+              Example agents, prompts, and curated links to help you build
+              secure software with AI assistance.
             </p>
           </header>
 
           {/* Agent Examples Section */}
           <section className="mb-16" aria-labelledby="agents-heading">
-            <h2 id="agents-heading" className="text-fluid-lg font-semibold text-foreground font-display mb-2">
+            <h2
+              id="agents-heading"
+              className="text-fluid-xl font-semibold text-foreground font-display mb-2"
+            >
               {manifest.agents.title}
             </h2>
             <p className="text-sm text-muted-foreground mb-8">
@@ -78,13 +82,12 @@ const Resources = () => {
             {/* Hero Featured Agent */}
             {heroAgent && (
               <div className="mb-8 p-6 border-2 border-primary rounded-sm bg-card">
-                <span className="text-xs font-mono uppercase tracking-wider text-primary mb-2 block">Featured</span>
+                <span className="text-xs font-mono uppercase tracking-wider text-primary mb-2 block">
+                  Featured
+                </span>
                 <h3 className="text-xl font-semibold text-foreground font-display mb-2">
                   {heroAgent.title}
                 </h3>
-                <p className="text-muted-foreground mb-4">
-                  {heroAgent.description}
-                </p>
                 <ExampleCard example={heroAgent} />
               </div>
             )}
@@ -101,7 +104,10 @@ const Resources = () => {
 
           {/* Prompt Examples Section */}
           <section className="mb-16" aria-labelledby="prompts-heading">
-            <h2 id="prompts-heading" className="text-fluid-lg font-semibold text-foreground font-display mb-2">
+            <h2
+              id="prompts-heading"
+              className="text-fluid-lg font-semibold text-foreground font-display mb-2"
+            >
               {manifest.prompts.title}
             </h2>
             <p className="text-sm text-muted-foreground mb-8">
@@ -116,7 +122,10 @@ const Resources = () => {
 
           {/* Reference Links Section */}
           <section aria-labelledby="links-heading">
-            <h2 id="links-heading" className="text-fluid-lg font-semibold text-foreground font-display mb-8">
+            <h2
+              id="links-heading"
+              className="text-fluid-lg font-semibold text-foreground font-display mb-8"
+            >
               Reference Links
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">

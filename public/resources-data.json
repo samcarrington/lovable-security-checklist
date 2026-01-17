@@ -332,6 +332,12 @@
             "title": "Cursor Documentation",
             "url": "https://cursor.sh/docs",
             "description": "AI-first code editor documentation"
+          },
+          {
+            "id": "tool-5",
+            "title": "Opencode Documentation",
+            "url": "https://opencode.ai/docs",
+            "description": "The Opencode framework docs"
           }
         ]
       },
@@ -383,6 +389,12 @@
           },
           {
             "id": "wf-3",
+            "title": "Spec-driven Development with AI",
+            "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html",
+            "description": "A great introduction to spec-driven development and tools"
+          },
+          {
+            "id": "wf-4",
             "title": "Code Review with AI",
             "url": "https://docs.github.com/en/copilot/using-github-copilot/reviewing-code-changes-with-copilot",
             "description": "Using AI for code review and quality assurance"

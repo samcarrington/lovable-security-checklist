@@ -44,16 +44,24 @@ const ResourceCategoryCard = ({
         aria-controls={`category-${category.id}`}
       >
         <div className="flex items-center gap-3">
-          <h3 className="font-semibold text-foreground font-display">{category.title}</h3>
+          <h3 className="font-semibold text-2xl text-foreground font-display">
+            {category.title}
+          </h3>
           <span className="text-xs text-muted-foreground px-2 py-0.5 rounded-sm bg-muted font-mono">
             {category.links.length}
           </span>
         </div>
         <div className="md:hidden">
           {isExpanded ? (
-            <ChevronUp className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+            <ChevronUp
+              className="h-5 w-5 text-muted-foreground"
+              aria-hidden="true"
+            />
           ) : (
-            <ChevronDown className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+            <ChevronDown
+              className="h-5 w-5 text-muted-foreground"
+              aria-hidden="true"
+            />
           )}
         </div>
       </button>
@@ -63,7 +71,9 @@ const ResourceCategoryCard = ({
         id={`category-${category.id}`}
         className={cn(
           "transition-all duration-200 ease-out overflow-hidden",
-          isExpanded ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0 md:max-h-none md:opacity-100"
+          isExpanded
+            ? "max-h-[2000px] opacity-100"
+            : "max-h-0 opacity-0 md:max-h-none md:opacity-100"
         )}
       >
         <ul className="divide-y divide-border">

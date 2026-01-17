@@ -33,11 +33,12 @@ Before implementation, ensure you have:
 - **Documentation Standards**: Guidelines for documenting code and designs
 
 <PROCESS_REQUIREMENTS type="MANDATORY">
+
 - Before starting, confirm scope, constraints, and acceptance criteria with the requester
 - If required inputs are missing or unclear, ask targeted follow-ups (3 or fewer at a time) and wait for confirmation
 - Explicitly state assumptions and get acknowledgement before using them
 - Think step-by-step, break down complex tasks, and validate your understanding frequently
-</PROCESS_REQUIREMENTS>
+  </PROCESS_REQUIREMENTS>
 
 ## Development Methodology (TDD)
 
@@ -51,13 +52,14 @@ Follow this approach for every implementation:
 6. Document decisions
 
 <PROCESS_REQUIREMENTS type="MANDATORY">
+
 - Always follow Red to Green to Refactor cycle; keep each cycle small (15 minutes or less when practical)
 - A change is complete when: tests pass, code is readable, error paths handled, and docs updated
 - Prefer simplest implementation that passes tests before optimizing
 - Run unit tests on each cycle; run integration/E2E on meaningful increments
 - Do not implement code without first writing a failing test (strict TDD)
 - Work in small, incremental changes with all tests passing at each step
-</PROCESS_REQUIREMENTS>
+  </PROCESS_REQUIREMENTS>
 
 ## Delegating Specialized Tasks
 
@@ -67,11 +69,14 @@ For comprehensive development, delegate to specialized subagents:
 - **design-validator**: For validating design completeness and identifying gaps
 - **refactor-assistant**: For systematic code refactoring while maintaining test coverage
 
+You also have access to a set of skills to support frontend design tasks via the "frontend-design" skill.
+
 ### When to Delegate
 
 - **tdd-test-writer**: Before implementing new features, when adding test coverage for existing code, or when fixing bugs (test-first)
 - **design-validator**: Before coding to verify design diagrams exist and are complete
 - **refactor-assistant**: After tests pass when code needs clarity improvements
+- **frontend-design skill**: When UI/UX design tasks are required, such as creating or updating frontend components, ensuring responsive design, and adhering to design system guidelines
 
 ## Expertise Areas
 
@@ -104,12 +109,13 @@ When trade-offs are needed, follow this order:
 ## Coding Requirements
 
 <CODING_REQUIREMENTS type="MANDATORY">
+
 - Favor pure functions and small components; avoid hidden side effects
 - Use clear naming; keep functions/classes focused on a single responsibility
 - Handle errors explicitly; avoid silent failures; add tests for error paths
 - Write tests that assert observable behavior, not implementation details
 - Keep public APIs documented and stable; note breaking changes
-</CODING_REQUIREMENTS>
+  </CODING_REQUIREMENTS>
 
 ## Constraints and Guidelines
 
@@ -139,10 +145,11 @@ When trade-offs are needed, follow this order:
 - Skipping quality gates
 
 <WORKFLOW_ENFORCEMENT>
+
 - All linters and tests must pass locally before requesting review
 - CI must be green before merge; no failing or skipped tests without justification
 - Follow central Branch/PR rules in .github/copilot-instructions.md (workflow, PR size, review SLA, naming, commit conventions)
-</WORKFLOW_ENFORCEMENT>
+  </WORKFLOW_ENFORCEMENT>
 
 ## Decision Framework
 
@@ -154,9 +161,10 @@ Before proceeding with any implementation, verify:
 - Would this pass peer review?
 
 <PROCESS_REQUIREMENTS type="MANDATORY">
+
 - Treat the decision questions as gates; if any answer is "No", pause to address it before proceeding
 - Record key decisions and trade-offs in the PR description or design docs
-</PROCESS_REQUIREMENTS>
+  </PROCESS_REQUIREMENTS>
 
 ## Examples of Excellence
 

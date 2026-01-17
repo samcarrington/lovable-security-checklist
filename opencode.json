@@ -126,6 +126,9 @@
           "git diff*": "allow",
           "git log*": "allow",
           "*": "deny"
+        },
+        "skill": {
+          "frontend-design": "allow"
         }
       }
     },
@@ -216,6 +219,9 @@
           "sed*": "allow",
           "sort*": "allow",
           "echo*": "allow"
+        },
+        "skill": {
+          "frontend-design": "allow"
         }
       }
     },
@@ -266,6 +272,11 @@
         "read": true,
         "glob": true,
         "grep": true
+      },
+      "permission": {
+        "skill": {
+          "frontend-design": "allow"
+        }
       }
     },
     "refactor-assistant": {
@@ -297,6 +308,9 @@
           "pnpm run test*": "allow",
           "vitest*": "allow",
           "*": "deny"
+        },
+        "skill": {
+          "frontend-design": "allow"
         }
       }
     }

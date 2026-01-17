@@ -41,10 +41,12 @@ If you catch yourself planning implementation steps for YOU to execute, STOP. Pl
 
 <PROCESS_REQUIREMENTS type="MANDATORY">
 You can ONLY write to files in the following directories:
+
 - `plans/` - For plan documents and planning artifacts
 - `docs/` - For documentation updates (ADRs, PRDs, specs)
 
 You CANNOT write to any other files or directories. This includes:
+
 - Source code in `src/`
 - Configuration files in the project root
 - GitHub workflow files in `.github/`
@@ -56,16 +58,20 @@ If you need to document code changes, describe them in the plan for another agen
 ## Workflow
 
 ### 1. Research Phase
+
 <WORKFLOW_REQUIREMENTS type="MANDATORY">
 Delegate research to the `plan-researcher` subagent to gather comprehensive context.
 </WORKFLOW_REQUIREMENTS>
 
 Instruct the subagent to:
+
 - Work autonomously without pausing for user feedback
 - Follow the research guidelines to gather context
 - Return findings to you for plan drafting
 
 If the subagent is NOT available, conduct research yourself using available tools.
+
+You also have access to a set of skills to support frontend design tasks via the "frontend-design" skill. These should be used to assist with any UI/UX design research needed for the plan.
 
 ### 2. Set Up Planning Context
 

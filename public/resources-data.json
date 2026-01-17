@@ -1,0 +1,430 @@
+{
+  "owasp": {
+    "title": "OWASP Security Resources",
+    "description": "Curated links from the OWASP Cheat Sheet Series and related security resources. These references complement the security checklist items.",
+    "categories": [
+      {
+        "id": "authentication",
+        "title": "Authentication & Authorization",
+        "links": [
+          {
+            "id": "auth-1",
+            "title": "Authentication Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html",
+            "description": "Best practices for implementing secure authentication mechanisms",
+            "checklistSection": "sec-1"
+          },
+          {
+            "id": "auth-2",
+            "title": "Session Management Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html",
+            "description": "Secure session handling, cookies, and timeout management",
+            "checklistSection": "sec-1"
+          },
+          {
+            "id": "auth-3",
+            "title": "Multifactor Authentication Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Multifactor_Authentication_Cheat_Sheet.html",
+            "description": "Implementing MFA for enhanced account security",
+            "checklistSection": "sec-1"
+          },
+          {
+            "id": "auth-4",
+            "title": "Password Storage Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html",
+            "description": "Secure password hashing with bcrypt, Argon2, and salting",
+            "checklistSection": "sec-1"
+          },
+          {
+            "id": "auth-5",
+            "title": "Forgot Password Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html",
+            "description": "Secure password reset flow implementation",
+            "checklistSection": "sec-1"
+          },
+          {
+            "id": "auth-6",
+            "title": "OAuth2 Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/OAuth2_Cheat_Sheet.html",
+            "description": "OAuth2 security best practices and token handling",
+            "checklistSection": "sec-1"
+          },
+          {
+            "id": "auth-7",
+            "title": "Authorization Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+            "description": "Access control patterns and permission verification",
+            "checklistSection": "sec-1"
+          }
+        ]
+      },
+      {
+        "id": "input-validation",
+        "title": "Input Validation & Data Sanitization",
+        "links": [
+          {
+            "id": "input-1",
+            "title": "Input Validation Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+            "description": "Comprehensive input validation techniques and patterns",
+            "checklistSection": "sec-2"
+          },
+          {
+            "id": "input-2",
+            "title": "SQL Injection Prevention Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+            "description": "Parameterized queries and SQL injection defense",
+            "checklistSection": "sec-2"
+          },
+          {
+            "id": "input-3",
+            "title": "File Upload Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html",
+            "description": "Secure file upload handling and validation",
+            "checklistSection": "sec-2"
+          },
+          {
+            "id": "input-4",
+            "title": "Error Handling Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html",
+            "description": "Secure error handling without information leakage",
+            "checklistSection": "sec-2"
+          }
+        ]
+      },
+      {
+        "id": "data-protection",
+        "title": "Data Protection & Privacy",
+        "links": [
+          {
+            "id": "data-1",
+            "title": "Cryptographic Storage Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html",
+            "description": "Encryption at rest and secure key management",
+            "checklistSection": "sec-3"
+          },
+          {
+            "id": "data-2",
+            "title": "Transport Layer Protection Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html",
+            "description": "TLS/SSL configuration and certificate management",
+            "checklistSection": "sec-3"
+          },
+          {
+            "id": "data-3",
+            "title": "Secrets Management Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+            "description": "Secure storage and handling of API keys and credentials",
+            "checklistSection": "sec-3"
+          },
+          {
+            "id": "data-4",
+            "title": "Logging Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html",
+            "description": "Secure logging practices and audit trails",
+            "checklistSection": "sec-3"
+          },
+          {
+            "id": "data-5",
+            "title": "Database Security Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Database_Security_Cheat_Sheet.html",
+            "description": "Database hardening and access control",
+            "checklistSection": "sec-3"
+          }
+        ]
+      },
+      {
+        "id": "api-security",
+        "title": "API Security",
+        "links": [
+          {
+            "id": "api-1",
+            "title": "REST Security Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html",
+            "description": "RESTful API security patterns and authentication",
+            "checklistSection": "sec-4"
+          },
+          {
+            "id": "api-2",
+            "title": "JSON Web Token Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_Cheat_Sheet_for_Java.html",
+            "description": "JWT signing, validation, and security best practices",
+            "checklistSection": "sec-4"
+          },
+          {
+            "id": "api-3",
+            "title": "Cross-Site Request Forgery Prevention",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html",
+            "description": "CSRF token implementation and SameSite cookies",
+            "checklistSection": "sec-4"
+          },
+          {
+            "id": "api-4",
+            "title": "OWASP API Security Project",
+            "url": "https://owasp.org/www-project-api-security/",
+            "description": "API Security Top 10 risks and mitigations",
+            "checklistSection": "sec-4"
+          }
+        ]
+      },
+      {
+        "id": "frontend-security",
+        "title": "Frontend Security",
+        "links": [
+          {
+            "id": "frontend-1",
+            "title": "Content Security Policy Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html",
+            "description": "CSP headers for XSS prevention",
+            "checklistSection": "sec-6"
+          },
+          {
+            "id": "frontend-2",
+            "title": "Cross Site Scripting Prevention",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html",
+            "description": "XSS attack vectors and defenses",
+            "checklistSection": "sec-6"
+          },
+          {
+            "id": "frontend-3",
+            "title": "Unvalidated Redirects and Forwards",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html",
+            "description": "Open redirect prevention",
+            "checklistSection": "sec-6"
+          },
+          {
+            "id": "frontend-4",
+            "title": "Subresource Integrity (MDN)",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity",
+            "description": "SRI for external script integrity verification",
+            "checklistSection": "sec-6"
+          }
+        ]
+      },
+      {
+        "id": "infrastructure",
+        "title": "Infrastructure & DevSecOps",
+        "links": [
+          {
+            "id": "infra-1",
+            "title": "Infrastructure as Code Security",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html",
+            "description": "Terraform, CloudFormation security scanning",
+            "checklistSection": "sec-5"
+          },
+          {
+            "id": "infra-2",
+            "title": "Container Security Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Container_Security_Cheat_Sheet.html",
+            "description": "Docker and Kubernetes security hardening",
+            "checklistSection": "sec-5"
+          },
+          {
+            "id": "infra-3",
+            "title": "DevSecOps Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/DevSecOps_Cheat_Sheet.html",
+            "description": "Security integration in CI/CD pipelines",
+            "checklistSection": "sec-8"
+          }
+        ]
+      },
+      {
+        "id": "testing",
+        "title": "Security Testing",
+        "links": [
+          {
+            "id": "test-1",
+            "title": "OWASP Testing Guide",
+            "url": "https://owasp.org/www-project-web-security-testing-guide/",
+            "description": "Comprehensive web application security testing methodology",
+            "checklistSection": "sec-8"
+          },
+          {
+            "id": "test-2",
+            "title": "OWASP Top 10",
+            "url": "https://owasp.org/www-project-top-ten/",
+            "description": "Top 10 web application security risks",
+            "checklistSection": "sec-8"
+          },
+          {
+            "id": "test-3",
+            "title": "SAST Tools",
+            "url": "https://owasp.org/www-community/Source_Code_Analysis_Tools",
+            "description": "Static Application Security Testing tools",
+            "checklistSection": "sec-8"
+          },
+          {
+            "id": "test-4",
+            "title": "DAST Tools",
+            "url": "https://owasp.org/www-community/Vulnerability_Scanning_Tools",
+            "description": "Dynamic Application Security Testing tools",
+            "checklistSection": "sec-8"
+          }
+        ]
+      },
+      {
+        "id": "ai-security",
+        "title": "AI & Machine Learning Security",
+        "links": [
+          {
+            "id": "ai-1",
+            "title": "OWASP ML Security Top 10",
+            "url": "https://owasp.org/www-project-machine-learning-security-top-10/",
+            "description": "Top 10 security risks for ML systems",
+            "checklistSection": "sec-11"
+          }
+        ]
+      }
+    ]
+  },
+  "agenticEngineering": {
+    "title": "From Vibe Coding to Agentic Engineering",
+    "description": "Resources for transitioning from ad-hoc AI-assisted coding to systematic agentic engineering workflows.",
+    "categories": [
+      {
+        "id": "concepts",
+        "title": "Core Concepts",
+        "links": [
+          {
+            "id": "concept-1",
+            "title": "Simon Willison's AI Engineering Blog",
+            "url": "https://simonwillison.net/",
+            "description": "Practical insights on AI-assisted development from a leading practitioner"
+          },
+          {
+            "id": "concept-2",
+            "title": "Microsoft Generative AI for Beginners",
+            "url": "https://github.com/microsoft/generative-ai-for-beginners",
+            "description": "Comprehensive learning path for AI application development"
+          },
+          {
+            "id": "concept-3",
+            "title": "Prompt Engineering Guide",
+            "url": "https://www.promptingguide.ai/",
+            "description": "Techniques for effective prompting of LLMs"
+          }
+        ]
+      },
+      {
+        "id": "tools",
+        "title": "AI Coding Tools",
+        "links": [
+          {
+            "id": "tool-1",
+            "title": "GitHub Copilot Documentation",
+            "url": "https://docs.github.com/en/copilot",
+            "description": "Official documentation for GitHub Copilot configuration and best practices"
+          },
+          {
+            "id": "tool-2",
+            "title": "Anthropic Claude Documentation",
+            "url": "https://docs.anthropic.com/",
+            "description": "Claude API documentation and usage patterns"
+          },
+          {
+            "id": "tool-3",
+            "title": "OpenAI API Documentation",
+            "url": "https://platform.openai.com/docs",
+            "description": "OpenAI API guides and best practices"
+          },
+          {
+            "id": "tool-4",
+            "title": "Cursor Documentation",
+            "url": "https://cursor.sh/docs",
+            "description": "AI-first code editor documentation"
+          },
+          {
+            "id": "tool-5",
+            "title": "Opencode Documentation",
+            "url": "https://opencode.ai/docs",
+            "description": "The Opencode framework docs"
+          }
+        ]
+      },
+      {
+        "id": "security",
+        "title": "AI Security Best Practices",
+        "links": [
+          {
+            "id": "sec-1",
+            "title": "OWASP LLM Top 10",
+            "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+            "description": "Top 10 security risks for LLM applications"
+          },
+          {
+            "id": "sec-2",
+            "title": "GitHub Security Lab",
+            "url": "https://securitylab.github.com/",
+            "description": "Security research and tooling from GitHub"
+          },
+          {
+            "id": "sec-3",
+            "title": "NIST AI Risk Management Framework",
+            "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+            "description": "Framework for managing AI-related risks"
+          },
+          {
+            "id": "sec-4",
+            "title": "OpenAI Safety Best Practices",
+            "url": "https://platform.openai.com/docs/guides/safety-best-practices",
+            "description": "Safety guidelines for AI application development"
+          }
+        ]
+      },
+      {
+        "id": "workflows",
+        "title": "Development Workflows",
+        "links": [
+          {
+            "id": "wf-1",
+            "title": "AI-Assisted Development Patterns",
+            "url": "https://github.blog/2023-06-20-how-to-write-better-prompts-for-github-copilot/",
+            "description": "Writing effective prompts for AI coding assistants"
+          },
+          {
+            "id": "wf-2",
+            "title": "Test-Driven Development with AI",
+            "url": "https://www.jetbrains.com/guide/testing/",
+            "description": "Integrating AI assistance into TDD workflows"
+          },
+          {
+            "id": "wf-3",
+            "title": "Spec-driven Development with AI",
+            "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html",
+            "description": "A great introduction to spec-driven development and tools"
+          },
+          {
+            "id": "wf-4",
+            "title": "Code Review with AI",
+            "url": "https://docs.github.com/en/copilot/using-github-copilot/reviewing-code-changes-with-copilot",
+            "description": "Using AI for code review and quality assurance"
+          }
+        ]
+      },
+      {
+        "id": "community",
+        "title": "Community Resources",
+        "links": [
+          {
+            "id": "comm-1",
+            "title": "r/ChatGPTCoding",
+            "url": "https://www.reddit.com/r/ChatGPTCoding/",
+            "description": "Community discussions on AI-assisted coding"
+          },
+          {
+            "id": "comm-2",
+            "title": "Hacker News - AI Category",
+            "url": "https://news.ycombinator.com/",
+            "description": "Tech news and discussions including AI development"
+          },
+          {
+            "id": "comm-3",
+            "title": "AI Engineer Newsletter",
+            "url": "https://www.latent.space/",
+            "description": "Newsletter covering AI engineering developments"
+          }
+        ]
+      }
+    ]
+  }
+}

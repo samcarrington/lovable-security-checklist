@@ -7,7 +7,7 @@ describe("Footer", () => {
     render(<Footer />);
 
     expect(
-      screen.getByText(/Made by Sam Carrington and Lovable/i)
+      screen.getByText(/Made by Sam Carrington using JSON from/i)
     ).toBeInTheDocument();
   });
 

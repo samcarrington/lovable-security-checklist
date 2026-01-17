@@ -13,59 +13,62 @@ describe("GradientBackground", () => {
     expect(getByText("Test Content")).toBeInTheDocument();
   });
 
-  it("applies default intensity and brightness", () => {
+  it("applies solid background with semantic tokens", () => {
     const { container } = render(
       <GradientBackground>
         <div>Test</div>
       </GradientBackground>
     );
 
-    const gradientLayers = container.querySelectorAll(".fixed.inset-0");
-    expect(gradientLayers).toHaveLength(2);
+    // New brutalist styling uses solid bg-background instead of gradients
+    expect(container.firstChild).toHaveClass("bg-background");
   });
 
-  it("applies custom intensity", () => {
+  it("renders subtle texture layer", () => {
     const { container } = render(
       <GradientBackground intensity={75}>
         <div>Test</div>
       </GradientBackground>
     );
 
-    const firstLayer = container.querySelector(".fixed.inset-0");
-    expect(firstLayer).toHaveStyle({ opacity: "0.75" });
+    // Subtle texture layer is now pointer-events-none for minimal interference
+    const textureLayer = container.querySelector(".fixed.inset-0.pointer-events-none");
+    expect(textureLayer).toBeInTheDocument();
   });
 
-  it("applies custom brightness", () => {
+  it("maintains API compatibility with intensity prop", () => {
+    // Props are maintained for API compatibility but have minimal visual effect
+    const { container } = render(
+      <GradientBackground intensity={75}>
+        <div>Test</div>
+      </GradientBackground>
+    );
+
+    // Component should still render successfully
+    expect(container.firstChild).toBeInTheDocument();
+  });
+
+  it("maintains API compatibility with brightness prop", () => {
+    // Props are maintained for API compatibility but have minimal visual effect
     const { container } = render(
       <GradientBackground brightness={80}>
         <div>Test</div>
       </GradientBackground>
     );
 
-    const firstLayer = container.querySelector(".fixed.inset-0");
-    expect(firstLayer).toHaveStyle({ filter: "brightness(0.8)" });
+    // Component should still render successfully
+    expect(container.firstChild).toBeInTheDocument();
   });
 
-  it("clamps intensity to 0-100 range", () => {
+  it("handles extreme prop values gracefully", () => {
     const { container } = render(
-      <GradientBackground intensity={150}>
+      <GradientBackground intensity={150} brightness={-10}>
         <div>Test</div>
       </GradientBackground>
     );
 
-    const firstLayer = container.querySelector(".fixed.inset-0");
-    expect(firstLayer).toHaveStyle({ opacity: "1" });
-  });
-
-  it("clamps brightness to 0-100 range", () => {
-    const { container } = render(
-      <GradientBackground brightness={-10}>
-        <div>Test</div>
-      </GradientBackground>
-    );
-
-    const firstLayer = container.querySelector(".fixed.inset-0");
-    expect(firstLayer).toHaveStyle({ filter: "brightness(0)" });
+    // Should render without errors despite extreme values
+    expect(container.firstChild).toBeInTheDocument();
   });
 
   it("applies custom className to container", () => {

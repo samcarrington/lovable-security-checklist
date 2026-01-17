@@ -38,10 +38,11 @@ describe("ErrorState", () => {
     expect(reloadMock).toHaveBeenCalledOnce();
   });
 
-  it("displays error with red styling", () => {
+  it("displays error with destructive styling", () => {
     const { container } = render(<ErrorState error="Test error" />);
 
-    const errorContainer = container.querySelector(".bg-red-50");
+    // Updated to match brutalist styling using semantic tokens
+    const errorContainer = container.querySelector(".border-destructive");
     expect(errorContainer).toBeInTheDocument();
   });
 });

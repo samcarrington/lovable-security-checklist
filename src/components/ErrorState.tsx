@@ -3,13 +3,13 @@ import GradientBackground from "@/components/GradientBackground";
 const ErrorState = ({ error }: { error: string }) => (
   <GradientBackground intensity={20} brightness={95}>
     <div className="flex min-h-screen items-center justify-center">
-      <div className="text-center max-w-md p-6 bg-red-50 rounded-lg">
-        <h2 className="text-xl font-semibold text-red-600 mb-2">Something went wrong</h2>
-        <p className="text-red-700">{error}</p>
+      <div className="text-center max-w-md p-6 bg-destructive/10 rounded-sm border border-destructive">
+        <h2 className="text-xl font-semibold text-destructive mb-2">Something went wrong</h2>
+        <p className="text-destructive/80">{error}</p>
         <button
           type="button"
           onClick={() => window.location.reload()}
-          className="mt-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+          className="mt-4 px-4 py-2 bg-destructive text-destructive-foreground rounded-sm hover:bg-destructive/90 transition-colors"
         >
           Retry
         </button>

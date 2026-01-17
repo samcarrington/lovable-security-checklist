@@ -8,6 +8,7 @@ import {
 } from "@/services/checklistService";
 import GradientBackground from "@/components/GradientBackground";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import Navigation from "@/components/Navigation";
 import LoadingState from "@/components/LoadingState";
 import ErrorState from "@/components/ErrorState";
 import ChecklistHeader from "@/components/ChecklistHeader";
@@ -109,14 +110,17 @@ const Index = () => {
 
   return (
     <GradientBackground intensity={backgroundIntensity} brightness={89}>
-      <div className="container py-8 px-4 mx-auto max-w-5xl">
+      <div className="container pt-16 md:pt-8 pb-8 px-4 mx-auto max-w-5xl">
         <ThemeToggle />
-        <ChecklistHeader title={checklist.title} totalProgress={totalProgress} />
-        <ChecklistGrid
-          sections={checklist.sections}
-          checkedItems={checkedItems}
-          onItemToggle={handleItemToggle}
-        />
+        <Navigation />
+        <main id="main-content">
+          <ChecklistHeader title={checklist.title} totalProgress={totalProgress} />
+          <ChecklistGrid
+            sections={checklist.sections}
+            checkedItems={checkedItems}
+            onItemToggle={handleItemToggle}
+          />
+        </main>
         <Footer />
       </div>
     </GradientBackground>

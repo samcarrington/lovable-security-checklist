@@ -1,5 +1,5 @@
-import { ExternalLink } from "lucide-react";
 import { trackExternalLinkClick } from "@/lib/analytics";
+import { ExternalLink } from "@/components/ui/link";
 
 // GitHub icon from Simple Icons (https://simpleicons.org/?q=github)
 // Used instead of deprecated lucide Github icon
@@ -19,26 +19,20 @@ const Footer = () => (
   <footer className="mt-16 text-center text-sm text-muted-foreground">
     <p>
       Made by Sam Carrington using JSON from{" "}
-      <a
+      <ExternalLink
         href="https://www.fine.dev"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-primary hover:underline inline-flex items-center"
-        onClick={() =>
+        onTrackClick={() =>
           trackExternalLinkClick("https://www.fine.dev", "fine.dev", "footer")
         }
       >
         fine.dev
-        <ExternalLink className="h-3 w-3 ml-1" />
-      </a>
+      </ExternalLink>
     </p>
     <p className="mt-2">
-      <a
+      <ExternalLink
         href="https://github.com/samcarrington/lovable-security-checklist"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-primary hover:underline inline-flex items-center"
-        onClick={() =>
+        showIcon={false}
+        onTrackClick={() =>
           trackExternalLinkClick(
             "https://github.com/samcarrington/lovable-security-checklist",
             "View on GitHub",
@@ -48,7 +42,7 @@ const Footer = () => (
       >
         <GitHubIcon className="h-4 w-4 mr-1" />
         View on GitHub
-      </a>
+      </ExternalLink>
     </p>
   </footer>
 );

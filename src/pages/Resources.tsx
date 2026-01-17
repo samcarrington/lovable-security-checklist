@@ -53,7 +53,7 @@ const Resources = () => {
 
   return (
     <GradientBackground intensity={50} brightness={89}>
-      <div className="container py-8 px-4 mx-auto max-w-5xl">
+      <div className="container pt-16 md:pt-8 pb-8 px-4 mx-auto max-w-5xl">
         <ThemeToggle />
         <Navigation />
 

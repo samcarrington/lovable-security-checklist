@@ -3,6 +3,8 @@ import GradientBackground from "@/components/GradientBackground";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { PageTitle, SectionHeading, Muted } from "@/components/ui/typography";
+import { TextLink } from "@/components/ui/link";
 
 /**
  * Privacy Policy page component.
@@ -18,24 +20,20 @@ const Privacy = () => {
 
         <main id="main-content">
           {/* Main heading */}
-          <h1 className="text-3xl font-bold mb-8 text-foreground">
-            Privacy Policy
-          </h1>
+          <PageTitle className="text-3xl mb-8">Privacy Policy</PageTitle>
 
           {/* Last updated */}
-          <p className="text-sm text-muted-foreground mb-8">
-            Last updated: January 2026
-          </p>
+          <Muted className="mb-8">Last updated: January 2026</Muted>
 
           {/* Data Collection Section */}
           <section className="mb-8">
-            <h2 className="text-xl font-semibold mb-4 text-foreground">
+            <SectionHeading className="text-xl mb-4">
               Data Collection
-            </h2>
-            <p className="text-muted-foreground mb-4">
+            </SectionHeading>
+            <Muted size="base" className="mb-4">
               We collect minimal information to provide and improve our service.
               The data we collect includes:
-            </p>
+            </Muted>
             <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
               <li>
                 Checklist progress stored locally in your browser (localStorage)
@@ -45,20 +43,18 @@ const Privacy = () => {
                 Technical information such as browser type and device information
               </li>
             </ul>
-            <p className="text-muted-foreground mt-4">
+            <Muted size="base" className="mt-4">
               We do not collect any personally identifiable information (PII) such
               as names, email addresses, or contact details.
-            </p>
+            </Muted>
           </section>
 
           {/* Cookies Section */}
           <section className="mb-8">
-            <h2 className="text-xl font-semibold mb-4 text-foreground">
-              Cookies
-            </h2>
-            <p className="text-muted-foreground mb-4">
+            <SectionHeading className="text-xl mb-4">Cookies</SectionHeading>
+            <Muted size="base" className="mb-4">
               We use cookies and similar technologies to enhance your experience:
-            </p>
+            </Muted>
             <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
               <li>
                 <strong className="text-foreground">Essential cookies:</strong> Required for the site to
@@ -73,61 +69,54 @@ const Privacy = () => {
                 theme preference (light/dark mode)
               </li>
             </ul>
-            <p className="text-muted-foreground mt-4">
+            <Muted size="base" className="mt-4">
               You can control cookie preferences through our consent banner.
               Essential cookies cannot be disabled as they are required for basic
               functionality.
-            </p>
+            </Muted>
           </section>
 
           {/* Analytics Section */}
           <section className="mb-8">
-            <h2 className="text-xl font-semibold mb-4 text-foreground">
-              Analytics
-            </h2>
-            <p className="text-muted-foreground mb-4">
+            <SectionHeading className="text-xl mb-4">Analytics</SectionHeading>
+            <Muted size="base" className="mb-4">
               When you grant consent, we use Google Analytics to understand how
               users interact with our service. This helps us improve the user
               experience and identify areas for enhancement.
-            </p>
-            <p className="text-muted-foreground mb-4">
+            </Muted>
+            <Muted size="base" className="mb-4">
               Analytics data collected includes:
-            </p>
+            </Muted>
             <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
               <li>Page views and navigation patterns</li>
               <li>Time spent on the application</li>
               <li>Progress milestones reached in the checklist</li>
               <li>Device and browser information</li>
             </ul>
-            <p className="text-muted-foreground mt-4">
+            <Muted size="base" className="mt-4">
               All analytics data is anonymized and cannot be used to identify
               individual users. We use Google Tag Manager with Consent Mode v2 to
               ensure analytics only runs when you have granted permission.
-            </p>
+            </Muted>
           </section>
 
           {/* Contact Section */}
           <section className="mb-8">
-            <h2 className="text-xl font-semibold mb-4 text-foreground">
-              Contact Us
-            </h2>
-            <p className="text-muted-foreground mb-4">
+            <SectionHeading className="text-xl mb-4">Contact Us</SectionHeading>
+            <Muted size="base" className="mb-4">
               If you have any questions about this Privacy Policy or how we handle
               your data, please reach out to us:
-            </p>
-            <p className="text-muted-foreground">
+            </Muted>
+            <Muted size="base">
               Email:{" "}
-              <a
-                href="mailto:privacy@gwawr.co.uk"
-                className="text-primary hover:text-primary/80 underline"
-              >
+              <TextLink href="mailto:privacy@gwawr.co.uk" className="underline">
                 privacy@gwawr.co.uk
-              </a>
-            </p>
-            <p className="text-muted-foreground mt-4">
+              </TextLink>
+            </Muted>
+            <Muted size="base" className="mt-4">
               We are committed to addressing your concerns and will respond to
               privacy-related inquiries within a reasonable timeframe.
-            </p>
+            </Muted>
           </section>
 
           {/* Footer with back link */}

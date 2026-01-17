@@ -181,7 +181,7 @@ describe('NotFound Component', () => {
       render(<NotFound />, { wrapper: createWrapper() });
 
       const link = screen.getByRole('link');
-      expect(link.className).toContain('text-blue-500');
+      expect(link.className).toContain('text-primary');
       expect(link.className).toContain('underline');
     });
   });

@@ -3,27 +3,28 @@ import { cn } from "@/lib/utils";
 
 interface GradientBackgroundProps {
     /**
-     * Controls the visibility/strength of the gradient effect.
+     * Controls the visibility/strength of the background effect.
      * A value from 0 (transparent) to 100 (fully visible).
      * @default 50
      */
     intensity?: number;
     /**
-     * Adjusts the overall brightness of the gradient effect.
+     * Adjusts the overall brightness of the background effect.
      * A value from 0 (black) to 100 (normal brightness).
      * @default 100
      */
     brightness?: number;
     /** Optional additional CSS classes to apply to the main container div. */
     className?: string;
-    /** The content to be rendered inside the gradient background container. */
+    /** The content to be rendered inside the background container. */
     children: React.ReactNode;
 }
 
 /**
- * A reusable component that provides a subtle, layered gradient background effect.
- * It uses fixed positioning to cover the entire viewport behind its children.
- * The intensity and brightness of the effect can be controlled via props.
+ * A reusable component that provides a subtle, solid background.
+ * Uses the design system's surface tokens for a clean, brutalist aesthetic.
+ * The intensity and brightness props are maintained for API compatibility
+ * but have minimal visual effect with the new solid background approach.
  */
 const GradientBackground = ({
                                 intensity = 50,
@@ -31,48 +32,32 @@ const GradientBackground = ({
                                 className,
                                 children
                             }: GradientBackgroundProps) => {
-    // Ensure intensity and brightness values are within the valid 0-100 range
-    // and convert them to a 0-1 scale for CSS opacity/filter usage.
-    const clampedIntensity = Math.min(100, Math.max(0, intensity)) / 100;
-    const clampedBrightness = Math.min(100, Math.max(0, brightness)) / 100;
+    // Props maintained for API compatibility
+    const _clampedIntensity = Math.min(100, Math.max(0, intensity)) / 100;
+    const _clampedBrightness = Math.min(100, Math.max(0, brightness)) / 100;
 
     return (
-        // Main container div. Sets up relative positioning for the content
-        // and ensures it takes at least the full screen height.
-        <div className={cn("relative min-h-screen overflow-hidden", className)}>
-            {/* First gradient layer (Base) */}
+        // Main container div with solid subtle background
+        <div className={cn(
+            "relative min-h-screen",
+            "bg-background",
+            className
+        )}>
+            {/* Subtle texture layer - minimal, brutalist approach */}
             <div
-                className="fixed inset-0 transition-opacity duration-1000 will-change-[opacity]" // Fixed position to cover viewport, smooth transition
+                className="fixed inset-0 pointer-events-none"
                 style={{
-                    opacity: clampedIntensity, // Control visibility with intensity prop
-                    filter: `brightness(${clampedBrightness})`, // Control brightness with brightness prop
-                    // Defines the base gradient effect using radial and linear gradients
-                    background: `
-            radial-gradient(circle at 15% 50%, rgba(255, 207, 139, 0.15), transparent 25%),
-            radial-gradient(circle at 85% 30%, rgba(255, 157, 167, 0.15), transparent 25%),
-            linear-gradient(45deg, rgba(247, 225, 195, 0.15) 0%, rgba(255, 175, 189, 0.15) 100%),
-            linear-gradient(180deg, rgba(255, 207, 139, 0.1) 0%, rgba(255, 207, 139, 0.2) 100%)
-          `
+                    opacity: 0.03,
+                    backgroundImage: `
+                        radial-gradient(circle at 20% 80%, var(--slate-300), transparent 50%),
+                        radial-gradient(circle at 80% 20%, var(--slate-200), transparent 50%)
+                    `
                 }}
+                aria-hidden="true"
             />
 
-            {/* Second gradient layer (Overlay) - adds more depth */}
-            <div
-                className="fixed inset-0 transition-opacity duration-1000 will-change-[opacity]" // Fixed position, smooth transition
-                style={{
-                    // Slightly less opaque and slightly brighter than the base layer for subtle variation
-                    opacity: clampedIntensity * 0.7,
-                    filter: `brightness(${clampedBrightness * 1.1})`,
-                    // Defines the overlay gradient effect
-                    background: `
-            radial-gradient(circle at 85% 70%, rgba(255, 175, 189, 0.1), transparent 30%),
-            radial-gradient(circle at 15% 30%, rgba(255, 207, 139, 0.1), transparent 30%)
-          `
-                }}
-            />
-
-            {/* Content Layer - Renders the children above the gradient layers */}
-            <div className="relative z-10"> {/* Ensures content is above the fixed background layers */}
+            {/* Content Layer */}
+            <div className="relative z-10">
                 {children}
             </div>
         </div>

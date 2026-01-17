@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Shield } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import type { ResourcePage } from "@/types/resources";
 import { fetchOWASPResources } from "@/services/resourcesService";
 import GradientBackground from "@/components/GradientBackground";
@@ -17,6 +17,7 @@ import Footer from "@/components/Footer";
  * - Organized by security topic (Authentication, Input Validation, etc.)
  * - Links to OWASP Cheat Sheet Series and related resources
  * - Cross-references to checklist sections
+ * - Left-aligned brutalist layout
  */
 const OWASPLinks = () => {
   const [resources, setResources] = useState<ResourcePage | null>(null);
@@ -64,34 +65,28 @@ const OWASPLinks = () => {
             Back to Resources
           </Link>
 
-          {/* Page Header */}
-          <header className="mb-12">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="p-3 rounded-lg bg-primary/10 text-primary">
-                <Shield className="h-8 w-8" aria-hidden="true" />
-              </div>
-              <div>
-                <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-                  {resources.title}
-                </h1>
-                <p className="text-sm text-muted-foreground mt-1">
-                  {totalLinks} resources across {resources.categories.length} categories
-                </p>
-              </div>
-            </div>
+          {/* Page Header - Left aligned, no icon-in-bg pattern */}
+          <header className="mb-16">
+            <h1 className="text-fluid-2xl md:text-fluid-3xl font-bold text-foreground font-display mb-2">
+              {resources.title}
+            </h1>
+            <p className="text-sm text-muted-foreground font-mono mb-4">
+              {totalLinks} resources across {resources.categories.length} categories
+            </p>
             <p className="text-lg text-muted-foreground max-w-3xl">
               {resources.description}
             </p>
           </header>
 
-          {/* Categories */}
-          <div className="space-y-6">
-            {resources.categories.map((category) => (
-              <ResourceCategoryCard
-                key={category.id}
-                category={category}
-                defaultExpanded={true}
-              />
+          {/* Categories with varied spacing */}
+          <div className="space-y-8">
+            {resources.categories.map((category, index) => (
+              <div key={category.id} className={index === 0 ? "" : "pt-4"}>
+                <ResourceCategoryCard
+                  category={category}
+                  defaultExpanded={true}
+                />
+              </div>
             ))}
           </div>
         </main>

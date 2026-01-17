@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Shield, Bot } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { ExamplesManifest } from "@/types/examples";
 import { fetchExamplesManifest } from "@/services/examplesService";
 import GradientBackground from "@/components/GradientBackground";
@@ -15,9 +15,10 @@ import { cn } from "@/lib/utils";
 /**
  * Resources landing page displaying examples and links to reference pages.
  * Features:
- * - Security agent examples with View/Download
- * - Security prompt examples with View/Download
+ * - Hero featured agent with prominent display
+ * - Security agent and prompt examples with View/Download
  * - Links to OWASP and Agentic Engineering resource pages
+ * - Left-aligned brutalist layout
  */
 const Resources = () => {
   const [manifest, setManifest] = useState<ExamplesManifest | null>(null);
@@ -44,6 +45,10 @@ const Resources = () => {
   if (error) return <ErrorState error={error} />;
   if (!manifest) return null;
 
+  // Split agents into hero (first) and rest
+  const heroAgent = manifest.agents.items[0];
+  const otherAgents = manifest.agents.items.slice(1);
+
   return (
     <GradientBackground intensity={50} brightness={89}>
       <div className="container py-8 px-4 mx-auto max-w-5xl">
@@ -51,53 +56,57 @@ const Resources = () => {
         <Navigation />
 
         <main id="main-content">
-          {/* Page Header */}
-          <header className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          {/* Page Header - Left aligned */}
+          <header className="mb-16">
+            <h1 className="text-fluid-2xl md:text-fluid-3xl font-bold text-foreground font-display mb-4">
               Security Resources
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl">
               Example agents, prompts, and curated links to help you build secure software with AI assistance.
             </p>
           </header>
 
           {/* Agent Examples Section */}
-          <section className="mb-12" aria-labelledby="agents-heading">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                <Bot className="h-6 w-6" aria-hidden="true" />
-              </div>
-              <div>
-                <h2 id="agents-heading" className="text-xl font-semibold text-foreground">
-                  {manifest.agents.title}
-                </h2>
-                <p className="text-sm text-muted-foreground">
-                  {manifest.agents.description}
+          <section className="mb-16" aria-labelledby="agents-heading">
+            <h2 id="agents-heading" className="text-fluid-lg font-semibold text-foreground font-display mb-2">
+              {manifest.agents.title}
+            </h2>
+            <p className="text-sm text-muted-foreground mb-8">
+              {manifest.agents.description}
+            </p>
+
+            {/* Hero Featured Agent */}
+            {heroAgent && (
+              <div className="mb-8 p-6 border-2 border-primary rounded-sm bg-card">
+                <span className="text-xs font-mono uppercase tracking-wider text-primary mb-2 block">Featured</span>
+                <h3 className="text-xl font-semibold text-foreground font-display mb-2">
+                  {heroAgent.title}
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  {heroAgent.description}
                 </p>
+                <ExampleCard example={heroAgent} />
               </div>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {manifest.agents.items.map((example) => (
-                <ExampleCard key={example.id} example={example} />
-              ))}
-            </div>
+            )}
+
+            {/* Other Agents - Compact Grid */}
+            {otherAgents.length > 0 && (
+              <div className="grid gap-4 sm:grid-cols-2">
+                {otherAgents.map((example) => (
+                  <ExampleCard key={example.id} example={example} />
+                ))}
+              </div>
+            )}
           </section>
 
           {/* Prompt Examples Section */}
-          <section className="mb-12" aria-labelledby="prompts-heading">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                <Shield className="h-6 w-6" aria-hidden="true" />
-              </div>
-              <div>
-                <h2 id="prompts-heading" className="text-xl font-semibold text-foreground">
-                  {manifest.prompts.title}
-                </h2>
-                <p className="text-sm text-muted-foreground">
-                  {manifest.prompts.description}
-                </p>
-              </div>
-            </div>
+          <section className="mb-16" aria-labelledby="prompts-heading">
+            <h2 id="prompts-heading" className="text-fluid-lg font-semibold text-foreground font-display mb-2">
+              {manifest.prompts.title}
+            </h2>
+            <p className="text-sm text-muted-foreground mb-8">
+              {manifest.prompts.description}
+            </p>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {manifest.prompts.items.map((example) => (
                 <ExampleCard key={example.id} example={example} />
@@ -107,7 +116,7 @@ const Resources = () => {
 
           {/* Reference Links Section */}
           <section aria-labelledby="links-heading">
-            <h2 id="links-heading" className="text-xl font-semibold text-foreground mb-6">
+            <h2 id="links-heading" className="text-fluid-lg font-semibold text-foreground font-display mb-8">
               Reference Links
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -115,13 +124,13 @@ const Resources = () => {
               <Link
                 to="/owasp-links"
                 className={cn(
-                  "group flex items-center justify-between p-6 rounded-lg border border-border bg-card",
-                  "hover:border-primary/50 hover:shadow-md transition-all",
+                  "group flex items-center justify-between p-6 rounded-sm border-2 border-border bg-card",
+                  "hover:border-primary transition-colors",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 )}
               >
                 <div>
-                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors font-display">
                     OWASP Security Resources
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
@@ -138,13 +147,13 @@ const Resources = () => {
               <Link
                 to="/agentic-engineering"
                 className={cn(
-                  "group flex items-center justify-between p-6 rounded-lg border border-border bg-card",
-                  "hover:border-primary/50 hover:shadow-md transition-all",
+                  "group flex items-center justify-between p-6 rounded-sm border-2 border-border bg-card",
+                  "hover:border-primary transition-colors",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 )}
               >
                 <div>
-                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors font-display">
                     Agentic Engineering
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">

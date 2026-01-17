@@ -48,20 +48,20 @@ const ExampleCard = ({ example }: ExampleCardProps) => {
     <>
       <div
         className={cn(
-          "group relative flex flex-col p-4 rounded-lg border border-border bg-card",
-          "hover:border-primary/50 hover:shadow-md transition-all duration-200"
+          // Brutalist styling: sharp corners, clean border, no shadows
+          "group relative flex flex-col p-4 rounded-sm border border-border bg-card",
+          "hover:border-primary transition-colors duration-150"
         )}
       >
-        {/* Icon and Title */}
+        {/* Title with icon - no decorative background */}
         <div className="flex items-start gap-3 mb-3">
-          <div className="flex-shrink-0 p-2 rounded-md bg-primary/10 text-primary">
-            <FileText className="h-5 w-5" aria-hidden="true" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-              {example.title}
-            </h3>
-          </div>
+          <FileText 
+            className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" 
+            aria-hidden="true" 
+          />
+          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+            {example.title}
+          </h3>
         </div>
 
         {/* Description */}
@@ -72,10 +72,11 @@ const ExampleCard = ({ example }: ExampleCardProps) => {
         {/* Actions */}
         <div className="flex items-center gap-2 mt-auto">
           <button
+            type="button"
             onClick={handleView}
             disabled={isLoading}
             className={cn(
-              "inline-flex items-center justify-center px-3 py-2 min-h-[44px] rounded-md text-sm font-medium",
+              "inline-flex items-center justify-center px-3 py-2 min-h-[44px] rounded-sm text-sm font-medium",
               "bg-secondary text-secondary-foreground hover:bg-secondary/80",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               "disabled:opacity-50 disabled:cursor-not-allowed",
@@ -90,7 +91,7 @@ const ExampleCard = ({ example }: ExampleCardProps) => {
             href={example.path}
             download={example.filename}
             className={cn(
-              "inline-flex items-center justify-center px-3 py-2 min-h-[44px] rounded-md text-sm font-medium",
+              "inline-flex items-center justify-center px-3 py-2 min-h-[44px] rounded-sm text-sm font-medium",
               "border border-border text-foreground hover:bg-accent",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               "transition-colors"

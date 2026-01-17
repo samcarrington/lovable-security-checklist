@@ -16,6 +16,7 @@ interface ResourceCategoryCardProps {
  * - External link indicators
  * - Accessible link styling
  * - Analytics tracking for external links
+ * - Brutalist styling with sharp corners
  */
 const ResourceCategoryCard = ({
   category,
@@ -28,9 +29,10 @@ const ResourceCategoryCard = ({
   };
 
   return (
-    <div className="rounded-lg border border-border bg-card overflow-hidden">
+    <div className="rounded-sm border border-border bg-card overflow-hidden">
       {/* Header - clickable on mobile to expand/collapse */}
       <button
+        type="button"
         onClick={() => setIsExpanded(!isExpanded)}
         className={cn(
           "w-full flex items-center justify-between p-4 min-h-[44px]",
@@ -41,9 +43,9 @@ const ResourceCategoryCard = ({
         aria-expanded={isExpanded}
         aria-controls={`category-${category.id}`}
       >
-        <div className="flex items-center gap-2">
-          <h3 className="font-semibold text-foreground">{category.title}</h3>
-          <span className="text-xs text-muted-foreground px-2 py-0.5 rounded-full bg-muted">
+        <div className="flex items-center gap-3">
+          <h3 className="font-semibold text-foreground font-display">{category.title}</h3>
+          <span className="text-xs text-muted-foreground px-2 py-0.5 rounded-sm bg-muted font-mono">
             {category.links.length}
           </span>
         </div>
@@ -73,7 +75,7 @@ const ResourceCategoryCard = ({
                 rel="noopener noreferrer"
                 onClick={() => handleLinkClick(link.url, link.title)}
                 className={cn(
-                  "block p-4 hover:bg-accent transition-colors",
+                  "block p-4 hover:bg-accent/50 transition-colors",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
                 )}
               >

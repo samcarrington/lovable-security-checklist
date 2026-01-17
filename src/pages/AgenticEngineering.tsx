@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Bot } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import type { ResourcePage } from "@/types/resources";
 import { fetchAgenticEngineeringResources } from "@/services/resourcesService";
 import GradientBackground from "@/components/GradientBackground";
@@ -18,6 +18,7 @@ import Footer from "@/components/Footer";
  * - AI coding tools documentation
  * - Security best practices for AI development
  * - Community resources
+ * - Left-aligned brutalist layout
  */
 const AgenticEngineering = () => {
   const [resources, setResources] = useState<ResourcePage | null>(null);
@@ -65,29 +66,22 @@ const AgenticEngineering = () => {
             Back to Resources
           </Link>
 
-          {/* Page Header */}
-          <header className="mb-12">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="p-3 rounded-lg bg-primary/10 text-primary">
-                <Bot className="h-8 w-8" aria-hidden="true" />
-              </div>
-              <div>
-                <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-                  {resources.title}
-                </h1>
-                <p className="text-sm text-muted-foreground mt-1">
-                  {totalLinks} resources across {resources.categories.length} categories
-                </p>
-              </div>
-            </div>
+          {/* Page Header - Left aligned, no icon-in-bg pattern */}
+          <header className="mb-16">
+            <h1 className="text-fluid-2xl md:text-fluid-3xl font-bold text-foreground font-display mb-2">
+              {resources.title}
+            </h1>
+            <p className="text-sm text-muted-foreground font-mono mb-4">
+              {totalLinks} resources across {resources.categories.length} categories
+            </p>
             <p className="text-lg text-muted-foreground max-w-3xl">
               {resources.description}
             </p>
           </header>
 
-          {/* Introduction */}
-          <section className="mb-12 p-6 rounded-lg border border-border bg-card/50">
-            <h2 className="text-xl font-semibold text-foreground mb-4">
+          {/* Introduction - brutalist card styling */}
+          <section className="mb-16 p-8 rounded-sm border-2 border-border bg-card">
+            <h2 className="text-xl font-semibold text-foreground font-display mb-6">
               What is Agentic Engineering?
             </h2>
             <div className="prose prose-sm dark:prose-invert max-w-none text-muted-foreground">
@@ -114,14 +108,15 @@ const AgenticEngineering = () => {
             </div>
           </section>
 
-          {/* Categories */}
-          <div className="space-y-6">
-            {resources.categories.map((category) => (
-              <ResourceCategoryCard
-                key={category.id}
-                category={category}
-                defaultExpanded={true}
-              />
+          {/* Categories with varied spacing */}
+          <div className="space-y-8">
+            {resources.categories.map((category, index) => (
+              <div key={category.id} className={index === 0 ? "" : "pt-4"}>
+                <ResourceCategoryCard
+                  category={category}
+                  defaultExpanded={true}
+                />
+              </div>
             ))}
           </div>
         </main>

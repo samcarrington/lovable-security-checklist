@@ -176,9 +176,9 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
   return (
     <Card 
       ref={cardRef}
-      className={`shadow-md hover:shadow-lg transition-all duration-300 relative overflow-hidden border-2 ${
+      className={`hover:border-primary/50 transition-all duration-300 relative overflow-hidden border-2 ${
         isFullyComplete 
-        ? 'border-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.3)]' 
+        ? 'border-amber-400' 
         : 'border-transparent'
       }`}
     >
@@ -199,7 +199,7 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
       <CardHeader className="pb-2">
         <div className="flex flex-col gap-2">
           <div className="flex justify-between items-start">
-            <CardTitle className={`text-xl font-semibold pt-1 ${isFullyComplete ? 'text-amber-600 dark:text-amber-400' : 'dark:text-white text-vibe-dark-gray'}`}>
+            <CardTitle className={`text-xl font-semibold pt-1 ${isFullyComplete ? 'text-amber-600 dark:text-amber-400' : 'text-foreground'}`}>
               {section.title}
             </CardTitle>
             <div className="flex items-start gap-4">
@@ -212,7 +212,7 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
               >
                 Clear all
               </Button>
-              <span className="text-sm font-medium text-vibe-gray dark:text-gray-300 py-2">
+              <span className="text-sm font-medium text-muted-foreground py-2">
                 {section.items.filter(item => checkedItems[item.id]).length}/{section.items.length}
               </span>
             </div>

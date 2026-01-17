@@ -128,26 +128,29 @@ out:
 
 ### Phase 6: Resource Pages (React) (Complexity: L)
 
-| ID    | Task                                                                                     | Owner                | Complexity | Dependencies | Done  |
-| ----- | ---------------------------------------------------------------------------------------- | -------------------- | ---------- | ------------ | ----- |
-| T-020 | Create `src/pages/Resources.tsx` - Main resources landing page                           | Implementation Agent | M          | [T-017]      | false |
-| T-021 | Create `src/pages/Resources.test.tsx` - Unit tests for resources page                    | Implementation Agent | S          | [T-020]      | false |
-| T-022 | Create `src/pages/OWASPLinks.tsx` - OWASP resources page with categorized links          | Implementation Agent | M          | [T-013]      | false |
-| T-023 | Create `src/pages/OWASPLinks.test.tsx` - Unit tests for OWASP page                       | Implementation Agent | S          | [T-022]      | false |
-| T-024 | Create `src/pages/AgenticEngineering.tsx` - Vibe-to-agentic resources page               | Implementation Agent | M          | [T-014]      | false |
-| T-025 | Create `src/pages/AgenticEngineering.test.tsx` - Unit tests for agentic engineering page | Implementation Agent | S          | [T-024]      | false |
-| T-026 | Add routes for new pages in App.tsx                                                      | Implementation Agent | XS         | [T-020,T-022,T-024] | false |
-| T-027 | Create `public/resources-data.json` - JSON data for resource pages                       | Implementation Agent | M          | [T-013,T-014] | false |
+| ID    | Task                                                                                     | Owner                | Complexity | Dependencies        | Done  |
+| ----- | ---------------------------------------------------------------------------------------- | -------------------- | ---------- | ------------------- | ----- |
+| T-020 | Create `src/types/resources.ts` - TypeScript interfaces for resource data                | Implementation Agent | S          | []                  | false |
+| T-021 | Create `public/resources-data.json` - JSON data extracted from markdown curation         | Implementation Agent | M          | [T-013,T-014,T-020] | false |
+| T-022 | Create `src/services/resourcesService.ts` - Fetch and parse resources JSON               | Implementation Agent | S          | [T-020]             | false |
+| T-023 | Create `src/components/ResourceCategoryCard.tsx` - Reusable category display component   | Implementation Agent | S          | [T-020]             | false |
+| T-024 | Create `src/pages/Resources.tsx` - Main resources landing page                           | Implementation Agent | M          | [T-017,T-022,T-023] | false |
+| T-025 | Create `src/pages/Resources.test.tsx` - Unit tests for resources page                    | Implementation Agent | S          | [T-024]             | false |
+| T-026 | Create `src/pages/OWASPLinks.tsx` - OWASP resources page with categorized links          | Implementation Agent | M          | [T-021,T-022,T-023] | false |
+| T-027 | Create `src/pages/OWASPLinks.test.tsx` - Unit tests for OWASP page                       | Implementation Agent | S          | [T-026]             | false |
+| T-028 | Create `src/pages/AgenticEngineering.tsx` - Vibe-to-agentic resources page               | Implementation Agent | M          | [T-021,T-022,T-023] | false |
+| T-029 | Create `src/pages/AgenticEngineering.test.tsx` - Unit tests for agentic engineering page | Implementation Agent | S          | [T-028]             | false |
+| T-030 | Add routes for new pages in App.tsx                                                      | Implementation Agent | XS         | [T-024,T-026,T-028] | false |
 
 ### Phase 7: Documentation & Polish (Complexity: S)
 
-| ID    | Task                                                         | Owner                | Complexity | Dependencies        | Done  |
-| ----- | ------------------------------------------------------------ | -------------------- | ---------- | ------------------- | ----- |
-| T-028 | Update main README.md to reference examples and new pages    | Implementation Agent | XS         | [T-002,T-026]       | false |
-| T-029 | Add cross-references between examples and checklist sections | Implementation Agent | S          | [T-013]             | false |
-| T-030 | Review all examples for consistency and completeness         | Security Reviewer    | S          | [T-003..T-016]      | false |
-| T-031 | Run full test suite and fix any failures                     | Implementation Agent | S          | [T-018,T-021,T-023,T-025] | false |
-| T-032 | Verify responsive design at all breakpoints                  | Implementation Agent | S          | [T-017,T-020,T-022,T-024] | false |
+| ID    | Task                                                         | Owner                | Complexity | Dependencies              | Done  |
+| ----- | ------------------------------------------------------------ | -------------------- | ---------- | ------------------------- | ----- |
+| T-031 | Update main README.md to reference examples and new pages    | Implementation Agent | XS         | [T-002,T-030]             | false |
+| T-032 | Add cross-references between examples and checklist sections | Implementation Agent | S          | [T-013]                   | false |
+| T-033 | Review all examples for consistency and completeness         | Security Reviewer    | S          | [T-003..T-016]            | false |
+| T-034 | Run full test suite and fix any failures                     | Implementation Agent | S          | [T-018,T-025,T-027,T-029] | false |
+| T-035 | Verify responsive design at all breakpoints                  | Implementation Agent | S          | [T-017,T-024,T-026,T-028] | false |
 
 ## 10. Risks and mitigations
 
@@ -286,6 +289,161 @@ Update `App.tsx` to include new routes:
   <Route path="*" element={<NotFound />} />
 </Routes>
 ```
+
+### Content Architecture: Markdown to HTML Strategy
+
+The plan includes two types of content that serve different purposes:
+
+#### 1. Developer Example Files (`examples/`)
+
+These markdown files are **developer-facing documentation** intended to be:
+- Read directly on GitHub
+- Copied into other projects as starting templates
+- Referenced as examples of agent/prompt patterns
+
+These files do NOT render as app pages - they are repository documentation like the existing `.github/prompts/` files.
+
+#### 2. Application Resource Pages (`src/pages/`)
+
+For the React pages visible in the app, we use a **JSON + React component** approach (matching the existing `checklist-data.json` pattern):
+
+**Data Flow:**
+```
+public/resources-data.json  →  fetch()  →  React Page Component  →  HTML
+```
+
+**Why JSON over Markdown rendering:**
+- Consistent with existing `checklist-data.json` pattern
+- No additional build dependencies (no MDX, no markdown plugins)
+- Structured data enables filtering, categorization, search
+- Simpler testing (mock JSON vs mock markdown parsing)
+- Type-safe with TypeScript interfaces
+
+**`public/resources-data.json` Structure:**
+
+```json
+{
+  "owasp": {
+    "title": "OWASP Security Resources",
+    "description": "Curated links from the OWASP Cheat Sheet Series",
+    "categories": [
+      {
+        "id": "authentication",
+        "title": "Authentication & Authorization",
+        "links": [
+          {
+            "id": "auth-1",
+            "title": "Authentication Cheat Sheet",
+            "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html",
+            "description": "Best practices for implementing authentication",
+            "checklistSection": "sec-1"
+          }
+        ]
+      }
+    ]
+  },
+  "agenticEngineering": {
+    "title": "From Vibe Coding to Agentic Engineering",
+    "description": "Resources for systematic AI-assisted development",
+    "categories": [
+      {
+        "id": "concepts",
+        "title": "Core Concepts",
+        "links": [
+          {
+            "id": "ae-1",
+            "title": "What is Agentic Engineering?",
+            "url": "https://example.com/agentic-engineering",
+            "description": "Understanding the shift from ad-hoc to systematic AI workflows"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**TypeScript Interfaces:**
+
+```typescript
+// src/types/resources.ts
+interface ResourceLink {
+  id: string;
+  title: string;
+  url: string;
+  description: string;
+  checklistSection?: string; // Optional link to checklist section
+}
+
+interface ResourceCategory {
+  id: string;
+  title: string;
+  links: ResourceLink[];
+}
+
+interface ResourcePage {
+  title: string;
+  description: string;
+  categories: ResourceCategory[];
+}
+
+interface ResourcesData {
+  owasp: ResourcePage;
+  agenticEngineering: ResourcePage;
+}
+```
+
+**React Page Pattern:**
+
+```tsx
+// src/pages/OWASPLinks.tsx
+const OWASPLinks = () => {
+  const [data, setData] = useState<ResourcePage | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch('/resources-data.json')
+      .then(res => res.json())
+      .then((data: ResourcesData) => setData(data.owasp))
+      .catch(err => setError('Failed to load resources'))
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  if (isLoading) return <LoadingState />;
+  if (error) return <ErrorState error={error} />;
+  if (!data) return null;
+
+  return (
+    <GradientBackground intensity={50} brightness={89}>
+      <div className="container py-8 px-4 mx-auto max-w-5xl">
+        <Navigation />
+        <ThemeToggle />
+        <h1>{data.title}</h1>
+        <p>{data.description}</p>
+        {data.categories.map(category => (
+          <ResourceCategoryCard key={category.id} category={category} />
+        ))}
+        <Footer />
+      </div>
+    </GradientBackground>
+  );
+};
+```
+
+#### Relationship Between Markdown and JSON
+
+The `examples/resources/*.md` files serve as:
+1. **Source documentation** for curating the JSON data
+2. **Standalone GitHub-readable** versions of the same content
+3. **Templates** for users who want to maintain their own resource lists
+
+The `public/resources-data.json` is:
+1. **The canonical data source** for the React app
+2. **Derived from** the markdown research/curation
+3. **Structured for programmatic consumption**
+
+**Synchronization:** During implementation, the JSON is created by extracting structured data from the curated markdown files. They are not automatically synced - the markdown files are the human-editable source, and JSON is generated/updated manually when content changes.
 
 ### Agent Example Format
 

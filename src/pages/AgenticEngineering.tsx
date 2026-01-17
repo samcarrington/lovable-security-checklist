@@ -10,6 +10,8 @@ import LoadingState from "@/components/LoadingState";
 import ErrorState from "@/components/ErrorState";
 import ResourceCategoryCard from "@/components/ResourceCategoryCard";
 import Footer from "@/components/Footer";
+import { PageHeader } from "@/components/ui/page-header";
+import { SectionHeading } from "@/components/ui/typography";
 
 /**
  * Agentic Engineering resources page.
@@ -67,23 +69,21 @@ const AgenticEngineering = () => {
           </Link>
 
           {/* Page Header - Left aligned, no icon-in-bg pattern */}
-          <header className="mb-16">
-            <h1 className="text-fluid-2xl md:text-fluid-3xl font-bold text-primary font-display mb-2">
-              {resources.title}
-            </h1>
-            <p className="text-sm text-muted-foreground font-mono mb-4">
+          <PageHeader>
+            <PageHeader.Title>{resources.title}</PageHeader.Title>
+            <PageHeader.Meta>
               {totalLinks} resources across {resources.categories.length} categories
-            </p>
-            <p className="text-lg text-muted-foreground max-w-3xl">
+            </PageHeader.Meta>
+            <PageHeader.Description className="max-w-3xl">
               {resources.description}
-            </p>
-          </header>
+            </PageHeader.Description>
+          </PageHeader>
 
           {/* Introduction - brutalist card styling */}
           <section className="mb-16 p-8 rounded-sm border-2 border-border bg-card">
-            <h2 className="text-xl font-semibold text-foreground font-display mb-6">
+            <SectionHeading className="text-xl mb-6">
               What is Agentic Engineering?
-            </h2>
+            </SectionHeading>
             <div className="prose prose-sm dark:prose-invert max-w-none text-muted-foreground">
               <p className="mb-4">
                 <strong className="text-foreground">Agentic Engineering</strong> is the practice of 

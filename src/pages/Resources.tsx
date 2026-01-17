@@ -11,6 +11,8 @@ import ErrorState from "@/components/ErrorState";
 import ExampleCard from "@/components/ExampleCard";
 import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
+import { PageHeader } from "@/components/ui/page-header";
+import { SectionHeading, SubHeading, Muted, Mono } from "@/components/ui/typography";
 
 /**
  * Resources landing page displaying examples and links to reference pages.
@@ -57,37 +59,32 @@ const Resources = () => {
 
         <main id="main-content">
           {/* Page Header - Left aligned */}
-          <header className="mb-16">
-            <h1 className="text-fluid-2xl md:text-fluid-3xl font-bold text-primary font-display mb-4">
-              Security Resources
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl">
+          <PageHeader>
+            <PageHeader.Title className="mb-4">Security Resources</PageHeader.Title>
+            <PageHeader.Description className="max-w-2xl">
               Example agents, prompts, and curated links to help you build
               secure software with AI assistance.
-            </p>
-          </header>
+            </PageHeader.Description>
+          </PageHeader>
 
           {/* Agent Examples Section */}
           <section className="mb-16" aria-labelledby="agents-heading">
-            <h2
-              id="agents-heading"
-              className="text-fluid-xl font-semibold text-foreground font-display mb-2"
-            >
+            <SectionHeading id="agents-heading" size="lg" className="mb-2">
               {manifest.agents.title}
-            </h2>
-            <p className="text-sm text-muted-foreground mb-8">
+            </SectionHeading>
+            <Muted className="mb-8">
               {manifest.agents.description}
-            </p>
+            </Muted>
 
             {/* Hero Featured Agent */}
             {heroAgent && (
               <div className="mb-8 p-6 border-2 border-primary rounded-sm bg-card">
-                <span className="text-xs font-mono uppercase tracking-wider text-primary mb-2 block">
+                <Mono className="uppercase tracking-wider text-primary mb-2 block text-xs">
                   Featured
-                </span>
-                <h3 className="text-xl font-semibold text-foreground font-display mb-2">
+                </Mono>
+                <SubHeading className="mb-2">
                   {heroAgent.title}
-                </h3>
+                </SubHeading>
                 <ExampleCard example={heroAgent} />
               </div>
             )}
@@ -104,15 +101,12 @@ const Resources = () => {
 
           {/* Prompt Examples Section */}
           <section className="mb-16" aria-labelledby="prompts-heading">
-            <h2
-              id="prompts-heading"
-              className="text-fluid-lg font-semibold text-foreground font-display mb-2"
-            >
+            <SectionHeading id="prompts-heading" className="mb-2">
               {manifest.prompts.title}
-            </h2>
-            <p className="text-sm text-muted-foreground mb-8">
+            </SectionHeading>
+            <Muted className="mb-8">
               {manifest.prompts.description}
-            </p>
+            </Muted>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {manifest.prompts.items.map((example) => (
                 <ExampleCard key={example.id} example={example} />
@@ -122,12 +116,9 @@ const Resources = () => {
 
           {/* Reference Links Section */}
           <section aria-labelledby="links-heading">
-            <h2
-              id="links-heading"
-              className="text-fluid-lg font-semibold text-foreground font-display mb-8"
-            >
+            <SectionHeading id="links-heading" className="mb-8">
               Reference Links
-            </h2>
+            </SectionHeading>
             <div className="grid gap-4 sm:grid-cols-2">
               {/* OWASP Links Card */}
               <Link
@@ -139,12 +130,12 @@ const Resources = () => {
                 )}
               >
                 <div>
-                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors font-display">
+                  <SubHeading className="text-base group-hover:text-primary transition-colors">
                     OWASP Security Resources
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  </SubHeading>
+                  <Muted className="mt-1">
                     Curated links from the OWASP Cheat Sheet Series
-                  </p>
+                  </Muted>
                 </div>
                 <ArrowRight
                   className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all"
@@ -162,12 +153,12 @@ const Resources = () => {
                 )}
               >
                 <div>
-                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors font-display">
+                  <SubHeading className="text-base group-hover:text-primary transition-colors">
                     Agentic Engineering
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  </SubHeading>
+                  <Muted className="mt-1">
                     From vibe coding to systematic AI workflows
-                  </p>
+                  </Muted>
                 </div>
                 <ArrowRight
                   className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all"

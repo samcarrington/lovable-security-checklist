@@ -10,6 +10,7 @@ import LoadingState from "@/components/LoadingState";
 import ErrorState from "@/components/ErrorState";
 import ResourceCategoryCard from "@/components/ResourceCategoryCard";
 import Footer from "@/components/Footer";
+import { PageHeader } from "@/components/ui/page-header";
 
 /**
  * OWASP Links page displaying categorized security resources.
@@ -66,17 +67,15 @@ const OWASPLinks = () => {
           </Link>
 
           {/* Page Header - Left aligned, no icon-in-bg pattern */}
-          <header className="mb-16">
-            <h1 className="text-fluid-2xl md:text-fluid-3xl font-bold text-primary font-display mb-2">
-              {resources.title}
-            </h1>
-            <p className="text-sm text-muted-foreground font-mono mb-4">
+          <PageHeader>
+            <PageHeader.Title>{resources.title}</PageHeader.Title>
+            <PageHeader.Meta>
               {totalLinks} resources across {resources.categories.length} categories
-            </p>
-            <p className="text-lg text-muted-foreground max-w-3xl">
+            </PageHeader.Meta>
+            <PageHeader.Description className="max-w-3xl">
               {resources.description}
-            </p>
-          </header>
+            </PageHeader.Description>
+          </PageHeader>
 
           {/* Categories with varied spacing */}
           <div className="space-y-8">

@@ -5,50 +5,50 @@
 @layer base {
   :root {
     /* ==========================================================================
-       PRIMITIVE TOKENS - Raw color values
-       HSL fallbacks with OKLCH overrides for modern browsers
+       PRIMITIVE TOKENS - Raw color values (OKLCH)
+       OKLCH: lightness (0-100%), chroma (0-0.4+), hue (0-360)
        ========================================================================== */
-    
-    /* Blue-tinted slate neutrals for trust/authority - HSL fallbacks */
-    --slate-50: hsl(220 20% 97%);
-    --slate-100: hsl(220 15% 94%);
-    --slate-200: hsl(220 12% 88%);
-    --slate-300: hsl(220 10% 78%);
-    --slate-400: hsl(220 8% 65%);
-    --slate-500: hsl(220 6% 52%);
-    --slate-600: hsl(220 8% 42%);
-    --slate-700: hsl(220 8% 32%);
-    --slate-800: hsl(220 10% 22%);
-    --slate-900: hsl(220 12% 15%);
-    --slate-950: hsl(220 15% 10%);
 
-    /* Teal accent - HSL fallbacks */
-    --teal-300: hsl(175 55% 55%);
-    --teal-400: hsl(175 60% 45%);
-    --teal-500: hsl(175 65% 38%);
-    --teal-600: hsl(175 60% 32%);
-    --teal-700: hsl(175 55% 26%);
+    /* Blue-tinted slate neutrals for trust/authority */
+    --slate-50: oklch(97% 0.008 240);
+    --slate-100: oklch(94% 0.01 240);
+    --slate-200: oklch(88% 0.012 240);
+    --slate-300: oklch(78% 0.015 240);
+    --slate-400: oklch(65% 0.018 240);
+    --slate-500: oklch(52% 0.02 240);
+    --slate-600: oklch(42% 0.022 240);
+    --slate-700: oklch(32% 0.02 240);
+    --slate-800: oklch(22% 0.018 240);
+    --slate-900: oklch(15% 0.015 240);
+    --slate-950: oklch(10% 0.012 240);
 
-    /* Semantic status colors - HSL fallbacks */
-    --color-success: hsl(145 50% 42%);
-    --color-warning: hsl(45 80% 50%);
-    --color-error: hsl(0 65% 45%);
+    /* Teal accent for trust/security connotation */
+    --teal-300: oklch(78% 0.18 185);
+    --teal-400: oklch(72% 0.20 185);
+    --teal-500: oklch(62% 0.20 185);
+    --teal-600: oklch(52% 0.18 185);
+    --teal-700: oklch(42% 0.16 185);
+
+    /* Semantic status colors */
+    --color-success: oklch(65% 0.18 145);
+    --color-warning: oklch(75% 0.15 85);
+    --color-error: oklch(55% 0.2 25);
 
     /* ==========================================================================
        SEMANTIC TOKENS - Light Mode
        ========================================================================== */
-    
+
     --background: var(--slate-50);
     --foreground: var(--slate-900);
 
-    --card: hsl(220 15% 99%);
+    --card: oklch(99% 0.005 240);
     --card-foreground: var(--slate-900);
 
     --popover: var(--card);
     --popover-foreground: var(--slate-900);
 
-    --primary: hsl(175 60% 32%);
-    --primary-foreground: hsl(175 20% 98%);
+    --primary: var(--teal-600);
+    --primary-foreground: oklch(98% 0.02 185);
 
     --secondary: var(--slate-100);
     --secondary-foreground: var(--slate-800);
@@ -56,15 +56,15 @@
     --muted: var(--slate-200);
     --muted-foreground: var(--slate-500);
 
-    --accent: hsl(175 65% 38%);
-    --accent-foreground: var(--slate-950);
+    --accent: var(--teal-500);
+    --accent-foreground: oklch(98% 0.02 185);
 
     --destructive: var(--color-error);
-    --destructive-foreground: hsl(0 20% 98%);
+    --destructive-foreground: oklch(98% 0.01 25);
 
     --border: var(--slate-200);
     --input: var(--slate-200);
-    --ring: hsl(175 65% 38%);
+    --ring: var(--teal-500);
 
     /* Brutalist: minimal radius */
     --radius: 0.125rem;
@@ -77,24 +77,25 @@
     /* ==========================================================================
        SPACING TOKENS - 4pt base system
        ========================================================================== */
-    
-    --space-1: 0.25rem;   /* 4px */
-    --space-2: 0.5rem;    /* 8px */
-    --space-3: 0.75rem;   /* 12px */
-    --space-4: 1rem;      /* 16px */
-    --space-6: 1.5rem;    /* 24px */
-    --space-8: 2rem;      /* 32px */
-    --space-12: 3rem;     /* 48px */
-    --space-16: 4rem;     /* 64px */
-    --space-24: 6rem;     /* 96px */
+
+    --space-1: 0.25rem; /* 4px */
+    --space-2: 0.5rem; /* 8px */
+    --space-3: 0.75rem; /* 12px */
+    --space-4: 1rem; /* 16px */
+    --space-6: 1.5rem; /* 24px */
+    --space-8: 2rem; /* 32px */
+    --space-12: 3rem; /* 48px */
+    --space-16: 4rem; /* 64px */
+    --space-24: 6rem; /* 96px */
 
     /* ==========================================================================
        TYPOGRAPHY TOKENS
        ========================================================================== */
-    
-    --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-    --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+
+    --font-display: "Space Grotesk", system-ui, -apple-system, sans-serif;
+    --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
+    --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 
     /* Fluid type scale (1.25 ratio - major third) */
     --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
@@ -114,7 +115,7 @@
   /* ==========================================================================
      SEMANTIC TOKENS - Dark Mode
      ========================================================================== */
-  
+
   .dark {
     --background: var(--slate-950);
     --foreground: var(--slate-100);
@@ -126,7 +127,7 @@
     --popover-foreground: var(--slate-100);
 
     /* Lighter teal for dark mode visibility */
-    --primary: hsl(175 60% 50%);
+    --primary: var(--teal-400);
     --primary-foreground: var(--slate-950);
 
     --secondary: var(--slate-800);
@@ -135,15 +136,15 @@
     --muted: var(--slate-800);
     --muted-foreground: var(--slate-400);
 
-    --accent: hsl(175 65% 38%);
-    --accent-foreground: var(--slate-100);
+    --accent: var(--teal-500);
+    --accent-foreground: oklch(98% 0.02 185);
 
-    --destructive: hsl(0 60% 50%);
+    --destructive: oklch(60% 0.18 25);
     --destructive-foreground: var(--slate-100);
 
     --border: var(--slate-700);
     --input: var(--slate-700);
-    --ring: hsl(175 60% 50%);
+    --ring: var(--teal-400);
 
     /* Dark mode surfaces: lighter = higher elevation */
     --surface-1: var(--slate-900);
@@ -163,12 +164,17 @@
   }
 
   /* Apply display font to headings */
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
   }
 
   /* Apply monospace to code elements */
-  code, pre, kbd {
+  code,
+  pre,
+  kbd {
     font-family: var(--font-mono);
   }
 }
@@ -184,11 +190,25 @@
   }
 
   /* Text size utilities using tokens */
-  .text-fluid-xs { font-size: var(--text-xs); }
-  .text-fluid-sm { font-size: var(--text-sm); }
-  .text-fluid-base { font-size: var(--text-base); }
-  .text-fluid-lg { font-size: var(--text-lg); }
-  .text-fluid-xl { font-size: var(--text-xl); }
-  .text-fluid-2xl { font-size: var(--text-2xl); }
-  .text-fluid-3xl { font-size: var(--text-3xl); }
+  .text-fluid-xs {
+    font-size: var(--text-xs);
+  }
+  .text-fluid-sm {
+    font-size: var(--text-sm);
+  }
+  .text-fluid-base {
+    font-size: var(--text-base);
+  }
+  .text-fluid-lg {
+    font-size: var(--text-lg);
+  }
+  .text-fluid-xl {
+    font-size: var(--text-xl);
+  }
+  .text-fluid-2xl {
+    font-size: var(--text-2xl);
+  }
+  .text-fluid-3xl {
+    font-size: var(--text-3xl);
+  }
 }

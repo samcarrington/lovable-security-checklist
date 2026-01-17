@@ -19,7 +19,7 @@ export const PageTitle = React.forwardRef<HTMLHeadingElement, PageTitleProps>(
     <h1
       ref={ref}
       className={cn(
-        "text-fluid-2xl md:text-fluid-3xl font-bold text-primary font-display leading-tight",
+        "text-fluid-3xl font-bold text-primary font-display leading-tight",
         className
       )}
       {...props}

@@ -11,7 +11,7 @@ const ChecklistHeader = ({
     {/* Left-aligned asymmetric layout with ProgressDial on the right */}
     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-8">
       <div className="flex-1">
-        <h1 className="text-fluid-2xl md:text-fluid-3xl font-bold text-foreground font-display leading-tight">
+        <h1 className="text-fluid-2xl md:text-fluid-3xl font-bold text-primary font-display leading-tight">
           {title}
         </h1>
       </div>

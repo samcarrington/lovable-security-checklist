@@ -139,7 +139,7 @@ const Navigation = () => {
                   "hover:bg-accent hover:text-accent-foreground",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                   isActive(link.to)
-                    ? "bg-primary/10 text-primary font-semibold"
+                    ? "bg-primary/20 text-primary font-semibold border-l-2 border-primary"
                     : "text-muted-foreground"
                 )}
                 aria-current={isActive(link.to) ? "page" : undefined}

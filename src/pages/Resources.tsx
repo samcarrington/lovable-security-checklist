@@ -58,7 +58,7 @@ const Resources = () => {
         <main id="main-content">
           {/* Page Header - Left aligned */}
           <header className="mb-16">
-            <h1 className="text-fluid-2xl md:text-fluid-3xl font-bold text-foreground font-display mb-4">
+            <h1 className="text-fluid-2xl md:text-fluid-3xl font-bold text-primary font-display mb-4">
               Security Resources
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl">

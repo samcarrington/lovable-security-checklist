@@ -242,7 +242,7 @@ const SectionCard = memo(function SectionCard({ section, checkedItems, onItemTog
               />
               <Label
                 htmlFor={item.id}
-                className={`text-sm leading-tight cursor-pointer flex-grow pt-1 ${checkedItems[item.id] ? 'line-through text-gray-400 dark:text-gray-600' : ''}`}
+                className={`text-sm leading-tight cursor-pointer flex-grow pt-1 ${checkedItems[item.id] ? 'text-muted-foreground' : ''}`}
               >
                 {item.title}
               </Label>

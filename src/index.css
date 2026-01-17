@@ -23,11 +23,11 @@
     --slate-950: oklch(10% 0.012 240);
 
     /* Teal accent for trust/security connotation */
-    --teal-300: oklch(78% 0.10 185);
-    --teal-400: oklch(72% 0.12 185);
-    --teal-500: oklch(62% 0.14 185);
-    --teal-600: oklch(52% 0.12 185);
-    --teal-700: oklch(42% 0.10 185);
+    --teal-300: oklch(78% 0.18 185);
+    --teal-400: oklch(72% 0.20 185);
+    --teal-500: oklch(62% 0.20 185);
+    --teal-600: oklch(52% 0.18 185);
+    --teal-700: oklch(42% 0.16 185);
 
     /* Semantic status colors */
     --color-success: oklch(65% 0.18 145);

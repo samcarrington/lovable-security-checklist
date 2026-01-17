@@ -1,0 +1,84 @@
+{
+  "agents": {
+    "title": "Security Agents",
+    "description": "AI agent configurations for security review tasks. These agents can be used with GitHub Copilot, Claude, OpenCode, and other AI coding assistants.",
+    "items": [
+      {
+        "id": "security-reviewer",
+        "title": "Security Reviewer",
+        "description": "Comprehensive code security review agent for identifying vulnerabilities and recommending fixes",
+        "filename": "security-reviewer.md",
+        "path": "/examples/agents/security-reviewer.md"
+      },
+      {
+        "id": "dependency-auditor",
+        "title": "Dependency Auditor",
+        "description": "Package vulnerability scanner focused on supply chain security and CVE detection",
+        "filename": "dependency-auditor.md",
+        "path": "/examples/agents/dependency-auditor.md"
+      },
+      {
+        "id": "secrets-scanner",
+        "title": "Secrets Scanner",
+        "description": "Credential leak detection agent for identifying hardcoded secrets and API keys",
+        "filename": "secrets-scanner.md",
+        "path": "/examples/agents/secrets-scanner.md"
+      },
+      {
+        "id": "api-security-reviewer",
+        "title": "API Security Reviewer",
+        "description": "API endpoint security validation agent for REST and GraphQL APIs",
+        "filename": "api-security-reviewer.md",
+        "path": "/examples/agents/api-security-reviewer.md"
+      },
+      {
+        "id": "ai-code-validator",
+        "title": "AI Code Validator",
+        "description": "Specialized agent for validating AI-generated code against security best practices",
+        "filename": "ai-code-validator.md",
+        "path": "/examples/agents/ai-code-validator.md"
+      }
+    ]
+  },
+  "prompts": {
+    "title": "Security Prompts",
+    "description": "Reusable prompts for security-focused code review and threat analysis. These prompts work with any AI coding assistant.",
+    "items": [
+      {
+        "id": "secure-code-review",
+        "title": "Secure Code Review",
+        "description": "Comprehensive prompt for reviewing code for security vulnerabilities",
+        "filename": "secure-code-review.prompt.md",
+        "path": "/examples/prompts/secure-code-review.prompt.md"
+      },
+      {
+        "id": "threat-model",
+        "title": "Threat Model",
+        "description": "Prompt for creating threat models and identifying attack vectors",
+        "filename": "threat-model.prompt.md",
+        "path": "/examples/prompts/threat-model.prompt.md"
+      },
+      {
+        "id": "security-checklist-audit",
+        "title": "Security Checklist Audit",
+        "description": "Prompt for auditing code against OWASP security checklists",
+        "filename": "security-checklist-audit.prompt.md",
+        "path": "/examples/prompts/security-checklist-audit.prompt.md"
+      },
+      {
+        "id": "dependency-security-check",
+        "title": "Dependency Security Check",
+        "description": "Prompt for reviewing third-party dependencies for security issues",
+        "filename": "dependency-security-check.prompt.md",
+        "path": "/examples/prompts/dependency-security-check.prompt.md"
+      },
+      {
+        "id": "input-validation-review",
+        "title": "Input Validation Review",
+        "description": "Prompt for validating input handling and sanitization practices",
+        "filename": "input-validation-review.prompt.md",
+        "path": "/examples/prompts/input-validation-review.prompt.md"
+      }
+    ]
+  }
+}

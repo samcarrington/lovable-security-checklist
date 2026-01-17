@@ -7,6 +7,9 @@ import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
+import Resources from "./pages/Resources";
+import OWASPLinks from "./pages/OWASPLinks";
+import AgenticEngineering from "./pages/AgenticEngineering";
 import { CookieConsentBanner } from "./components/CookieConsentBanner";
 import { restoreConsent, trackPageView } from "./lib/analytics";
 
@@ -29,6 +32,9 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/privacy" element={<Privacy />} />
+              <Route path="/resources" element={<Resources />} />
+              <Route path="/owasp-links" element={<OWASPLinks />} />
+              <Route path="/agentic-engineering" element={<AgenticEngineering />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -1,8 +1,31 @@
-import { describe, test, expect, beforeEach } from 'vitest';
+import { describe, test, expect, beforeEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import Privacy from './Privacy';
+
+// Mock Navigation and Footer components
+vi.mock('@/components/Navigation', () => ({
+  default: () => <nav data-testid="navigation">Navigation</nav>,
+}));
+
+vi.mock('@/components/Footer', () => ({
+  default: () => <footer data-testid="footer">Footer</footer>,
+}));
+
+// Mock ThemeToggle component
+vi.mock('@/components/ThemeToggle', () => ({
+  ThemeToggle: () => <div data-testid="theme-toggle">Theme Toggle</div>,
+}));
+
+// Mock GradientBackground to simplify testing
+vi.mock('@/components/GradientBackground', () => ({
+  default: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="gradient-background" className="min-h-screen">
+      {children}
+    </div>
+  ),
+}));
 
 // Create wrapper with MemoryRouter (required for Link components)
 const createWrapper = (initialRoute = '/privacy') => {
@@ -36,11 +59,17 @@ describe('Privacy Policy Page', () => {
       expect(h1.tagName).toBe('H1');
     });
 
-    test('renders page with min-height for full viewport', () => {
-      const { container } = render(<Privacy />, { wrapper: createWrapper() });
+    test('renders page with gradient background', () => {
+      render(<Privacy />, { wrapper: createWrapper() });
 
-      const mainContent = container.firstChild;
-      expect(mainContent).toHaveClass('min-h-screen');
+      expect(screen.getByTestId('gradient-background')).toBeInTheDocument();
+    });
+
+    test('has main content landmark', () => {
+      render(<Privacy />, { wrapper: createWrapper() });
+
+      const main = screen.getByRole('main');
+      expect(main).toBeInTheDocument();
     });
   });
 
@@ -83,7 +112,25 @@ describe('Privacy Policy Page', () => {
     });
   });
 
-  describe('Navigation Links', () => {
+  describe('Navigation and Layout', () => {
+    test('renders navigation component', () => {
+      render(<Privacy />, { wrapper: createWrapper() });
+
+      expect(screen.getByTestId('navigation')).toBeInTheDocument();
+    });
+
+    test('renders footer component', () => {
+      render(<Privacy />, { wrapper: createWrapper() });
+
+      expect(screen.getByTestId('footer')).toBeInTheDocument();
+    });
+
+    test('renders theme toggle', () => {
+      render(<Privacy />, { wrapper: createWrapper() });
+
+      expect(screen.getByTestId('theme-toggle')).toBeInTheDocument();
+    });
+
     test('renders links back to home', () => {
       render(<Privacy />, { wrapper: createWrapper() });
 
@@ -102,22 +149,6 @@ describe('Privacy Policy Page', () => {
         expect(link.tagName).toBe('A');
         expect(link).toHaveAttribute('href');
       });
-    });
-  });
-
-  describe('Dark Mode Support', () => {
-    test('main container has dark mode classes', () => {
-      const { container } = render(<Privacy />, { wrapper: createWrapper() });
-
-      const mainElement = container.querySelector('[class*="dark:"]');
-      expect(mainElement).toBeInTheDocument();
-    });
-
-    test('heading color supports dark mode', () => {
-      render(<Privacy />, { wrapper: createWrapper() });
-
-      const mainHeading = screen.getByRole('heading', { level: 1 });
-      expect(mainHeading.className).toContain('dark:');
     });
   });
 
@@ -155,22 +186,6 @@ describe('Privacy Policy Page', () => {
 
       expect(container).toBeInTheDocument();
       expect(container.firstChild).toBeInTheDocument();
-    });
-  });
-
-  describe('Responsive Layout', () => {
-    test('main container has padding for content spacing', () => {
-      const { container } = render(<Privacy />, { wrapper: createWrapper() });
-
-      const mainContent = container.firstChild as HTMLElement;
-      expect(mainContent.className).toContain('px-');
-    });
-
-    test('content has vertical padding for spacing', () => {
-      const { container } = render(<Privacy />, { wrapper: createWrapper() });
-
-      const mainContent = container.firstChild as HTMLElement;
-      expect(mainContent.className).toMatch(/py-|pt-|pb-/);
     });
   });
 

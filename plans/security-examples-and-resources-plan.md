@@ -84,73 +84,76 @@ out:
 
 ### Phase 1: Foundation & Structure (Complexity: S)
 
-| ID    | Task                                   | Owner                | Complexity | Dependencies | Done  |
-| ----- | -------------------------------------- | -------------------- | ---------- | ------------ | ----- |
-| T-001 | Create `examples/` directory structure | Implementation Agent | XS         | []           | false |
-| T-002 | Create `examples/README.md` index page | Implementation Agent | XS         | [T-001]      | false |
+| ID    | Task                                                        | Owner                | Complexity | Dependencies | Done  |
+| ----- | ----------------------------------------------------------- | -------------------- | ---------- | ------------ | ----- |
+| T-001 | Create `public/examples/` directory structure               | Implementation Agent | XS         | []           | false |
+| T-002 | Create `public/examples/manifest.json` with example metadata | Implementation Agent | S          | [T-001]      | false |
 
 ### Phase 2: Security Agent Examples (Complexity: M)
 
-| ID    | Task                                                                                 | Owner                | Complexity | Dependencies | Done  |
-| ----- | ------------------------------------------------------------------------------------ | -------------------- | ---------- | ------------ | ----- |
-| T-003 | Create `examples/agents/security-reviewer.md` - Code security review agent           | Implementation Agent | S          | [T-001]      | false |
-| T-004 | Create `examples/agents/dependency-auditor.md` - Package vulnerability scanner agent | Implementation Agent | S          | [T-001]      | false |
-| T-005 | Create `examples/agents/secrets-scanner.md` - Credential leak detection agent        | Implementation Agent | S          | [T-001]      | false |
-| T-006 | Create `examples/agents/api-security-reviewer.md` - API endpoint security agent      | Implementation Agent | S          | [T-001]      | false |
-| T-007 | Create `examples/agents/ai-code-validator.md` - AI-generated code validation agent   | Implementation Agent | S          | [T-001]      | false |
+| ID    | Task                                                                                          | Owner                | Complexity | Dependencies | Done  |
+| ----- | --------------------------------------------------------------------------------------------- | -------------------- | ---------- | ------------ | ----- |
+| T-003 | Create `public/examples/agents/security-reviewer.md` - Code security review agent             | Implementation Agent | S          | [T-001]      | false |
+| T-004 | Create `public/examples/agents/dependency-auditor.md` - Package vulnerability scanner agent   | Implementation Agent | S          | [T-001]      | false |
+| T-005 | Create `public/examples/agents/secrets-scanner.md` - Credential leak detection agent          | Implementation Agent | S          | [T-001]      | false |
+| T-006 | Create `public/examples/agents/api-security-reviewer.md` - API endpoint security agent        | Implementation Agent | S          | [T-001]      | false |
+| T-007 | Create `public/examples/agents/ai-code-validator.md` - AI-generated code validation agent     | Implementation Agent | S          | [T-001]      | false |
 
 ### Phase 3: Security Prompt Examples (Complexity: M)
 
-| ID    | Task                                                          | Owner                | Complexity | Dependencies | Done  |
-| ----- | ------------------------------------------------------------- | -------------------- | ---------- | ------------ | ----- |
-| T-008 | Create `examples/prompts/secure-code-review.prompt.md`        | Implementation Agent | S          | [T-001]      | false |
-| T-009 | Create `examples/prompts/threat-model.prompt.md`              | Implementation Agent | S          | [T-001]      | false |
-| T-010 | Create `examples/prompts/security-checklist-audit.prompt.md`  | Implementation Agent | S          | [T-001]      | false |
-| T-011 | Create `examples/prompts/dependency-security-check.prompt.md` | Implementation Agent | S          | [T-001]      | false |
-| T-012 | Create `examples/prompts/input-validation-review.prompt.md`   | Implementation Agent | S          | [T-001]      | false |
+| ID    | Task                                                                           | Owner                | Complexity | Dependencies | Done  |
+| ----- | ------------------------------------------------------------------------------ | -------------------- | ---------- | ------------ | ----- |
+| T-008 | Create `public/examples/prompts/secure-code-review.prompt.md`                  | Implementation Agent | S          | [T-001]      | false |
+| T-009 | Create `public/examples/prompts/threat-model.prompt.md`                        | Implementation Agent | S          | [T-001]      | false |
+| T-010 | Create `public/examples/prompts/security-checklist-audit.prompt.md`            | Implementation Agent | S          | [T-001]      | false |
+| T-011 | Create `public/examples/prompts/dependency-security-check.prompt.md`           | Implementation Agent | S          | [T-001]      | false |
+| T-012 | Create `public/examples/prompts/input-validation-review.prompt.md`             | Implementation Agent | S          | [T-001]      | false |
+| T-013 | Update `public/examples/manifest.json` with all example metadata               | Implementation Agent | S          | [T-003..T-012] | false |
 
-### Phase 4: Resource Pages (Markdown) (Complexity: M)
+### Phase 4: Reference Link Data (Complexity: M)
 
-| ID    | Task                                                                                       | Owner                | Complexity | Dependencies | Done  |
-| ----- | ------------------------------------------------------------------------------------------ | -------------------- | ---------- | ------------ | ----- |
-| T-013 | Create `examples/resources/owasp-links.md` - Extracted from checklist-data.json            | Implementation Agent | M          | [T-001]      | false |
-| T-014 | Create `examples/resources/agentic-engineering.md` - Vibe to agentic transition resources  | Implementation Agent | M          | [T-001]      | false |
-| T-015 | Create `examples/resources/security-tools.md` - Recommended scanning tools                 | Implementation Agent | S          | [T-001]      | false |
-| T-016 | Create `examples/resources/ai-security-practices.md` - AI-specific security considerations | Implementation Agent | S          | [T-001]      | false |
+| ID    | Task                                                                                          | Owner                | Complexity | Dependencies | Done  |
+| ----- | --------------------------------------------------------------------------------------------- | -------------------- | ---------- | ------------ | ----- |
+| T-014 | Create `public/resources-data.json` with OWASP links extracted from checklist-data.json      | Implementation Agent | M          | []           | false |
+| T-015 | Add agentic engineering resources to `public/resources-data.json`                             | Implementation Agent | M          | [T-014]      | false |
 
 ### Phase 5: Responsive Navigation Component (Complexity: M)
 
 | ID    | Task                                                                                     | Owner                | Complexity | Dependencies | Done  |
 | ----- | ---------------------------------------------------------------------------------------- | -------------------- | ---------- | ------------ | ----- |
-| T-017 | Create `src/components/Navigation.tsx` - Responsive nav with hamburger menu on mobile   | Implementation Agent | M          | []           | false |
-| T-018 | Create `src/components/Navigation.test.tsx` - Unit tests for navigation component       | Implementation Agent | S          | [T-017]      | false |
-| T-019 | Integrate Navigation component into App.tsx layout                                       | Implementation Agent | S          | [T-017]      | false |
+| T-016 | Create `src/components/Navigation.tsx` - Responsive nav with hamburger menu on mobile   | Implementation Agent | M          | []           | false |
+| T-017 | Create `src/components/Navigation.test.tsx` - Unit tests for navigation component       | Implementation Agent | S          | [T-016]      | false |
+| T-018 | Integrate Navigation component into App.tsx layout                                       | Implementation Agent | S          | [T-016]      | false |
 
-### Phase 6: Resource Pages (React) (Complexity: L)
+### Phase 6: Resource Pages & Components (React) (Complexity: L)
 
 | ID    | Task                                                                                     | Owner                | Complexity | Dependencies        | Done  |
 | ----- | ---------------------------------------------------------------------------------------- | -------------------- | ---------- | ------------------- | ----- |
-| T-020 | Create `src/types/resources.ts` - TypeScript interfaces for resource data                | Implementation Agent | S          | []                  | false |
-| T-021 | Create `public/resources-data.json` - JSON data extracted from markdown curation         | Implementation Agent | M          | [T-013,T-014,T-020] | false |
-| T-022 | Create `src/services/resourcesService.ts` - Fetch and parse resources JSON               | Implementation Agent | S          | [T-020]             | false |
-| T-023 | Create `src/components/ResourceCategoryCard.tsx` - Reusable category display component   | Implementation Agent | S          | [T-020]             | false |
-| T-024 | Create `src/pages/Resources.tsx` - Main resources landing page                           | Implementation Agent | M          | [T-017,T-022,T-023] | false |
-| T-025 | Create `src/pages/Resources.test.tsx` - Unit tests for resources page                    | Implementation Agent | S          | [T-024]             | false |
-| T-026 | Create `src/pages/OWASPLinks.tsx` - OWASP resources page with categorized links          | Implementation Agent | M          | [T-021,T-022,T-023] | false |
-| T-027 | Create `src/pages/OWASPLinks.test.tsx` - Unit tests for OWASP page                       | Implementation Agent | S          | [T-026]             | false |
-| T-028 | Create `src/pages/AgenticEngineering.tsx` - Vibe-to-agentic resources page               | Implementation Agent | M          | [T-021,T-022,T-023] | false |
-| T-029 | Create `src/pages/AgenticEngineering.test.tsx` - Unit tests for agentic engineering page | Implementation Agent | S          | [T-028]             | false |
-| T-030 | Add routes for new pages in App.tsx                                                      | Implementation Agent | XS         | [T-024,T-026,T-028] | false |
+| T-019 | Add `react-syntax-highlighter` dependency for markdown viewing                           | Implementation Agent | XS         | []                  | false |
+| T-020 | Create `src/types/examples.ts` - TypeScript interfaces for examples manifest             | Implementation Agent | S          | []                  | false |
+| T-021 | Create `src/types/resources.ts` - TypeScript interfaces for resource links               | Implementation Agent | S          | []                  | false |
+| T-022 | Create `src/services/examplesService.ts` - Fetch manifest and markdown content           | Implementation Agent | S          | [T-020]             | false |
+| T-023 | Create `src/services/resourcesService.ts` - Fetch and parse resources JSON               | Implementation Agent | S          | [T-021]             | false |
+| T-024 | Create `src/components/MarkdownViewer.tsx` - Modal with syntax-highlighted markdown      | Implementation Agent | M          | [T-019]             | false |
+| T-025 | Create `src/components/MarkdownViewer.test.tsx` - Unit tests for viewer                  | Implementation Agent | S          | [T-024]             | false |
+| T-026 | Create `src/components/ExampleCard.tsx` - Card with View/Download buttons                | Implementation Agent | S          | [T-020,T-024]       | false |
+| T-027 | Create `src/components/ResourceCategoryCard.tsx` - Card for external link categories     | Implementation Agent | S          | [T-021]             | false |
+| T-028 | Create `src/pages/Resources.tsx` - Landing page with examples and reference links        | Implementation Agent | M          | [T-016,T-022,T-026,T-027] | false |
+| T-029 | Create `src/pages/Resources.test.tsx` - Unit tests for resources landing page            | Implementation Agent | S          | [T-028]             | false |
+| T-030 | Create `src/pages/OWASPLinks.tsx` - OWASP resources page with categorized links          | Implementation Agent | M          | [T-023,T-027]       | false |
+| T-031 | Create `src/pages/OWASPLinks.test.tsx` - Unit tests for OWASP page                       | Implementation Agent | S          | [T-030]             | false |
+| T-032 | Create `src/pages/AgenticEngineering.tsx` - Vibe-to-agentic resources page               | Implementation Agent | M          | [T-023,T-027]       | false |
+| T-033 | Create `src/pages/AgenticEngineering.test.tsx` - Unit tests for agentic engineering page | Implementation Agent | S          | [T-032]             | false |
+| T-034 | Add routes for new pages in App.tsx                                                      | Implementation Agent | XS         | [T-028,T-030,T-032] | false |
 
 ### Phase 7: Documentation & Polish (Complexity: S)
 
 | ID    | Task                                                         | Owner                | Complexity | Dependencies              | Done  |
 | ----- | ------------------------------------------------------------ | -------------------- | ---------- | ------------------------- | ----- |
-| T-031 | Update main README.md to reference examples and new pages    | Implementation Agent | XS         | [T-002,T-030]             | false |
-| T-032 | Add cross-references between examples and checklist sections | Implementation Agent | S          | [T-013]                   | false |
-| T-033 | Review all examples for consistency and completeness         | Security Reviewer    | S          | [T-003..T-016]            | false |
-| T-034 | Run full test suite and fix any failures                     | Implementation Agent | S          | [T-018,T-025,T-027,T-029] | false |
-| T-035 | Verify responsive design at all breakpoints                  | Implementation Agent | S          | [T-017,T-024,T-026,T-028] | false |
+| T-035 | Update main README.md to reference resources and new pages   | Implementation Agent | XS         | [T-034]                   | false |
+| T-036 | Review all examples for consistency and completeness         | Security Reviewer    | S          | [T-003..T-012]            | false |
+| T-037 | Run full test suite and fix any failures                     | Implementation Agent | S          | [T-017,T-025,T-029,T-031,T-033] | false |
+| T-038 | Verify responsive design at all breakpoints                  | Implementation Agent | S          | [T-016,T-028,T-030,T-032] | false |
 
 ## 10. Risks and mitigations
 
@@ -174,10 +177,25 @@ out:
 
 ## 12. Implementation approach / Technical narrative
 
-**TL;DR:** Create an `examples/` directory with subdirectories for agents, prompts, and resources. Add a responsive Navigation component and three new React pages (Resources, OWASPLinks, AgenticEngineering). Each example file follows established patterns from `.github/agents/` and `.github/prompts/`. OWASP links are extracted from JSON and displayed on a dedicated page.
+**TL;DR:** Create example markdown files in `public/examples/` served as static downloadable assets. Add a responsive Navigation component, a Resources landing page with View/Download functionality, and dedicated pages for OWASP and agentic engineering links. Users can browse examples, view syntax-highlighted markdown in a modal, and download the raw files.
 
-### Directory Structure (Examples)
+### Static Examples Directory (`public/examples/`)
 
+```
+public/examples/
+├── manifest.json                # Metadata for all examples (used by landing page)
+├── agents/
+│   ├── security-reviewer.md
+│   ├── dependency-auditor.md
+│   ├── secrets-scanner.md
+│   ├── api-security-reviewer.md
+│   └── ai-code-validator.md
+└── prompts/
+    ├── secure-code-review.prompt.md
+    ├── threat-model.prompt.md
+    ├── security-checklist-audit.prompt.md
+    ├── dependency-security-check.prompt.md
+    └── input-validation-review.prompt.md
 ```
 examples/
 ├── README.md                    # Index and usage guide
@@ -193,29 +211,38 @@ examples/
 │   ├── security-checklist-audit.prompt.md
 │   ├── dependency-security-check.prompt.md
 │   └── input-validation-review.prompt.md
-└── resources/
-    ├── owasp-links.md
-    ├── agentic-engineering.md
-    ├── security-tools.md
-    └── ai-security-practices.md
 ```
 
 ### New React Components Structure
 
 ```
 src/
+├── types/
+│   ├── examples.ts              # Interfaces for examples manifest
+│   └── resources.ts             # Interfaces for resource links
+├── services/
+│   ├── examplesService.ts       # Fetch manifest and markdown content
+│   └── resourcesService.ts      # Fetch and parse resources JSON
 ├── components/
 │   ├── Navigation.tsx           # Responsive navigation with hamburger menu
-│   └── Navigation.test.tsx
+│   ├── Navigation.test.tsx
+│   ├── MarkdownViewer.tsx       # Modal with syntax-highlighted markdown
+│   ├── MarkdownViewer.test.tsx
+│   ├── ExampleCard.tsx          # Card with View/Download buttons
+│   └── ResourceCategoryCard.tsx # Card for external link categories
 ├── pages/
-│   ├── Resources.tsx            # Resources landing page
+│   ├── Resources.tsx            # Resources landing page (examples + links)
 │   ├── Resources.test.tsx
 │   ├── OWASPLinks.tsx           # OWASP links categorized by security topic
 │   ├── OWASPLinks.test.tsx
 │   ├── AgenticEngineering.tsx   # Vibe-to-agentic transition resources
 │   └── AgenticEngineering.test.tsx
 public/
-└── resources-data.json          # JSON data for resource pages
+├── examples/
+│   ├── manifest.json            # Metadata for all examples
+│   ├── agents/*.md              # Agent example files
+│   └── prompts/*.md             # Prompt example files
+└── resources-data.json          # JSON data for OWASP and agentic links
 ```
 
 ### Navigation Component Design
@@ -290,34 +317,171 @@ Update `App.tsx` to include new routes:
 </Routes>
 ```
 
-### Content Architecture: Markdown to HTML Strategy
+### Content Architecture: Example Files as Downloadable Resources
 
-The plan includes two types of content that serve different purposes:
+The example markdown files are **user-facing resources** served as static assets, browsable via a landing page with view and download capabilities.
 
-#### 1. Developer Example Files (`examples/`)
+#### File Location & Serving
 
-These markdown files are **developer-facing documentation** intended to be:
-- Read directly on GitHub
-- Copied into other projects as starting templates
-- Referenced as examples of agent/prompt patterns
-
-These files do NOT render as app pages - they are repository documentation like the existing `.github/prompts/` files.
-
-#### 2. Application Resource Pages (`src/pages/`)
-
-For the React pages visible in the app, we use a **JSON + React component** approach (matching the existing `checklist-data.json` pattern):
-
-**Data Flow:**
 ```
-public/resources-data.json  →  fetch()  →  React Page Component  →  HTML
+public/examples/
+├── manifest.json              # Metadata for all examples (used by landing page)
+├── agents/
+│   ├── security-reviewer.md
+│   ├── dependency-auditor.md
+│   ├── secrets-scanner.md
+│   ├── api-security-reviewer.md
+│   └── ai-code-validator.md
+└── prompts/
+    ├── secure-code-review.prompt.md
+    ├── threat-model.prompt.md
+    ├── security-checklist-audit.prompt.md
+    ├── dependency-security-check.prompt.md
+    └── input-validation-review.prompt.md
 ```
 
-**Why JSON over Markdown rendering:**
-- Consistent with existing `checklist-data.json` pattern
-- No additional build dependencies (no MDX, no markdown plugins)
-- Structured data enables filtering, categorization, search
-- Simpler testing (mock JSON vs mock markdown parsing)
-- Type-safe with TypeScript interfaces
+Files in `public/` are served as static assets by Vite, so:
+- **Download**: Direct link to `/examples/agents/security-reviewer.md`
+- **View**: Fetch the raw markdown and display with syntax highlighting
+
+#### Landing Page Structure (`/resources`)
+
+```
+Resources
+├── Security Agents (5)
+│   ├── Security Reviewer                    [View] [Download]
+│   ├── Dependency Auditor                   [View] [Download]
+│   ├── Secrets Scanner                      [View] [Download]
+│   ├── API Security Reviewer                [View] [Download]
+│   └── AI Code Validator                    [View] [Download]
+├── Security Prompts (5)
+│   ├── Secure Code Review                   [View] [Download]
+│   ├── Threat Model                         [View] [Download]
+│   ├── Security Checklist Audit             [View] [Download]
+│   ├── Dependency Security Check            [View] [Download]
+│   └── Input Validation Review              [View] [Download]
+└── Reference Links
+    ├── OWASP Links                          [View Page →]
+    └── Agentic Engineering Resources        [View Page →]
+```
+
+#### Manifest File (`public/examples/manifest.json`)
+
+The landing page reads metadata from a manifest file:
+
+```json
+{
+  "agents": {
+    "title": "Security Agents",
+    "description": "AI agent configurations for security review tasks",
+    "items": [
+      {
+        "id": "security-reviewer",
+        "title": "Security Reviewer",
+        "description": "Code security review agent for vulnerabilities and best practices",
+        "filename": "security-reviewer.md",
+        "path": "/examples/agents/security-reviewer.md"
+      }
+    ]
+  },
+  "prompts": {
+    "title": "Security Prompts",
+    "description": "Reusable prompts for security-focused code review",
+    "items": [
+      {
+        "id": "secure-code-review",
+        "title": "Secure Code Review",
+        "description": "Prompt for reviewing code for security vulnerabilities",
+        "filename": "secure-code-review.prompt.md",
+        "path": "/examples/prompts/secure-code-review.prompt.md"
+      }
+    ]
+  }
+}
+```
+
+#### View Modal with Syntax Highlighting
+
+When user clicks [View], a modal displays the raw markdown with syntax highlighting:
+
+```tsx
+// Using a lightweight syntax highlighter like Prism or highlight.js
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
+const MarkdownViewer = ({ content, filename }: { content: string; filename: string }) => (
+  <Dialog>
+    <DialogContent className="max-w-4xl max-h-[80vh] overflow-auto">
+      <DialogHeader>
+        <DialogTitle>{filename}</DialogTitle>
+      </DialogHeader>
+      <SyntaxHighlighter language="markdown" style={oneDark}>
+        {content}
+      </SyntaxHighlighter>
+      <DialogFooter>
+        <Button asChild>
+          <a href={`/examples/agents/${filename}`} download>
+            Download
+          </a>
+        </Button>
+      </DialogFooter>
+    </DialogContent>
+  </Dialog>
+);
+```
+
+#### Data Flow
+
+```
+public/examples/manifest.json  →  fetch()  →  Resources.tsx (landing page)
+                                                    ↓
+                                              User clicks [View]
+                                                    ↓
+public/examples/agents/*.md    →  fetch()  →  MarkdownViewer modal (syntax highlighted)
+                                                    ↓
+                                              User clicks [Download]
+                                                    ↓
+                                              Browser downloads raw .md file
+```
+
+#### TypeScript Interfaces
+
+```typescript
+// src/types/examples.ts
+interface ExampleItem {
+  id: string;
+  title: string;
+  description: string;
+  filename: string;
+  path: string;
+}
+
+interface ExampleCategory {
+  title: string;
+  description: string;
+  items: ExampleItem[];
+}
+
+interface ExamplesManifest {
+  agents: ExampleCategory;
+  prompts: ExampleCategory;
+}
+```
+
+#### Dependencies
+
+This approach requires adding a syntax highlighting library:
+
+```bash
+npm install react-syntax-highlighter
+npm install -D @types/react-syntax-highlighter
+```
+
+Alternatively, use a lighter option like `prism-react-renderer` (~3KB) if bundle size is a concern.
+
+### Reference Links Pages (OWASP & Agentic Engineering)
+
+The "Reference Links" section links to separate pages (`/owasp-links`, `/agentic-engineering`) that display curated external links. These use the existing JSON + React pattern:
 
 **`public/resources-data.json` Structure:**
 

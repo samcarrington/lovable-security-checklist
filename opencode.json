@@ -170,12 +170,17 @@
         "grep": true,
         "bash": true,
         "task": true,
+        "webfetch": true,
+        "skill": true,
+        "todowrite": true,
+        "todoread": true,
         "context7_*": true
       },
       "permission": {
         "write": {
-          "vitest.config.ts ": "allow",
+          "vitest.config.ts": "allow",
           "vite.config.ts": "allow",
+          "tailwind.config.ts": "allow",
           "package.json": "allow",
           "index.html": "allow",
           "src/**": "allow",
@@ -186,13 +191,17 @@
           "plans/TODO.md": "allow"
         },
         "edit": {
+          "vitest.config.ts": "allow",
+          "vite.config.ts": "allow",
+          "tailwind.config.ts": "allow",
+          "package.json": "allow",
+          "index.html": "allow",
           "src/**": "allow",
           "tests/**": "allow",
           "test/**": "allow",
           "docs/designs/**": "allow",
           "docs/architecture/**": "allow",
-          "plans/TODO.md": "allow",
-          "*": "deny"
+          "plans/TODO.md": "allow"
         },
         "bash": {
           "npm test*": "allow",

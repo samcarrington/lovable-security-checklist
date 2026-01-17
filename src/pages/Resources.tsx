@@ -12,7 +12,12 @@ import ExampleCard from "@/components/ExampleCard";
 import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
 import { PageHeader } from "@/components/ui/page-header";
-import { SectionHeading, SubHeading, Muted, Mono } from "@/components/ui/typography";
+import {
+  SectionHeading,
+  SubHeading,
+  Muted,
+  Mono,
+} from "@/components/ui/typography";
 
 /**
  * Resources landing page displaying examples and links to reference pages.
@@ -60,7 +65,9 @@ const Resources = () => {
         <main id="main-content">
           {/* Page Header - Left aligned */}
           <PageHeader>
-            <PageHeader.Title className="mb-4">Security Resources</PageHeader.Title>
+            <PageHeader.Title className="mb-4 text-4xl md:text-5xl">
+              Security Resources
+            </PageHeader.Title>
             <PageHeader.Description className="max-w-2xl">
               Example agents, prompts, and curated links to help you build
               secure software with AI assistance.
@@ -72,9 +79,7 @@ const Resources = () => {
             <SectionHeading id="agents-heading" size="lg" className="mb-2">
               {manifest.agents.title}
             </SectionHeading>
-            <Muted className="mb-8">
-              {manifest.agents.description}
-            </Muted>
+            <Muted className="mb-8">{manifest.agents.description}</Muted>
 
             {/* Hero Featured Agent */}
             {heroAgent && (
@@ -82,9 +87,7 @@ const Resources = () => {
                 <Mono className="uppercase tracking-wider text-primary mb-2 block text-xs">
                   Featured
                 </Mono>
-                <SubHeading className="mb-2">
-                  {heroAgent.title}
-                </SubHeading>
+                <SubHeading className="mb-2">{heroAgent.title}</SubHeading>
                 <ExampleCard example={heroAgent} hideTitle />
               </div>
             )}
@@ -104,9 +107,7 @@ const Resources = () => {
             <SectionHeading id="prompts-heading" className="mb-2">
               {manifest.prompts.title}
             </SectionHeading>
-            <Muted className="mb-8">
-              {manifest.prompts.description}
-            </Muted>
+            <Muted className="mb-8">{manifest.prompts.description}</Muted>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {manifest.prompts.items.map((example) => (
                 <ExampleCard key={example.id} example={example} />
@@ -126,7 +127,7 @@ const Resources = () => {
                 className={cn(
                   "group flex items-center justify-between p-6 rounded-sm border-2 border-border bg-card",
                   "hover:border-primary transition-colors",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                 )}
               >
                 <div>
@@ -149,7 +150,7 @@ const Resources = () => {
                 className={cn(
                   "group flex items-center justify-between p-6 rounded-sm border-2 border-border bg-card",
                   "hover:border-primary transition-colors",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                 )}
               >
                 <div>

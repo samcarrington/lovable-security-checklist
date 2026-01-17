@@ -26,7 +26,7 @@ interface PageHeaderMetaProps extends React.HTMLAttributes<HTMLParagraphElement>
 /**
  * PageHeader - Container for page header content
  * Use with PageHeader.Title, PageHeader.Description, and PageHeader.Meta
- * 
+ *
  * @example
  * <PageHeader>
  *   <PageHeader.Title>Security Resources</PageHeader.Title>
@@ -40,40 +40,43 @@ const PageHeader = React.forwardRef<HTMLElement, PageHeaderProps>(
   ({ className, children, ...props }, ref) => (
     <header
       ref={ref}
-      className={cn("mb-16", className)}
+      className={cn("mb-16 text-4xl md:text-5xl", className)}
       {...props}
     >
       {children}
     </header>
-  )
+  ),
 );
 PageHeader.displayName = "PageHeader";
 
-const PageHeaderTitle = React.forwardRef<HTMLHeadingElement, PageHeaderTitleProps>(
-  ({ className, children, ...props }, ref) => (
-    <PageTitle ref={ref} className={cn("mb-2", className)} {...props}>
-      {children}
-    </PageTitle>
-  )
-);
+const PageHeaderTitle = React.forwardRef<
+  HTMLHeadingElement,
+  PageHeaderTitleProps
+>(({ className, children, ...props }, ref) => (
+  <PageTitle ref={ref} className={cn("mb-2", className)} {...props}>
+    {children}
+  </PageTitle>
+));
 PageHeaderTitle.displayName = "PageHeader.Title";
 
-const PageHeaderDescription = React.forwardRef<HTMLParagraphElement, PageHeaderDescriptionProps>(
-  ({ className, children, ...props }, ref) => (
-    <Lead ref={ref} className={className} {...props}>
-      {children}
-    </Lead>
-  )
-);
+const PageHeaderDescription = React.forwardRef<
+  HTMLParagraphElement,
+  PageHeaderDescriptionProps
+>(({ className, children, ...props }, ref) => (
+  <Lead ref={ref} className={className} {...props}>
+    {children}
+  </Lead>
+));
 PageHeaderDescription.displayName = "PageHeader.Description";
 
-const PageHeaderMeta = React.forwardRef<HTMLParagraphElement, PageHeaderMetaProps>(
-  ({ className, children, ...props }, ref) => (
-    <Mono as="p" ref={ref} className={cn("mb-4", className)} {...props}>
-      {children}
-    </Mono>
-  )
-);
+const PageHeaderMeta = React.forwardRef<
+  HTMLParagraphElement,
+  PageHeaderMetaProps
+>(({ className, children, ...props }, ref) => (
+  <Mono as="p" ref={ref} className={cn("mb-4", className)} {...props}>
+    {children}
+  </Mono>
+));
 PageHeaderMeta.displayName = "PageHeader.Meta";
 
 // Compound component pattern
